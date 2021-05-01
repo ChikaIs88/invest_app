@@ -1,6 +1,6 @@
 {
-    "name": "invest_app",
-    "short_name": "invest_app",
+    "name": "Invest App",
+    "short_name": "Invest App",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
