@@ -7,8 +7,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:invest_app/counter/counter.dart';
+//import 'package:invest_app/counter/counter.dart';
 import 'package:invest_app/l10n/l10n.dart';
+import 'package:invest_app/Scenes/Welcome/welcome_screen.dart';
+import 'package:invest_app/constants.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -16,16 +18,16 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        accentColor: const Color(0xFF13B9FF),
-        appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
-      ),
       localizationsDelegates: [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const CounterPage(),
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Investment App',
+      theme: ThemeData(
+          primaryColor: kPrimaryColor, scaffoldBackgroundColor: Colors.green),
+      home: WelcomeScreen(),
     );
   }
 }
