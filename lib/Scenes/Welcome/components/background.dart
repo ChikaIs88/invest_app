@@ -14,8 +14,8 @@ class Background extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           Positioned(
-            top: 0,
-            left: 0,
+            top: 3,
+            left: 3,
             child: Image.asset(
               'assets/images/blank.png',
               width: 100,

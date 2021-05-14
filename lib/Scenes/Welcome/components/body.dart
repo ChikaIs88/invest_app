@@ -15,27 +15,38 @@ class Body extends StatelessWidget {
       child: Column(children: <Widget>[
         Expanded(
             flex: 2,
-            child: Column(children: <Widget>[
-              Image.asset(
-                'assets/images/first.png',
-                height: 300,
-                width: 300,
-              ),
-              Text('Find Investment options that suit your needs',
-                  style: GoogleFonts.ubuntu(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 22,
-                    color: const Color(0xFFFFFFFF),
-                    //textAlign: TextAlign.center,
-                  )),
-              Text('Find Investment options that suit your needs',
-                  style: GoogleFonts.ubuntu(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: const Color(0xB3FFFFFF),
-                    //textAlign: TextAlign.center,
-                  ))
-            ])),
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Image.asset(
+                    'assets/images/first.png',
+                    height: 450,
+                    width: 450,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text('Find Investment options that suit your needs',
+                        style: GoogleFonts.ubuntu(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 22,
+                          color: const Color(0xFFFFFFFF),
+                        )),
+                  )
+                  /*Text('Find Investment options that suit your needs',
+                      style: GoogleFonts.ubuntu(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 22,
+                        color: const Color(0xFFFFFFFF),
+                        //textAlign: TextAlign.center,
+                      )),
+                  Text('Find Investment options that suit your needs',
+                      style: GoogleFonts.ubuntu(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: const Color(0xB3FFFFFF),
+                        //textAlign: TextAlign.center,
+                      ))*/
+                ])),
         const Expanded(
           flex: 2,
           child: SizedBox(),
