@@ -1,33 +1,47 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-//import 'package:invest_app/Scenes/Welcome/components/background.dart';
+import 'package:invest_app/Scenes/Welcome/components/background.dart';
 //import 'package:flutter_svg/svg.dart';
-//import 'package:google_fonts/google_fonts.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Column(children: <Widget>[
-      Expanded(
+    return Background(
+        child: SizedBox(
+      width: double.infinity,
+      child: Column(children: <Widget>[
+        Expanded(
+            flex: 2,
+            child: Column(children: <Widget>[
+              Image.asset(
+                'assets/images/first.png',
+                height: 300,
+                width: 300,
+              ),
+              Text('Find Investment options that suit your needs',
+                  style: GoogleFonts.ubuntu(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22,
+                    color: const Color(0xFFFFFFFF),
+                    //textAlign: TextAlign.center,
+                  )),
+              Text('Find Investment options that suit your needs',
+                  style: GoogleFonts.ubuntu(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: const Color(0xB3FFFFFF),
+                    //textAlign: TextAlign.center,
+                  ))
+            ])),
+        const Expanded(
           flex: 2,
-          child: Center(
-              child: Image.asset(
-                  'C:/Users/Dell latitude 5470/Documents/Development/develop/flutter/invest_app/lib/assets/images/first.png')
-              /*child: Text(
-          'Make your Dream Investment today',
-          style: GoogleFonts.ubuntu(
-            fontWeight: FontWeight.bold,
-            fontSize: 22,
-            color: const Color(0xFF000000),
-          ),*/
-              )),
-      const Expanded(
-        flex: 2,
-        child: SizedBox(),
-      )
-    ]);
+          child: SizedBox(),
+        )
+      ]),
+    ));
   }
 }
 

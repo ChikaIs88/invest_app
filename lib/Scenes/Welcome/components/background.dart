@@ -16,8 +16,11 @@ class Background extends StatelessWidget {
           Positioned(
             top: 0,
             left: 0,
-            child:
-                Image.asset('assets/images/blank.png', width: size.width * 0.5),
+            child: Image.asset(
+              'assets/images/blank.png',
+              width: 100,
+              height: 100,
+            ),
           ),
           child,
         ],
@@ -25,3 +28,5 @@ class Background extends StatelessWidget {
     );
   }
 }
+
+//width: size.width * 0.5

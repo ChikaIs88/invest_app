@@ -29,7 +29,14 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
-
-assets:
-- lib/assets/images/
-- lib/assets/icons/
+  assets:
+  - assets/images/b1.png
+  - assets/images/b1c.png
+  - assets/images/b1c.svg
+  - assets/images/b2.png
+  - assets/images/b2c.png
+  - assets/images/b3.png
+  - assets/images/b3c.png
+  - assets/images/blank.png
+  - assets/images/first.png
+  - assets/images/w1.png
