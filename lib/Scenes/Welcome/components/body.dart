@@ -1,78 +1,41 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:invest_app/Scenes/Welcome/components/background.dart';
-//import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:invest_app/Scenes/Welcome/customWidgets/first_page.dart';
+import 'package:invest_app/Scenes/Welcome/customWidgets/second_page.dart';
+import 'package:invest_app/Scenes/Welcome/customWidgets/third_page.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    return Background(
-        child: SizedBox(
-      width: double.infinity,
-      child: Column(children: <Widget>[
-        Expanded(
-            flex: 2,
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Image.asset(
-                    'assets/images/first.png',
-                    height: 450,
-                    width: 450,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text('Find Investment options that suit your needs',
-                        style: GoogleFonts.ubuntu(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22,
-                          color: const Color(0xFFFFFFFF),
-                        )),
-                  )
-                  /*Text('Find Investment options that suit your needs',
-                      style: GoogleFonts.ubuntu(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22,
-                        color: const Color(0xFFFFFFFF),
-                        //textAlign: TextAlign.center,
-                      )),
-                  Text('Find Investment options that suit your needs',
-                      style: GoogleFonts.ubuntu(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: const Color(0xB3FFFFFF),
-                        //textAlign: TextAlign.center,
-                      ))*/
-                ])),
-        const Expanded(
-          flex: 2,
-          child: SizedBox(),
-        )
-      ]),
-    ));
-  }
+  _BodyState createState() => _BodyState();
 }
 
-/*@override
+class _BodyState extends State<Body> {
+  final PageController _pageViewController = PageController(
+    initialPage: 0,
+  );
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _pageViewController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Tutorial',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Center(
-            child: Text('Flutter Tutorial'),
-          ),
-        ),
-        body: Center(
-          child: Text(
-            'Hello World! Welcome to TutorialKart for this awesome Flutter Tutorial on Text widget.',
-            textAlign: TextAlign.center,
-          ),
+    
+    return SingleChildScrollView(
+      physics: const NeverScrollableScrollPhysics(),
+      child: Background(
+        child: PageView(
+          controller: _pageViewController,
+          children: [
+            FirstPage(),
+            SecondPage(),
+            ThirdPage(),
+          ],
         ),
       ),
     );
   }
-}*/
+}
