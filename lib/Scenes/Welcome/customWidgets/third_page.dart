@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:invest_app/Scenes/Welcome/customWidgets/splash.dart';
+import 'package:invest_app/Scenes/Welcome/components/Investor/LoginInv.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:invest_app/Scenes/Welcome/components/Invest_Comp/first_page.dart';
 
 class ThirdPage extends StatelessWidget {
   @override
@@ -22,20 +23,19 @@ class ThirdPage extends StatelessWidget {
       ),
       // const Padding(
       //   padding: EdgeInsets.fromLTRB(
-      //     10, 
-      //     2, 
-      //     10, 
+      //     10,
+      //     2,
+      //     10,
       //     2),
       //   ),
 
       const Text(
-        'I & I',
+        'ChipIn',
         style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
           fontSize: 70,
         ),
-        
         textAlign: TextAlign.center,
       ),
       const SizedBox(
@@ -56,46 +56,35 @@ class ThirdPage extends StatelessWidget {
       ),
       ElevatedButton(
         child: const Text('Investor'),
-               style: ElevatedButton.styleFrom(
-                 onPrimary: Colors.green,
-                 primary: Colors.white,        
-                 minimumSize: const Size(150,50),         
-               ),
+        style: ElevatedButton.styleFrom(
+          onPrimary: Colors.green,
+          primary: Colors.white,
+          minimumSize: const Size(250, 50),
+        ),
         onPressed: () => Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) => Splash(),
+            builder: (_) => LoginInv(),
           ),
         ),
-        // style: ButtonStyle(
-        //   backgroundColor: MaterialStateProperty.all(Colors.white), 
-        //   padding: MaterialStateProperty.all(
-        //     const EdgeInsets.fromLTRB(
-        //       100,
-        //       15,
-        //       100,
-        //       15)
-        //     ),
-        //   textStyle: MaterialStateProperty.all(const TextStyle(
-        //     fontSize: 20,
-        //     color: Colors.green,
-        //     )
-        //   ),
-        // // borderSide: const BorderSide(
-        // //   color: Colors.white,
-        // // ),
-        // ),
-        
       ),
-      // OutlineButton(
-      //   child: const Text('Investment Company'),
-      //   borderSide: const BorderSide(
-      //     color: Colors.black,
-      //   ),
-      //   onPressed: () {
-      //     print("HELLO");
-      //   },
-      // ),
+      const SizedBox(
+        height: 15,
+      ),
+      ElevatedButton(
+        child: const Text('Investment Company'),
+        style: ElevatedButton.styleFrom(
+          onPrimary: Colors.green,
+          primary: Colors.white,
+          minimumSize: const Size(250, 50),
+        ),
+        onPressed: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => FirstPage(),
+          ),
+        ),
+      ),
     ]);
   }
 }

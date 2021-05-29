@@ -18,8 +18,9 @@ class Background extends StatelessWidget {
             left: 3,
             child: Image.asset(
               'assets/images/blank.png',
-              width: 100,
-              height: 100,
+              height: size.height,
+              width: size.width,
+              scale: 0.5,
             ),
           ),
           child,

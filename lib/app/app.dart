@@ -27,7 +27,7 @@ class App extends StatelessWidget {
       title: 'Flutter Investment App',
       theme: ThemeData(
           primaryColor: kPrimaryColor,
-          scaffoldBackgroundColor: const Color(0xFF4CAF50)),
+          scaffoldBackgroundColor: const Color(0xFFFFFFFF)),
       home: WelcomeScreen(),
     );
   }

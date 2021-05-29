@@ -23,7 +23,6 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    
     return SingleChildScrollView(
       physics: const NeverScrollableScrollPhysics(),
       child: Background(
