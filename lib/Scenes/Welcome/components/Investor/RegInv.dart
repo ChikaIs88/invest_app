@@ -4,14 +4,17 @@ import 'package:invest_app/Scenes/Welcome/components/Investor/LoginInv.dart';
 import 'package:invest_app/Scenes/Welcome/components/Investor/PForm.dart';
 import 'package:invest_app/Scenes/Welcome/components/Invest_Comp/first_page.dart';
 
+class RegInv extends StatefulWidget {
+  @override
+  _RegInvState createState() => _RegInvState();
+}
 
-class RegInv extends StatelessWidget {
+class _RegInvState extends State<RegInv> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
-        physics: const NeverScrollableScrollPhysics(),
         child: Column(children: [
           Container(
             color: Colors.green,
@@ -94,9 +97,7 @@ class RegInv extends StatelessWidget {
                           child: TextField(
                         autocorrect: true,
                         decoration: InputDecoration(
-                            border: const OutlineInputBorder(
-                              
-                            ),
+                            border: const OutlineInputBorder(),
                             labelText: 'Full Name',
                             labelStyle: GoogleFonts.quicksand(
                               color: const Color(0xFF9E9E9E),
@@ -223,6 +224,33 @@ class RegInv extends StatelessWidget {
                 ),
                 const SizedBox(
                   height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        child: Text(
+                          'By continuing I clarify that I am 18 years of age and User Agreement Privacy Policy',
+                          style: GoogleFonts.quicksand(
+                            fontSize: 17,
+                            color: Colors.black,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                // Text(
+                //   'By continuing I clarify that I am 18 years of age and User Agreement Privacy Policy',
+                //   style: GoogleFonts.quicksand(
+                //     color: Colors.green,
+                //     fontSize: 18,
+                //   ),
+                // ),
+                const SizedBox(
+                  height: 40,
                 ),
                 ElevatedButton(
                   child: Text(

@@ -159,7 +159,7 @@ class LoginInv extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  height: 50,
+                  height: 100,
                 ),
                 ElevatedButton(
                   child: Text(
@@ -174,6 +174,8 @@ class LoginInv extends StatelessWidget {
                     onPrimary: Colors.white,
                     primary: Colors.green,
                     minimumSize: const Size(250, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0)),
                   ),
                   onPressed: () => Navigator.push(
                     context,

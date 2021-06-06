@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:invest_app/Scenes/Welcome/components/Investor/pages/msg_files/msg_page.dart';
+import 'package:invest_app/Scenes/Welcome/components/Investor/pages/profile_page.dart';
+import 'package:invest_app/Scenes/Welcome/components/Investor/customW/Features.dart';
+import 'package:invest_app/Scenes/Welcome/components/Investor/pages/home_page.dart';
+import 'package:invest_app/Scenes/Welcome/components/Investor/pages/search_page.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -10,15 +15,11 @@ class _HomeState extends State<Home> {
   bool _folded = true;
 
   int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text('Home Page',
-        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
-    Text('Search Page',
-        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
-    Text('Messages Page',
-        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
-    Text('Profile Page',
-        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
+  final List<Widget> _widgetOptions = <Widget>[
+    HomePage(),
+    SearchPage(),
+    MsgPage(),
+    ProfilePage(),
   ];
 
   void _onItemTapped(int index) {
@@ -29,90 +30,35 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-
     return Scaffold(
       // appBar: AppBar(
       //   title: const Text('Flutter BottomNavigationBar Example'),
       //     backgroundColor: Colors.green
       // ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Container(
-              height: 130,
-              width: size.width,
-              child: Padding(
-                  padding: const EdgeInsets.all(30),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        'Hi Chika,',
-                        style: GoogleFonts.quicksand(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 28,
-                        ),
-                        textAlign: TextAlign.left,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                    ],
-                  )),
-            ),
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 400),
-              width: _folded ? 56 : 230,
-              height: 56,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(32),
-                color: Colors.white,
-                boxShadow: kElevationToShadow[6],
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                      child: Container(
-                    padding: EdgeInsets.only(left: 16),
-                    child: _folded
-                        ? TextField(
-                            decoration: InputDecoration(
-                                hintText: 'Search',
-                                hintStyle: TextStyle(color: Colors.green[300]),
-                                border: InputBorder.none),
-                          )
-                        : null,
-                  ))
-                ],
-              ),
-            )
-          ],
-        ),
-        //child: _widgetOptions.elementAt(_selectedIndex),
-      ),
+      body: _widgetOptions[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
+          items:  <BottomNavigationBarItem>[
             BottomNavigationBarItem(
                 icon: Icon(Icons.home),
-                title: Text('Home'),
-                backgroundColor: Colors.green),
+                title: Text('Home',
+                  style: GoogleFonts.quicksand(fontSize:13),),
+                  backgroundColor: Colors.green),
             BottomNavigationBarItem(
-                icon: Icon(Icons.search),
-                title: Text('Search'),
-                backgroundColor: Colors.green),
+              icon: Icon(Icons.search),
+              title: Text('Search',
+                style: GoogleFonts.quicksand(fontSize:13),),
+              backgroundColor: Colors.green,
+            ),
             BottomNavigationBarItem(
               icon: Icon(Icons.message),
-              title: Text('Messages'),
+              title: Text('Messages',
+                style: GoogleFonts.quicksand(fontSize:13),),
               backgroundColor: Colors.green,
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
-              title: Text('Profile'),
+              title: Text('Profile',
+                style: GoogleFonts.quicksand(fontSize:13),),
               backgroundColor: Colors.green,
             ),
           ],
