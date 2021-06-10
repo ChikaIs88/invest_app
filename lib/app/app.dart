@@ -10,25 +10,40 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 //import 'package:invest_app/counter/counter.dart';
 import 'package:invest_app/l10n/l10n.dart';
 import 'package:invest_app/Scenes/Welcome/welcome_screen.dart';
-import 'package:invest_app/constants.dart';
+import 'package:invest_app/presentation/features/onboarding/onboarding.dart';
+import 'package:invest_app/presentation/global/constants.dart';
+import 'package:invest_app/presentation/global/routing/routes.dart';
+import 'package:seafarer/seafarer.dart';
+import 'package:sizer/sizer.dart';
+import 'package:last_state/last_state.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      localizationsDelegates: [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-      ],
-      supportedLocales: AppLocalizations.supportedLocales,
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Investment App',
-      theme: ThemeData(
-          primaryColor: kPrimaryColor,
-          scaffoldBackgroundColor: const Color(0xFFFFFFFF)),
-      home: WelcomeScreen(),
-    );
+    return Sizer(builder: (context, orientation, deviceType) {
+      return MaterialApp(
+        navigatorObservers: [
+          SavedLastStateData.instance.navigationObserver,
+          SeafarerLoggingObserver()
+        ],
+        localizationsDelegates: [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+        ],
+        supportedLocales: AppLocalizations.supportedLocales,
+        debugShowCheckedModeBanner: false,
+        title: 'Investment App',
+        theme: ThemeData(
+          accentColor:kPrimaryColor ,
+            primaryColor: kPrimaryColor,
+            scaffoldBackgroundColor: const Color(0xFFFFFFFF)),
+        initialRoute: SavedLastStateData.instance.lastRoute ?? '/',
+        navigatorKey: Routes.seafarer.navigatorKey, // important
+        onGenerateRoute: Routes.seafarer.generator(), // important
+        home: OnboardingView(),
+      );
+    });
   }
 }
