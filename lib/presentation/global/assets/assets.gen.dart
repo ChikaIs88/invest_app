@@ -7,12 +7,37 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 
+class $AssetsAnimationGen {
+  const $AssetsAnimationGen();
+
+  AssetGenImage get accountsucess =>
+      const AssetGenImage('assets/animation/accountsucess.gif');
+}
+
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  $AssetsImagesCompanyGen get company => const $AssetsImagesCompanyGen();
   $AssetsImagesHomeGen get home => const $AssetsImagesHomeGen();
   $AssetsImagesLoginGen get login => const $AssetsImagesLoginGen();
   $AssetsImagesStartupGen get startup => const $AssetsImagesStartupGen();
+}
+
+class $AssetsImagesCompanyGen {
+  const $AssetsImagesCompanyGen();
+
+  AssetGenImage get assign =>
+      const AssetGenImage('assets/images/company/assign.png');
+  AssetGenImage get chat =>
+      const AssetGenImage('assets/images/company/chat.png');
+  AssetGenImage get edit =>
+      const AssetGenImage('assets/images/company/edit.png');
+  AssetGenImage get logout =>
+      const AssetGenImage('assets/images/company/logout.png');
+  AssetGenImage get notification =>
+      const AssetGenImage('assets/images/company/notification.png');
+  AssetGenImage get package =>
+      const AssetGenImage('assets/images/company/package.png');
 }
 
 class $AssetsImagesHomeGen {
@@ -34,8 +59,13 @@ class $AssetsImagesHomeGen {
 class $AssetsImagesLoginGen {
   const $AssetsImagesLoginGen();
 
+  AssetGenImage get investorLogin =>
+      const AssetGenImage('assets/images/login/investorLogin.png');
+  AssetGenImage get investorRegister =>
+      const AssetGenImage('assets/images/login/investorRegister.png');
   SvgGenImage get loginbg =>
       const SvgGenImage('assets/images/login/loginbg.svg');
+  SvgGenImage get logo => const SvgGenImage('assets/images/login/logo.svg');
   AssetGenImage get register =>
       const AssetGenImage('assets/images/login/register.png');
   AssetGenImage get welcome =>
@@ -64,6 +94,7 @@ class $AssetsImagesStartupGen {
 class Assets {
   Assets._();
 
+  static const $AssetsAnimationGen animation = $AssetsAnimationGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 

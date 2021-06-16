@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:invest_app/presentation/global/constants.dart';
+import 'package:chipln/presentation/global/constants.dart';
 
 
 class TransparentStatusBar extends StatelessWidget {

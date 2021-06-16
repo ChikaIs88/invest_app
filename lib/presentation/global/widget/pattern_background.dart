@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:invest_app/presentation/global/assets/assets.gen.dart';
+import 'package:chipln/presentation/global/assets/assets.gen.dart';
 
 import 'transparent_status_bar.dart';
 

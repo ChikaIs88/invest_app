@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:invest_app/presentation/global/constants.dart';
-import 'package:invest_app/presentation/global/text_styling.dart';
+import 'package:chipln/presentation/global/constants.dart';
+import 'package:chipln/presentation/global/text_styling.dart';
 
 import '../ui_helper.dart';
 

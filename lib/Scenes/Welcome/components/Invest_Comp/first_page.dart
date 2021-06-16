@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:invest_app/Scenes/Welcome/components/background.dart';
-import 'package:invest_app/Scenes/Welcome/components/Investor/LoginInv.dart';
-import 'package:invest_app/Scenes/Welcome/components/Invest_Comp/LoginM.dart';
-import 'package:invest_app/Scenes/Welcome/components/Invest_Comp/LoginS.dart';
+import 'package:chipln/Scenes/Welcome/components/background.dart';
+import 'package:chipln/Scenes/Welcome/components/Investor/LoginInv.dart';
+import 'package:chipln/Scenes/Welcome/components/Invest_Comp/LoginM.dart';
+import 'package:chipln/Scenes/Welcome/components/Invest_Comp/LoginS.dart';
 
 
 

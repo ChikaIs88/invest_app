@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:invest_app/Scenes/Welcome/components/models/MessageModel.dart';
+import 'package:chipln/Scenes/Welcome/components/models/MessageModel.dart';
 
 class MsgDetailPage extends StatefulWidget {
   @override

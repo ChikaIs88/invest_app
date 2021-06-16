@@ -8,8 +8,8 @@ import 'dart:developer';
 import 'package:last_state/last_state.dart';
 import 'package:flutter/widgets.dart';
 import 'package:bloc/bloc.dart';
-import 'package:invest_app/app/app.dart';
-import 'package:invest_app/app/app_bloc_observer.dart';
+import 'package:chipln/app/app.dart';
+import 'package:chipln/app/app_bloc_observer.dart';
 
 import 'presentation/global/routing/routes.dart';
 

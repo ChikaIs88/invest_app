@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:invest_app/presentation/features/investor/dashboard/cubit/bottom_navigator_controller_cubit.dart';
-import 'package:invest_app/presentation/global/constants.dart';
+import 'package:chipln/presentation/features/investor/dashboard/cubit/bottom_navigator_controller_cubit.dart';
+import 'package:chipln/presentation/global/constants.dart';
 
 SnakeNavigationBar buildBottomNavigationBar(
     BottomNavigatorControllerCubit _currentstate, BuildContext context) {

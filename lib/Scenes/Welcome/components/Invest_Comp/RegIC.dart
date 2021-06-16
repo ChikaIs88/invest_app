@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:invest_app/Scenes/Welcome/components/Investor/LoginInv.dart';
-import 'package:invest_app/Scenes/Welcome/components/Investor/PForm.dart';
+import 'package:chipln/Scenes/Welcome/components/Investor/LoginInv.dart';
+import 'package:chipln/Scenes/Welcome/components/Investor/PForm.dart';
 
 class RegIC extends StatefulWidget {
   @override

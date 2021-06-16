@@ -1,14 +1,14 @@
 import 'package:animations/animations.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:invest_app/presentation/global/assets/assets.gen.dart';
-import 'package:invest_app/presentation/global/constants.dart';
-import 'package:invest_app/presentation/global/text_styling.dart';
-import 'package:invest_app/presentation/global/ui_helper.dart';
-import 'package:invest_app/presentation/global/widget/app_flat_button.dart';
-import 'package:invest_app/presentation/global/widget/app_text_field.dart';
-import 'package:invest_app/presentation/global/widget/container_clipper.dart';
-import 'package:invest_app/presentation/global/widget/transparent_status_bar.dart';
+import 'package:chipln/presentation/global/assets/assets.gen.dart';
+import 'package:chipln/presentation/global/constants.dart';
+import 'package:chipln/presentation/global/text_styling.dart';
+import 'package:chipln/presentation/global/ui_helper.dart';
+import 'package:chipln/presentation/global/widget/app_flat_button.dart';
+import 'package:chipln/presentation/global/widget/app_text_field.dart';
+import 'package:chipln/presentation/global/widget/container_clipper.dart';
+import 'package:chipln/presentation/global/widget/transparent_status_bar.dart';
 import 'package:sizer/sizer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 

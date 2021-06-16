@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:invest_app/app/logger_init.dart';
-import 'package:invest_app/logic/core/auth_status.dart';
-import 'package:invest_app/presentation/global/assets/assets.gen.dart';
-import 'package:invest_app/presentation/global/constants.dart';
-import 'package:invest_app/presentation/global/routing/routes.dart';
-import 'package:invest_app/presentation/global/text_styling.dart';
-import 'package:invest_app/presentation/global/ui_helper.dart';
-import 'package:invest_app/presentation/global/widget/app_text_field.dart';
-import 'package:invest_app/presentation/global/widget/transparent_button.dart';
+import 'package:chipln/app/logger_init.dart';
+import 'package:chipln/logic/core/auth_status.dart';
+import 'package:chipln/presentation/global/assets/assets.gen.dart';
+import 'package:chipln/presentation/global/constants.dart';
+import 'package:chipln/presentation/global/routing/routes.dart';
+import 'package:chipln/presentation/global/text_styling.dart';
+import 'package:chipln/presentation/global/ui_helper.dart';
+import 'package:chipln/presentation/global/widget/app_text_field.dart';
+import 'package:chipln/presentation/global/widget/transparent_button.dart';
 import 'package:progress_state_button/progress_button.dart';
 import 'package:sizer/sizer.dart';
 

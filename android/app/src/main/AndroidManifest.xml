@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.investApp">
+    package="com.example.chipln">
    <application
         android:label="Chipln"
         android:icon="@mipmap/ic_launcher">

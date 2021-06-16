@@ -1,12 +1,12 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:invest_app/presentation/global/assets/assets.gen.dart';
-import 'package:invest_app/presentation/global/constants.dart';
-import 'package:invest_app/presentation/global/widget/curve_painter.dart';
-import 'package:invest_app/presentation/global/text_styling.dart';
-import 'package:invest_app/presentation/global/ui_helper.dart';
-import 'package:invest_app/presentation/global/widget/curve_wave.dart';
+import 'package:chipln/presentation/global/assets/assets.gen.dart';
+import 'package:chipln/presentation/global/constants.dart';
+import 'package:chipln/presentation/global/widget/curve_painter.dart';
+import 'package:chipln/presentation/global/text_styling.dart';
+import 'package:chipln/presentation/global/ui_helper.dart';
+import 'package:chipln/presentation/global/widget/curve_wave.dart';
 import 'package:sizer/sizer.dart';
 
 class InvestorProfileView extends StatefulWidget {

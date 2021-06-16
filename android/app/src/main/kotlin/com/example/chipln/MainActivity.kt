@@ -1,4 +1,4 @@
-package com.example.invest_app
+package com.example.chipln
 
 import io.flutter.embedding.android.FlutterActivity
 

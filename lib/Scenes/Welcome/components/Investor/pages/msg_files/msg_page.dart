@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:invest_app/Scenes/Welcome/components/Investor/customW/convoList.dart';
-import 'package:invest_app/Scenes/Welcome/components/models/m_users.dart';
+import 'package:chipln/Scenes/Welcome/components/Investor/customW/convoList.dart';
+import 'package:chipln/Scenes/Welcome/components/models/m_users.dart';
 //import 'package:lib\Scenes\Welcome\components\Investor\customW\m_users.dart'
 
 class MsgPage extends StatefulWidget {

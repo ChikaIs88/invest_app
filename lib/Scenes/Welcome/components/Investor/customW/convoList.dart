@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:invest_app/Scenes/Welcome/components/Investor/pages/msg_files/detail_page.dart';
+import 'package:chipln/Scenes/Welcome/components/Investor/pages/msg_files/detail_page.dart';
 
 class ConversationList extends StatefulWidget {
   String name;

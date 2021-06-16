@@ -23,7 +23,7 @@ class AppFlatButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: onPressed,
-      style: TextButton.styleFrom(backgroundColor: color),
+      style: TextButton.styleFrom(backgroundColor: color, ),
       child: Text(
         label!,
         style: TextStyling.h2.copyWith(color: kGrishTransWhiteColor),

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:invest_app/Scenes/Welcome/components/Investor/pages/msg_files/msg_page.dart';
-import 'package:invest_app/Scenes/Welcome/components/Investor/pages/profile_page.dart';
-import 'package:invest_app/Scenes/Welcome/components/Investor/customW/Features.dart';
-import 'package:invest_app/Scenes/Welcome/components/Investor/pages/home_page.dart';
-import 'package:invest_app/Scenes/Welcome/components/Investor/pages/search_page.dart';
+import 'package:chipln/Scenes/Welcome/components/Investor/pages/msg_files/msg_page.dart';
+import 'package:chipln/Scenes/Welcome/components/Investor/pages/profile_page.dart';
+import 'package:chipln/Scenes/Welcome/components/Investor/customW/Features.dart';
+import 'package:chipln/Scenes/Welcome/components/Investor/pages/home_page.dart';
+import 'package:chipln/Scenes/Welcome/components/Investor/pages/search_page.dart';
 
 class Home extends StatefulWidget {
   @override

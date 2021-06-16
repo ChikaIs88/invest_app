@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:invest_app/Scenes/Welcome/components/background.dart';
-import 'package:invest_app/Scenes/Welcome/customWidgets/first_page.dart';
-import 'package:invest_app/Scenes/Welcome/customWidgets/second_page.dart';
-import 'package:invest_app/Scenes/Welcome/customWidgets/third_page.dart';
+import 'package:chipln/Scenes/Welcome/components/background.dart';
+import 'package:chipln/Scenes/Welcome/customWidgets/first_page.dart';
+import 'package:chipln/Scenes/Welcome/customWidgets/second_page.dart';
+import 'package:chipln/Scenes/Welcome/customWidgets/third_page.dart';
 
 class Body extends StatefulWidget {
   @override

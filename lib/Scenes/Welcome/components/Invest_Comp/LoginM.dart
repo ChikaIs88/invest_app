@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:invest_app/Scenes/Welcome/components/Investor/RegInv.dart';
-import 'package:invest_app/Scenes/Welcome/components/Investor/LoginInv.dart';
-import 'package:invest_app/Scenes/Welcome/components/Invest_Comp/RegIC.dart';
+import 'package:chipln/Scenes/Welcome/components/Investor/RegInv.dart';
+import 'package:chipln/Scenes/Welcome/components/Investor/LoginInv.dart';
+import 'package:chipln/Scenes/Welcome/components/Invest_Comp/RegIC.dart';
 
 
 class LoginM extends StatelessWidget {

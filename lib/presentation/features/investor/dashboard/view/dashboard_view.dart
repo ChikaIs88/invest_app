@@ -1,9 +1,9 @@
 import 'package:bottom_bar_page_transition/bottom_bar_page_transition.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:invest_app/app/logger_init.dart';
-import 'package:invest_app/presentation/global/constants.dart';
-import 'package:invest_app/presentation/global/widget/transparent_status_bar.dart';
+import 'package:chipln/app/logger_init.dart';
+import 'package:chipln/presentation/global/constants.dart';
+import 'package:chipln/presentation/global/widget/transparent_status_bar.dart';
 
 import '../components/body.dart';
 import '../components/bottom_navigation_bar.dart';
