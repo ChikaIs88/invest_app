@@ -8,17 +8,17 @@ import 'constants.dart';
 /// Note, don't change the varable name incase you wanna
 /// update some but rather update the text properties
 class TextStyling {
-  static final TextStyle h1 = GoogleFonts.lato(
+  static final TextStyle h1 = GoogleFonts.quicksand(
     color: Colors.white,
     fontSize: 17.sp,
     fontWeight: FontWeight.bold,
   );
-  static final TextStyle h2 = GoogleFonts.poppins(
+  static final TextStyle h2 = GoogleFonts.quicksand(
     color: kGreyWhiteColor,
     fontSize: 12.sp,
     fontWeight: FontWeight.normal,
   );
-  static final TextStyle bodyText1 = GoogleFonts.roboto(
+  static final TextStyle bodyText1 = GoogleFonts.quicksand(
     color: Colors.white,
     fontSize: 13.sp,
     fontWeight: FontWeight.normal,

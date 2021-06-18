@@ -1,18 +1,24 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:chipln/Scenes/Welcome/components/background.dart';
 import 'package:chipln/app/logger_init.dart';
+import 'package:chipln/presentation/features/onboarding/cubit/onboarding_cubit.dart';
 import 'package:chipln/presentation/global/assets/assets.gen.dart';
-import 'package:chipln/presentation/global/constants.dart';
 import 'package:chipln/presentation/global/ui_helper.dart';
 import 'package:chipln/presentation/global/widget/app_flat_button.dart';
-import 'package:chipln/presentation/global/widget/onboarding_item.dart';
 import 'package:chipln/presentation/global/widget/pattern_background.dart';
 import 'package:chipln/presentation/global/widget/transparent_button.dart';
+import 'package:flutter/material.dart';
+import 'package:chipln/presentation/global/constants.dart';
+import 'package:chipln/presentation/features/company/login/view/MLogin_view.dart';
+import 'package:chipln/presentation/features/company/login/view/SLogin_view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:chipln/presentation/global/routing/routes.dart';
+import 'package:chipln/presentation/global/text_styling.dart';
+import 'package:chipln/presentation/global/widget/onboarding_item.dart';
 
-import '../onboarding.dart';
 
-class OnboardingView extends StatelessWidget {
-  OnboardingView({Key? key}) : super(key: key);
+class FirstPage extends StatelessWidget {
+  FirstPage({Key? key}) : super(key: key);
 
   /// This method is used to generate
   /// the Page indicator based on the number of pages
@@ -42,25 +48,15 @@ class OnboardingView extends StatelessWidget {
   /// List of pages contained in the onboarding screen
   final pages = <Widget>[
     OnboardingItem(
-      svgUrl: Assets.images.startup.nomad.path,
-      title: 'Save time and money',
-      description: 'Find Investment options that suit your needs',
-    ),
-    OnboardingItem(
-      svgUrl: Assets.images.startup.money.path,
-      title: 'Find New investors',
-      description: 'Interacr with Interested investors daily',
-    ),
-    OnboardingItem(
-      svgUrl: Assets.images.startup.money.path,
-      title: 'ChipIn',
-      description: 'Connecting the need to those in need',
+      svgUrl: Assets.images.startup.help.path,
+      title: 'Just to be sure....',
+      description: 'Select your Consulant type.',
     ),
   ];
 
   @override
   Widget build(BuildContext context) {
-    logger.i('OnBoarding has been initialized');
+    logger.i('Investment page has been initialized');
     return BlocProvider(
       create: (context) => OnboardingCubit(),
       child: PatternBackground(
@@ -71,14 +67,6 @@ class OnboardingView extends StatelessWidget {
               final _cubit = context.watch<OnboardingCubit>();
               return ListView(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      state == 2
-                          ? AppFlatButton(label: '', onPressed: () {})
-                          : AppFlatButton(label: 'Skip', onPressed: () {}),
-                    ],
-                  ),
                   Container(
                     height: MediaQuery.of(context).size.height * 0.60,
                     child: PageView(
@@ -88,23 +76,20 @@ class OnboardingView extends StatelessWidget {
                       children: pages,
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: _buildPageIndicator(_cubit),
-                  ),
+                 
                   verticalSpace(3),
                   GestureDetector(
-                    onTap: _cubit.navigateInvestorLoginView,
+                    onTap: _cubit.navigateMLoginView,
                     child: const TransparentBtn(
-                      title: 'Investor',
+                      title: 'Main Consultant',
                       color: kGrishTransWhiteColor,
                       textColor: Colors.black,
                     ),
                   ),
                   GestureDetector(
-                    onTap: _cubit.navigateInvestorCompanyLoginView,
+                    onTap: _cubit.navigateSLoginView,
                     child: const TransparentBtn(
-                      title: 'Investment company',
+                      title: 'Secondary Consultant',
                     ),
                   )
                 ],
@@ -116,3 +101,4 @@ class OnboardingView extends StatelessWidget {
     );
   }
 }
+

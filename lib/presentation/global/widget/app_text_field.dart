@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:chipln/presentation/global/constants.dart';
 import 'package:chipln/presentation/global/text_styling.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../ui_helper.dart';
 
@@ -56,9 +57,9 @@ class AppTextField extends StatelessWidget {
           children: [
             label != null
                 ? Text(label!,
-                    style: TextStyling.bodyText1.copyWith(
+                    style: GoogleFonts.quicksand(
                       fontSize: 13,
-                      color: Color.fromRGBO(103, 112, 126, 1),
+                      color: const Color.fromRGBO(103, 112, 126, 1),
                     ))
                 : const SizedBox.shrink(),
             endWidget ?? const SizedBox.shrink(),
@@ -70,7 +71,7 @@ class AppTextField extends StatelessWidget {
           controller: controller,
           onChanged: onChanged,
           textInputAction: textInputAction ?? TextInputAction.done,
-          style: TextStyling.bodyText1.copyWith(color: Colors.black45),
+          style: GoogleFonts.quicksand(color: Colors.black45),
           maxLines: maxLines ?? 1,
           keyboardType: keyboardType,
           enabled: enabled,
@@ -81,7 +82,7 @@ class AppTextField extends StatelessWidget {
           decoration: InputDecoration(
             hintText: hintText,
             prefixIcon: prefixIcon,
-            hintStyle: TextStyling.bodyText1.copyWith(
+            hintStyle: GoogleFonts.quicksand(
               fontSize: 13,
               color: Color.fromRGBO(103, 112, 126, 1),
             ),

@@ -11,6 +11,7 @@ import 'package:chipln/presentation/global/routing/routes.dart';
 import 'package:chipln/presentation/global/text_styling.dart';
 import 'package:chipln/presentation/global/ui_helper.dart';
 import 'package:chipln/presentation/global/widget/transparent_status_bar.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:progress_state_button/progress_button.dart';
 import 'package:sizer/sizer.dart';
 
@@ -28,7 +29,14 @@ class _PrefrenceViewState extends State<PrefrenceView> {
     {'no': 1, 'keyword': 'Growth Investment'},
     {'no': 2, 'keyword': 'Defensive Investment'},
     {'no': 3, 'keyword': 'Cash'},
-    {'no': 3, 'keyword': 'Fixed Interest'}
+    {'no': 4, 'keyword': 'Fixed Interest'}
+  ];
+  final List _sector = [
+    {'no': 1, 'keyword': 'Agriculture'},
+    {'no': 2, 'keyword': 'Enterprise'},
+    {'no': 3, 'keyword': 'Health'},
+    {'no': 4, 'keyword': 'Media and Entertainment'},
+    {'no': 5, 'keyword': 'Real Estate'},
   ];
 
   List<DropdownMenuItem> buildDropdownTestItems() {
@@ -44,15 +52,30 @@ class _PrefrenceViewState extends State<PrefrenceView> {
     return items;
   }
 
+  // List<DropdownMenuItem> buildDropdownSectorItems() {
+  //   var items = <DropdownMenuItem>[];
+  //   for (var i in _sector) {
+  //     items.add(
+  //       DropdownMenuItem(
+  //         value: i,
+  //         child: Text(i['keyword']),
+  //       ),
+  //     );
+  //   }
+  //   return items;
+  // }
+
   @override
   void initState() {
     _dropdownTestItems = buildDropdownTestItems();
+    //_dropdownSectorItems = buildDropdownSectorItems();
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    logger.d('Prefrencecreen has been initialized');
+    logger.d('Preference screen has been initialized');
     return BlocProvider(
         create: (context) => PrefrenceCubit(),
         child: TransparentStatusBar(
@@ -97,8 +120,9 @@ class _PrefrenceViewState extends State<PrefrenceView> {
                             children: [
                               verticalSpace(2),
                               Text(
-                                  'Fill out this form for ChipIn to pesent to you investment options that meet your needs.',
-                                  style: TextStyling.bodyText1.copyWith(
+                                  // ignore: lines_longer_than_80_chars
+                                  'Fill out this form for ChipIn to present to you investment options that meet your needs.',
+                                  style: GoogleFonts.quicksand(
                                     color:
                                         const Color.fromRGBO(103, 112, 126, 1),
                                   )),
@@ -121,6 +145,11 @@ class _PrefrenceViewState extends State<PrefrenceView> {
                                     _readPrefrenceData.onChangeDropdownList,
                               ),
                               verticalSpace(2),
+                              Text('Amount you want to invest',
+                                  style: GoogleFonts.quicksand(
+                                    fontSize: 13,
+                                    color: const Color.fromRGBO(103, 112, 126, 1),
+                                  )),
                               Row(
                                 children: [
                                   Container(
@@ -131,13 +160,14 @@ class _PrefrenceViewState extends State<PrefrenceView> {
                                       border: Border.all(
                                           color: const Color(0XFFececec),
                                           width: 2),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(5)),
+                                      borderRadius:
+                                          const BorderRadius.all(
+                                              Radius.circular(5)),
                                       color: Colors.white,
                                     ),
                                     child: Text(
                                       '0\u20A6 - Any',
-                                      style: TextStyling.bodyText1.copyWith(
+                                      style: GoogleFonts.quicksand(
                                         fontSize: 13,
                                         color: const Color.fromRGBO(
                                             103, 112, 126, 1),
@@ -151,19 +181,21 @@ class _PrefrenceViewState extends State<PrefrenceView> {
                                       rangeSlider: true,
                                       max: 100,
                                       min: 0,
-                                      step: const FlutterSliderStep(step: 5),
+                                      step: const FlutterSliderStep(
+                                          step: 5),
                                       jump: true,
-                                      trackBar: const FlutterSliderTrackBar(
-                                        activeTrackBar:
-                                            BoxDecoration(color: kPrimaryColor),
+                                      trackBar:
+                                          const FlutterSliderTrackBar(
+                                        activeTrackBar: BoxDecoration(
+                                            color: kPrimaryColor),
                                         inactiveTrackBarHeight: 2,
                                         activeTrackBarHeight: 3,
                                       ),
                                       disabled: false,
-                                      handler:
-                                          customHandler(Icons.chevron_right),
-                                      rightHandler:
-                                          customHandler(Icons.chevron_left),
+                                      handler: customHandler(
+                                          Icons.chevron_right),
+                                      rightHandler: customHandler(
+                                          Icons.chevron_left),
                                       tooltip: FlutterSliderTooltip(
                                         leftPrefix: const Icon(
                                           Icons.attach_money,
@@ -179,8 +211,8 @@ class _PrefrenceViewState extends State<PrefrenceView> {
                                             fontSize: 17,
                                             color: Colors.black45),
                                       ),
-                                      onDragging: (handlerIndex, lowerValue,
-                                          upperValue) {
+                                      onDragging: (handlerIndex,
+                                          lowerValue, upperValue) {
                                         setState(() {});
                                       },
                                     ),
@@ -263,10 +295,12 @@ class AppDropDown extends StatelessWidget {
     this.label,
     onChangeDropdownList,
   })  : _dropdownTestItems = dropdownTestItems,
+        // _dropdownSectorItems = dropdownSectorItems,
         _onChangeDropdownList = onChangeDropdownList,
         super(key: key);
 
   final List<DropdownMenuItem> _dropdownTestItems;
+  // final List<DropdownMenuItem> _dropdownSectorItems;
   final dynamic selectedItem;
   final dynamic _onChangeDropdownList;
   final String? title;
@@ -285,7 +319,6 @@ class AppDropDown extends StatelessWidget {
             )),
         verticalSpace(2),
         DropdownBelow(
-
           itemWidth: 90.w,
           itemTextstyle: TextStyling.bodyText1.copyWith(
             fontSize: 13,

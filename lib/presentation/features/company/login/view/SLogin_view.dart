@@ -14,7 +14,7 @@ import 'package:sizer/sizer.dart';
 
 import '../cubit/login_cubit.dart';
 
-class InvestorCompanyLoginView extends StatelessWidget {
+class SLoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var buttonState = ButtonState.idle;

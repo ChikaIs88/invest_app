@@ -9,17 +9,16 @@ import 'package:chipln/presentation/global/text_styling.dart';
 import 'package:chipln/presentation/global/ui_helper.dart';
 import 'package:chipln/presentation/global/widget/app_text_field.dart';
 import 'package:chipln/presentation/global/widget/transparent_button.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:progress_state_button/progress_button.dart';
 import 'package:sizer/sizer.dart';
 
 import '../cubit/login_cubit.dart';
 
-class InvestorLoginView extends StatelessWidget {
+class MLoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var buttonState = ButtonState.idle;
-    logger.d(' LoginScreen has been initialized');
+    logger.d('Investor Companay LoginScreen has been initialized');
 
     return BlocProvider(
       create: (context) => LoginCubit(),
@@ -69,7 +68,7 @@ class InvestorLoginView extends StatelessWidget {
                                   'Happy to see you again!',
                                   style: TextStyling.h2,
                                 ),
-                                Assets.images.login.welcome.image(height: 60)
+                                Assets.images.login.investorLogin.image(height: 60)
                               ],
                             )
                           ],
@@ -97,14 +96,14 @@ class InvestorLoginView extends StatelessWidget {
                         verticalSpace(4.5),
                         AppTextField(
                           key: const Key('Login_password_textfield'),
-                          label: 'Password', 
+                          label: 'Password',
                           endWidget: GestureDetector(
                             onTap: () {},
                             child: Align(
                               alignment: Alignment.centerRight,
                               child: Text('Forget Password',
                                   textAlign: TextAlign.center,
-                                  style: GoogleFonts.quicksand(
+                                  style: TextStyling.bodyText1.copyWith(
                                       color: kPrimaryColor, fontSize: 13)),
                             ),
                           ),
@@ -177,16 +176,16 @@ class InvestorLoginView extends StatelessWidget {
                           children: [
                             Text("Don't have an account? ",
                                 textAlign: TextAlign.center,
-                                style: GoogleFonts.quicksand(
+                                style: TextStyling.bodyText1.copyWith(
                                   color: Colors.black,
                                 )),
                             GestureDetector(
                               onTap: () {
-                                Routes.seafarer('/investorRegister');
+                                Routes.seafarer('/investorCompanyRegister');
                               },
                               child: Text('Sign Up',
                                   textAlign: TextAlign.center,
-                                  style: GoogleFonts.quicksand(
+                                  style: TextStyling.bodyText1.copyWith(
                                     color: kPrimaryColor,
                                   )),
                             ),

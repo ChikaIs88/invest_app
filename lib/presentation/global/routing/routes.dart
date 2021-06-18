@@ -2,7 +2,8 @@
 import 'package:chipln/presentation/features/company/assign/view/company_assign_worker_view.dart';
 import 'package:chipln/presentation/features/company/confirm/view/confirm_registration_view.dart';
 import 'package:chipln/presentation/features/company/dashboard/view/company_dashboard_view.dart';
-import 'package:chipln/presentation/features/company/login/view/Login_view.dart';
+import 'package:chipln/presentation/features/company/login/view/MLogin_view.dart';
+import 'package:chipln/presentation/features/company/login/view/SLogin_view.dart';
 import 'package:chipln/presentation/features/company/messages/view/company_messages_view.dart';
 import 'package:chipln/presentation/features/company/notification/view/company_notification_view.dart';
 import 'package:chipln/presentation/features/company/packages/view/company_packages_view.dart';
@@ -13,6 +14,7 @@ import 'package:chipln/presentation/features/investor/login/view/Login_view.dart
 import 'package:chipln/presentation/features/investor/prefrence/view/prefrence_view.dart';
 import 'package:chipln/presentation/features/investor/register/view/register_view.dart';
 import 'package:chipln/presentation/features/onboarding/onboarding.dart';
+import 'package:chipln/presentation/features/company/consultant.dart';
 import 'package:seafarer/seafarer.dart';
 
 class Routes {
@@ -74,13 +76,33 @@ class Routes {
 
       //================== [Investor Company Routing] ===========================//
       SeafarerRoute(
-        name: '/investorCompanyLogin',
+        name: '/investorCompany',
         defaultTransitions: [
           SeafarerTransition.slide_from_top,
           SeafarerTransition.zoom_in,
         ],
         builder: (context, args, params) {
-          return InvestorCompanyLoginView();
+          return FirstPage();
+        },
+      ),
+      SeafarerRoute(
+        name: '/SinvestorCompanyLogin',
+        defaultTransitions: [
+          SeafarerTransition.slide_from_top,
+          SeafarerTransition.zoom_in,
+        ],
+        builder: (context, args, params) {
+          return SLoginView();
+        },
+      ),
+      SeafarerRoute(
+        name: '/MinvestorCompanyLogin',
+        defaultTransitions: [
+          SeafarerTransition.slide_from_top,
+          SeafarerTransition.zoom_in,
+        ],
+        builder: (context, args, params) {
+          return MLoginView();
         },
       ),
       SeafarerRoute(
