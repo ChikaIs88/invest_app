@@ -3,8 +3,6 @@ import 'package:chipln/presentation/global/constants.dart';
 import 'package:chipln/presentation/global/routing/routes.dart';
 import 'package:chipln/presentation/global/text_styling.dart';
 import 'package:chipln/presentation/global/ui_helper.dart';
-import 'package:chipln/presentation/global/widget/app_flat_button.dart';
-import 'package:chipln/presentation/global/widget/onboarding_item.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -14,43 +12,41 @@ class ConfirmInvestorRegistrationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomSheet: Container(
-        child: Row(
-          children: [
-            InkWell(
-              onTap: () =>
-                  Routes.seafarer.navigate('/'),
-              child: Container(
-                width: 50.w,
-                alignment: Alignment.center,
-                height: 7.h,
-                decoration: BoxDecoration(
-                  color: Colors.red[100],
-                ),
-                child: Text(
-                  'Not Now 👎',
-                  style: TextStyling.h2.copyWith(color: kGrishTransWhiteColor),
-                ),
+      bottomSheet: Row(
+        children: [
+          InkWell(
+            onTap: () =>
+                Routes.seafarer.navigate('/'),
+            child: Container(
+              width: 50.w,
+              alignment: Alignment.center,
+              height: 7.h,
+              decoration: BoxDecoration(
+                color: Colors.red[100],
+              ),
+              child: Text(
+                'Not Now 👎',
+                style: TextStyling.h2.copyWith(color: kGrishTransWhiteColor),
               ),
             ),
-            InkWell(
-              onTap: () =>
-                  Routes.seafarer.navigate('/investorCompanyCompleteRegister'),
-              child: Container(
-                width: 50.w,
-                height: 7.h,
-                alignment: Alignment.center,
-                decoration: const BoxDecoration(
-                  color: kPrimaryColor,
-                ),
-                child: Text(
-                  'Sure ✌️',
-                  style: TextStyling.h2.copyWith(color: kGrishTransWhiteColor),
-                ),
+          ),
+          InkWell(
+            onTap: () =>
+                Routes.seafarer.navigate('/investorCompanyCompleteRegister'),
+            child: Container(
+              width: 50.w,
+              height: 7.h,
+              alignment: Alignment.center,
+              decoration: const BoxDecoration(
+                color: kPrimaryColor,
+              ),
+              child: Text(
+                'Sure ✌️',
+                style: TextStyling.h2.copyWith(color: kGrishTransWhiteColor),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
       body: SafeArea(
         child: Column(

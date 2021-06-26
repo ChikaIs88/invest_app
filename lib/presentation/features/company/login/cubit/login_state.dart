@@ -2,7 +2,7 @@ part of 'login_cubit.dart';
 
 // ignore: must_be_immutable
 class LoginState extends Equatable {
- LoginState({
+ const LoginState({
     this.consultantName = '',
     this.companyName = '',
     this.emailAddress = '',

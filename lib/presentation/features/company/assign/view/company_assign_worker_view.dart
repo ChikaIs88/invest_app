@@ -16,22 +16,21 @@ class CompanyAssignWorkerView extends StatelessWidget {
           verticalSpace(5),
           const Padding(
             padding: paddingLR20,
-            child:  CompanyHeaderDesign(
+            child: CompanyHeaderDesign(
               title: 'Assign Worker',
               show: true,
             ),
           ),
-           verticalSpace(2),
-            Expanded(
+          verticalSpace(2),
+          Expanded(
             child: ListView.builder(
                 padding: EdgeInsets.zero,
                 physics: const BouncingScrollPhysics(),
                 itemCount: 5,
                 itemBuilder: (context, index) {
-                  return  const WorkerCard();
+                  return const WorkerCard();
                 }),
           ),
-         
         ],
       ),
     );
@@ -85,7 +84,8 @@ class WorkerCard extends StatelessWidget {
           Padding(
             padding: paddingLR20,
             child: Text('Chika was assign Today',
-                style: TextStyling.bodyText1.copyWith(color: kTransBlack, fontSize: 13)),
+                style: TextStyling.bodyText1
+                    .copyWith(color: kTransBlack, fontSize: 13)),
           )
         ],
       ),

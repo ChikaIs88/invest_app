@@ -2,8 +2,8 @@
 import 'package:chipln/presentation/features/company/assign/view/company_assign_worker_view.dart';
 import 'package:chipln/presentation/features/company/confirm/view/confirm_registration_view.dart';
 import 'package:chipln/presentation/features/company/dashboard/view/company_dashboard_view.dart';
-import 'package:chipln/presentation/features/company/login/view/MLogin_view.dart';
-import 'package:chipln/presentation/features/company/login/view/SLogin_view.dart';
+import 'package:chipln/presentation/features/company/login/view/m_login_view.dart';
+import 'package:chipln/presentation/features/company/login/view/s_login_view.dart';
 import 'package:chipln/presentation/features/company/messages/view/company_messages_view.dart';
 import 'package:chipln/presentation/features/company/notification/view/company_notification_view.dart';
 import 'package:chipln/presentation/features/company/packages/view/company_packages_view.dart';

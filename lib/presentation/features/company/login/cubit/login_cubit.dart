@@ -41,7 +41,7 @@ class LoginCubit extends Cubit<LoginState> with ValidationMixin {
   void usernameChanged(String value) {
     emit(state.copyWith(username: value));
   }
-  
+
   void emailChanged(String value) {
     emit(state.copyWith(emailAddress: value));
   }
@@ -64,7 +64,7 @@ class LoginCubit extends Cubit<LoginState> with ValidationMixin {
 
   void togglePINVisibility() {
     emit(state.copyWith(showPIN: !state.showPIN!));
-  }  
+  }
 
   void navigateToLoginScreenTwo() {
     if (!_formKeyOne.currentState!.validate()) return;
@@ -72,11 +72,11 @@ class LoginCubit extends Cubit<LoginState> with ValidationMixin {
     emit(state.copyWith(status: AuthStatus.initial));
   }
 
-  Future<void> Login() async {
+  Future<void> login() async {
     if (!_formKeyTwo.currentState!.validate()) return;
     emit(state.copyWith(status: AuthStatus.submissionInProgress));
     try {
-      await Future.delayed(Duration(seconds: 3));
+      await Future.delayed(const Duration(seconds: 3));
       emit(state.copyWith(status: AuthStatus.submissionSuccess));
     } on Exception {
       emit(state.copyWith(status: AuthStatus.submissionFailure));

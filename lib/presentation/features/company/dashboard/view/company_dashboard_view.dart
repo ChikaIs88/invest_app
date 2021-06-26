@@ -1,10 +1,8 @@
 import 'package:chipln/presentation/global/assets/assets.gen.dart';
-import 'package:chipln/presentation/global/constants.dart';
 import 'package:chipln/presentation/global/routing/routes.dart';
 import 'package:chipln/presentation/global/text_styling.dart';
 import 'package:chipln/presentation/global/ui_helper.dart';
 import 'package:chipln/presentation/global/widget/company_header_design.dart';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 import 'package:sizer/sizer.dart';
@@ -32,15 +30,15 @@ class CompanyDashboardView extends StatelessWidget {
             ),
             verticalSpace(2),
             Text(
-                'of XYZ Inc.',
-                style: TextStyling.h2.copyWith(color: Colors.black),
-              ),
+              'of XYZ Inc.',
+              style: TextStyling.h2.copyWith(color: Colors.black),
+            ),
             verticalSpace(5),
 
             // Row(
-              
+
             // ),
- 
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               // ignore: prefer_const_literals_to_create_immutables
@@ -114,7 +112,7 @@ class DashLayout extends StatelessWidget {
   final String? label;
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 20.h,
       width: 40.w,
       child: Card(
@@ -160,7 +158,7 @@ class DashboardTopCard extends StatelessWidget {
             color!.withOpacity(0.1),
             color!.withOpacity(0.05),
           ],
-          stops: [
+          stops: const [
             0.1,
             1,
           ]),

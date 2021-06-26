@@ -8,13 +8,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 //import 'package:chipln/counter/counter.dart';
-import 'package:chipln/l10n/l10n.dart';
-import 'package:chipln/Scenes/Welcome/welcome_screen.dart';
 import 'package:chipln/presentation/features/onboarding/onboarding.dart';
 import 'package:chipln/presentation/global/constants.dart';
 import 'package:chipln/presentation/global/routing/routes.dart';
 import 'package:seafarer/seafarer.dart';
 import 'package:sizer/sizer.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:last_state/last_state.dart';
 
 class App extends StatelessWidget {
