@@ -5,6 +5,7 @@
 
 import 'dart:async';
 import 'dart:developer';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:last_state/last_state.dart';
 import 'package:flutter/widgets.dart';
 import 'package:bloc/bloc.dart';
@@ -17,6 +18,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = AppBlocObserver();
   Routes.createRoutes();
+  await Firebase.initializeApp();
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
