@@ -15,6 +15,10 @@ import 'package:sizer/sizer.dart';
 import '../cubit/login_cubit.dart';
 
 class MLoginView extends StatelessWidget {
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _mconsultantController = TextEditingController();
+  final TextEditingController _companyController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     var buttonState = ButtonState.idle;
@@ -59,7 +63,7 @@ class MLoginView extends StatelessWidget {
                           children: [
                             verticalSpace(10),
                             Text(
-                              'Welcome',
+                              'Welcome Main Consultant',
                               style: TextStyling.h1,
                             ),
                             Row(
@@ -68,7 +72,8 @@ class MLoginView extends StatelessWidget {
                                   'Happy to see you again!',
                                   style: TextStyling.h2,
                                 ),
-                                Assets.images.login.investorLogin.image(height: 60)
+                                Assets.images.login.investorLogin
+                                    .image(height: 60)
                               ],
                             )
                           ],
@@ -85,16 +90,27 @@ class MLoginView extends StatelessWidget {
                       children: [
                         verticalSpace(8),
                         AppTextField(
-                          key: const Key('Login_emailaddress_textfield'),
-                          label: 'Email Address',
-                          hintText: 'Enter Email Address',
-                          onChanged: _cubit.emailChanged,
-                          keyboardType: TextInputType.emailAddress,
-                          validator: _cubit.validateEmail,
+                          controller: _mconsultantController,
+                          key: const Key('Login_consultantName_textfield'),
+                          label: 'Consultant Name',
+                          hintText: 'Enter Consultant Name',
+                          onChanged: _cubit.firstNameChanged,
+                          validator: _cubit.validateFullName,
                           textInputAction: TextInputAction.next,
                         ),
                         verticalSpace(4.5),
                         AppTextField(
+                          controller: _companyController,
+                          key: const Key('Login_companyName_textfield'),
+                          label: 'Company Name',
+                          hintText: 'Enter Company Name',
+                          onChanged: _cubit.firstNameChanged,
+                          validator: _cubit.validateFullName,
+                          textInputAction: TextInputAction.next,
+                        ),
+                        verticalSpace(4.5),
+                        AppTextField(
+                          controller: _passwordController,
                           key: const Key('Login_password_textfield'),
                           label: 'Password',
                           endWidget: GestureDetector(

@@ -30,12 +30,28 @@ class LoginCubit extends Cubit<LoginState> with ValidationMixin {
     emit(state.copyWith(btnColor: value));
   }
 
+  void firstNameChanged(String value) {
+    emit(state.copyWith(consultantName: value));
+  }
+
+  void lastNameChanged(String value) {
+    emit(state.copyWith(companyName: value));
+  }
+
+  void usernameChanged(String value) {
+    emit(state.copyWith(username: value));
+  }
+  
   void emailChanged(String value) {
     emit(state.copyWith(emailAddress: value));
   }
 
   void passwordChanged(String value) {
     emit(state.copyWith(password: value));
+  }
+
+  void pinChanged(String value) {
+    emit(state.copyWith(pin: value));
   }
 
   void btnIsActive(bool value) {
@@ -45,6 +61,10 @@ class LoginCubit extends Cubit<LoginState> with ValidationMixin {
   void togglePasswordVisibility() {
     emit(state.copyWith(showPassword: !state.showPassword!));
   }
+
+  void togglePINVisibility() {
+    emit(state.copyWith(showPIN: !state.showPIN!));
+  }  
 
   void navigateToLoginScreenTwo() {
     if (!_formKeyOne.currentState!.validate()) return;

@@ -26,7 +26,7 @@ class CompanyMessagesView extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 itemCount: 5,
                 itemBuilder: (context, index) {
-                  return const ChatCard();
+                  return  ChatCard();
                 }),
           ),
         ],

@@ -9,15 +9,15 @@ class OnboardingCubit extends Cubit<int> {
   OnboardingCubit() : super(0);
 
   // =================== Local Variables ===========================
-  final PageController _pageController = PageController(initialPage: 0);
-  final Duration _kDuration = const Duration(milliseconds: 300);
-  final Cubic _kCurve = Curves.ease;
+  final PageController _pageController = PageController(initialPage: 0); //controlling the description of the onboarding. 
+  final Duration _kDuration = const Duration(milliseconds: 300); //time it takes before moving to the next screen
+  final Cubic _kCurve = Curves.ease; //for animation
 
   // =========================== Getters ===========================
-  PageController get pageController => _pageController;
+  PageController get pageController => _pageController; //making this variable a private variable and for other classes to use it, they need to use getter so that they don't manipulate it
 
   // ========================= Methods ===============================
-  void onPageChanged(int pageIndex) => emit(pageIndex);
+  void onPageChanged(int pageIndex) => emit(pageIndex); //so it allows us track page index 
 
   void switchScreen() =>
       _pageController.nextPage(duration: _kDuration, curve: _kCurve);
@@ -36,6 +36,6 @@ class OnboardingCubit extends Cubit<int> {
   }
 
   void navigateSLoginView() {
-    Routes.seafarer.navigate('SinvestorCompanyLogin');
+    Routes.seafarer.navigate('/SinvestorCompanyLogin');
   }
 }

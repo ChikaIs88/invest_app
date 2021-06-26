@@ -18,6 +18,8 @@ class ConfirmInvestorRegistrationView extends StatelessWidget {
         child: Row(
           children: [
             InkWell(
+              onTap: () =>
+                  Routes.seafarer.navigate('/'),
               child: Container(
                 width: 50.w,
                 alignment: Alignment.center,

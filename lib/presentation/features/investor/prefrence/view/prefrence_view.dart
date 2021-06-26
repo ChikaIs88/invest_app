@@ -24,6 +24,8 @@ class PrefrenceView extends StatefulWidget {
 
 class _PrefrenceViewState extends State<PrefrenceView> {
   late List<DropdownMenuItem> _dropdownTestItems;
+  late List<DropdownMenuItem> _dropdownSectorItems;
+  late List<DropdownMenuItem> _dropdownInterestItems;
 
   final List _investmentTypes = [
     {'no': 1, 'keyword': 'Growth Investment'},
@@ -37,6 +39,10 @@ class _PrefrenceViewState extends State<PrefrenceView> {
     {'no': 3, 'keyword': 'Health'},
     {'no': 4, 'keyword': 'Media and Entertainment'},
     {'no': 5, 'keyword': 'Real Estate'},
+  ];
+  final List _interest = [
+    {'no': 1, 'keyword': 'Medium (7%-15%)'},
+    {'no': 2, 'keyword': 'High (15% and above)'},
   ];
 
   List<DropdownMenuItem> buildDropdownTestItems() {
@@ -52,23 +58,37 @@ class _PrefrenceViewState extends State<PrefrenceView> {
     return items;
   }
 
-  // List<DropdownMenuItem> buildDropdownSectorItems() {
-  //   var items = <DropdownMenuItem>[];
-  //   for (var i in _sector) {
-  //     items.add(
-  //       DropdownMenuItem(
-  //         value: i,
-  //         child: Text(i['keyword']),
-  //       ),
-  //     );
-  //   }
-  //   return items;
-  // }
+  List<DropdownMenuItem> buildDropdownSectorItems() {
+    var items = <DropdownMenuItem>[];
+    for (var i in _sector) {
+      items.add(
+        DropdownMenuItem(
+          value: i,
+          child: Text(i['keyword']),
+        ),
+      );
+    }
+    return items;
+  }
+
+  List<DropdownMenuItem> buildDropdownInterestItems() {
+    var items = <DropdownMenuItem>[];
+    for (var i in _interest) {
+      items.add(
+        DropdownMenuItem(
+          value: i,
+          child: Text(i['keyword']),
+        ),
+      );
+    }
+    return items;
+  }
 
   @override
   void initState() {
     _dropdownTestItems = buildDropdownTestItems();
-    //_dropdownSectorItems = buildDropdownSectorItems();
+    _dropdownSectorItems = buildDropdownSectorItems();
+    _dropdownInterestItems = buildDropdownInterestItems();
 
     super.initState();
   }
@@ -127,7 +147,7 @@ class _PrefrenceViewState extends State<PrefrenceView> {
                                         const Color.fromRGBO(103, 112, 126, 1),
                                   )),
                               verticalSpace(2),
-                              AppDropDown(
+                              AppDropDown1(
                                 dropdownTestItems: _dropdownTestItems,
                                 label: 'Preferred Investmnt Type?',
                                 title: 'Investment Type',
@@ -137,7 +157,7 @@ class _PrefrenceViewState extends State<PrefrenceView> {
                               ),
                               verticalSpace(2),
                               AppDropDown(
-                                dropdownTestItems: _dropdownTestItems,
+                                dropdownSectorItems: _dropdownSectorItems,
                                 label: 'Preferred Sector',
                                 title: 'Sector',
                                 selectedItem: state.selectedItem,
@@ -148,7 +168,8 @@ class _PrefrenceViewState extends State<PrefrenceView> {
                               Text('Amount you want to invest',
                                   style: GoogleFonts.quicksand(
                                     fontSize: 13,
-                                    color: const Color.fromRGBO(103, 112, 126, 1),
+                                    color:
+                                        const Color.fromRGBO(103, 112, 126, 1),
                                   )),
                               Row(
                                 children: [
@@ -160,9 +181,8 @@ class _PrefrenceViewState extends State<PrefrenceView> {
                                       border: Border.all(
                                           color: const Color(0XFFececec),
                                           width: 2),
-                                      borderRadius:
-                                          const BorderRadius.all(
-                                              Radius.circular(5)),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(5)),
                                       color: Colors.white,
                                     ),
                                     child: Text(
@@ -181,21 +201,19 @@ class _PrefrenceViewState extends State<PrefrenceView> {
                                       rangeSlider: true,
                                       max: 100,
                                       min: 0,
-                                      step: const FlutterSliderStep(
-                                          step: 5),
+                                      step: const FlutterSliderStep(step: 5),
                                       jump: true,
-                                      trackBar:
-                                          const FlutterSliderTrackBar(
-                                        activeTrackBar: BoxDecoration(
-                                            color: kPrimaryColor),
+                                      trackBar: const FlutterSliderTrackBar(
+                                        activeTrackBar:
+                                            BoxDecoration(color: kPrimaryColor),
                                         inactiveTrackBarHeight: 2,
                                         activeTrackBarHeight: 3,
                                       ),
                                       disabled: false,
-                                      handler: customHandler(
-                                          Icons.chevron_right),
-                                      rightHandler: customHandler(
-                                          Icons.chevron_left),
+                                      handler:
+                                          customHandler(Icons.chevron_right),
+                                      rightHandler:
+                                          customHandler(Icons.chevron_left),
                                       tooltip: FlutterSliderTooltip(
                                         leftPrefix: const Icon(
                                           Icons.attach_money,
@@ -211,16 +229,16 @@ class _PrefrenceViewState extends State<PrefrenceView> {
                                             fontSize: 17,
                                             color: Colors.black45),
                                       ),
-                                      onDragging: (handlerIndex,
-                                          lowerValue, upperValue) {
+                                      onDragging: (handlerIndex, lowerValue,
+                                          upperValue) {
                                         setState(() {});
                                       },
                                     ),
                                   )
                                 ],
                               ),
-                              AppDropDown(
-                                dropdownTestItems: _dropdownTestItems,
+                              AppDropDown3(
+                                dropdownInterestItems: _dropdownInterestItems,
                                 label: 'What is your preferred interest rate?',
                                 title: 'Preferred Interest Rate',
                                 selectedItem: state.selectedItem,
@@ -286,8 +304,8 @@ class _PrefrenceViewState extends State<PrefrenceView> {
   }
 }
 
-class AppDropDown extends StatelessWidget {
-  const AppDropDown({
+class AppDropDown1 extends StatelessWidget {
+  const AppDropDown1({
     Key? key,
     required List<DropdownMenuItem> dropdownTestItems,
     this.selectedItem,
@@ -295,12 +313,10 @@ class AppDropDown extends StatelessWidget {
     this.label,
     onChangeDropdownList,
   })  : _dropdownTestItems = dropdownTestItems,
-        // _dropdownSectorItems = dropdownSectorItems,
         _onChangeDropdownList = onChangeDropdownList,
         super(key: key);
 
   final List<DropdownMenuItem> _dropdownTestItems;
-  // final List<DropdownMenuItem> _dropdownSectorItems;
   final dynamic selectedItem;
   final dynamic _onChangeDropdownList;
   final String? title;
@@ -339,6 +355,122 @@ class AppDropDown extends StatelessWidget {
           ),
           value: selectedItem,
           items: _dropdownTestItems,
+          onChanged: _onChangeDropdownList,
+        ),
+      ],
+    );
+  }
+}
+
+class AppDropDown extends StatelessWidget {
+  const AppDropDown({
+    Key? key,
+    required List<DropdownMenuItem> dropdownSectorItems,
+    this.selectedItem,
+    this.title,
+    this.label,
+    onChangeDropdownList,
+  })  : _dropdownSectorItems = dropdownSectorItems,
+        _onChangeDropdownList = onChangeDropdownList,
+        super(key: key);
+
+  final List<DropdownMenuItem> _dropdownSectorItems;
+  final dynamic selectedItem;
+  final dynamic _onChangeDropdownList;
+  final String? title;
+  final String? label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        verticalSpace(2),
+        Text(label!,
+            style: TextStyling.bodyText1.copyWith(
+              fontSize: 13,
+              color: Color.fromRGBO(103, 112, 126, 1),
+            )),
+        verticalSpace(2),
+        DropdownBelow(
+          itemWidth: 90.w,
+          itemTextstyle: TextStyling.bodyText1.copyWith(
+            fontSize: 13,
+            color: const Color.fromRGBO(103, 112, 126, 1),
+          ),
+          boxTextstyle: TextStyling.bodyText1.copyWith(
+            fontSize: 13,
+            color: const Color.fromRGBO(103, 112, 126, 1),
+          ),
+          boxPadding: const EdgeInsets.fromLTRB(13, 12, 0, 12),
+          boxHeight: 50,
+          hint: Text(
+            title!,
+            style: TextStyling.bodyText1.copyWith(
+              fontSize: 13,
+              color: const Color.fromRGBO(103, 112, 126, 1),
+            ),
+          ),
+          value: selectedItem,
+          items: _dropdownSectorItems,
+          onChanged: _onChangeDropdownList,
+        ),
+      ],
+    );
+  }
+}
+
+class AppDropDown3 extends StatelessWidget {
+  const AppDropDown3({
+    Key? key,
+    required List<DropdownMenuItem> dropdownInterestItems,
+    this.selectedItem,
+    this.title,
+    this.label,
+    onChangeDropdownList,
+  })  : _dropdownInterestItems = dropdownInterestItems,
+        _onChangeDropdownList = onChangeDropdownList,
+        super(key: key);
+
+  final List<DropdownMenuItem> _dropdownInterestItems;
+  final dynamic selectedItem;
+  final dynamic _onChangeDropdownList;
+  final String? title;
+  final String? label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        verticalSpace(2),
+        Text(label!,
+            style: TextStyling.bodyText1.copyWith(
+              fontSize: 13,
+              color: Color.fromRGBO(103, 112, 126, 1),
+            )),
+        verticalSpace(2),
+        DropdownBelow(
+          itemWidth: 90.w,
+          itemTextstyle: TextStyling.bodyText1.copyWith(
+            fontSize: 13,
+            color: const Color.fromRGBO(103, 112, 126, 1),
+          ),
+          boxTextstyle: TextStyling.bodyText1.copyWith(
+            fontSize: 13,
+            color: const Color.fromRGBO(103, 112, 126, 1),
+          ),
+          boxPadding: const EdgeInsets.fromLTRB(13, 12, 0, 12),
+          boxHeight: 50,
+          hint: Text(
+            title!,
+            style: TextStyling.bodyText1.copyWith(
+              fontSize: 13,
+              color: const Color.fromRGBO(103, 112, 126, 1),
+            ),
+          ),
+          value: selectedItem,
+          items: _dropdownInterestItems,
           onChanged: _onChangeDropdownList,
         ),
       ],

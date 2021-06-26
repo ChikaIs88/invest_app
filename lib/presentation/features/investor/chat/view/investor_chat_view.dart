@@ -6,9 +6,13 @@ import 'package:chipln/presentation/global/text_styling.dart';
 import 'package:chipln/presentation/global/ui_helper.dart';
 import 'package:chipln/presentation/global/widget/app_text_field.dart';
 import 'package:sizer/sizer.dart';
+import 'package:chipln/presentation/features/investor/chat/chat_files/convoList.dart';
+import 'package:chipln/presentation/features/investor/chat/chat_files/m_users.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class InvestorChatView extends StatelessWidget {
-  const InvestorChatView({Key? key}) : super(key: key);
+  
 
   @override
   Widget build(BuildContext context) {
@@ -77,9 +81,8 @@ class InvestorChatView extends StatelessWidget {
                     child: ListView.builder(
                         padding: EdgeInsets.zero,
                         physics: const BouncingScrollPhysics(),
-                        itemCount: 5,
                         itemBuilder: (context, index) {
-                          return const ChatCard();
+                          return ChatCard();
                         }),
                   ),
                 ],
@@ -93,67 +96,29 @@ class InvestorChatView extends StatelessWidget {
 }
 
 class ChatCard extends StatelessWidget {
-  const ChatCard({
-    Key? key,
-  }) : super(key: key);
+  List<MsgUsers> msgUsers = [
+    MsgUsers(
+        name: 'Chika',
+        messageText: 'How can i help you',
+        imageURL: 'assets/images/ChipIn.png',
+        time: 'Now')
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: paddingLR20,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              SizedBox(
-                width: 19.w,
-                height: 10.h,
-                child: Card(
-                  child: Assets.images.home.samplecompany.image(),
-                  elevation: 1,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                ),
-              ),
-              horizontalSpace(3),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Chika Peace',
-                    style: TextStyling.h2.copyWith(color: Colors.black),
-                  ),
-                  verticalSpace(1),
-                  Text(
-                    'How is it going today?',
-                    style: TextStyling.bodyText1
-                        .copyWith(fontSize: 13, color: Colors.black45),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          Column(
-            children: [
-              Text(
-                'Today',
-                style: TextStyling.bodyText1
-                    .copyWith(fontSize: 13, color: Colors.black45),
-              ),
-              verticalSpace(1),
-              CircleAvatar(
-                maxRadius: 12,
-                child: Text(
-                  '1',
-                  style: TextStyling.bodyText1
-                      .copyWith(fontSize: 13, color: Colors.black45),
-                ),
-              ),
-            ],
-          )
-        ],
-      ),
-    );
+    return ListView.builder(
+              itemCount: msgUsers.length,
+              shrinkWrap: true,
+              padding: const EdgeInsets.only(top: 16),
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                return ConversationList(
+                  name: msgUsers[index].name,
+                  messageText: msgUsers[index].messageText,
+                  imageURL: msgUsers[index].imageURL,
+                  time: msgUsers[index].time,
+                  isMessageRead: (index == 0 || index == 3) ? true : false,
+                );
+              });
   }
 }

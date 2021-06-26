@@ -1,3 +1,5 @@
+import 'package:chipln/presentation/global/routing/routes.dart';
+import 'package:chipln/presentation/global/widget/app_flat_button.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -50,17 +52,43 @@ class _InvestorProfileViewState extends State<InvestorProfileView>
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Center(
-                      child: CustomPaint(
-                        painter: CirclePainter(
-                          _controller,
-                          color: Colors.white,
-                        ),
-                        child: SizedBox(
-                          width: 30.0 * 4.125,
-                          height: 30.0 * 4.125,
-                          child: ProileCard(controller: _controller),
-                        ),
+                    Container(
+                      padding: paddingLR20,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Assets.images.home.chat.image(height: 8.h),
+                              horizontalSpace(3),
+                              Text(
+                                'Chika Agbakuru',
+                                style: TextStyling.h1
+                                    .copyWith(color: Colors.white),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                width: 21.w,
+                                height: 5.h,
+                                decoration: BoxDecoration(
+                                    color: Colors.red[100],
+                                    borderRadius: BorderRadius.circular(5)),
+                                child: AppFlatButton(
+                                  color: Colors.red[100],
+                                  label: 'Log Out',
+                                  onPressed: () {
+                                    Routes.seafarer
+                                        .navigate('/');
+                                    // _cubit.navigateToRegisterScreenTwo();
+                                  },
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
                       ),
                     ),
                     verticalSpace(5),
@@ -69,6 +97,7 @@ class _InvestorProfileViewState extends State<InvestorProfileView>
                       child: IntrinsicHeight(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          // ignore: prefer_const_literals_to_create_immutables
                           children: [
                             const ProfileText(
                               title: '20,000',
@@ -148,7 +177,7 @@ class NotifcatioCards extends StatelessWidget {
                     'Investment Notice',
                     style: TextStyling.h2.copyWith(color: Colors.black),
                   ),
-                Icon(
+                  Icon(
                     EvaIcons.alertCircle,
                     color: Colors.red[100],
                   )
@@ -167,7 +196,6 @@ class NotifcatioCards extends StatelessWidget {
             style: TextStyling.bodyText1
                 .copyWith(fontSize: 13, color: Colors.black54),
           ),
- 
         ],
       ),
     );

@@ -10,7 +10,7 @@ import 'package:chipln/presentation/global/routing/routes.dart';
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> with ValidationMixin {
-  LoginCubit() : super(LoginState());
+  LoginCubit() : super(LoginState()); //allows the Logincubit to understand which state you are mapping to
 
   // Local Variables
   final _formKeyOne = GlobalKey<FormState>();
@@ -27,7 +27,7 @@ class LoginCubit extends Cubit<LoginState> with ValidationMixin {
   }
 
   void updateColor(Color value) {
-    emit(state.copyWith(btnColor: value));
+    emit(state.copyWith(btnColor: value));//this is to update a singular state. It combine the old states of other variables to this new one
   }
 
   void emailChanged(String value) {
@@ -36,6 +36,10 @@ class LoginCubit extends Cubit<LoginState> with ValidationMixin {
 
   void passwordChanged(String value) {
     emit(state.copyWith(password: value));
+  }
+
+  void usernameChanged(String value) {
+    emit(state.copyWith(username: value));
   }
 
   void btnIsActive(bool value) {
@@ -47,7 +51,7 @@ class LoginCubit extends Cubit<LoginState> with ValidationMixin {
   }
 
   void navigateToLoginScreenTwo() {
-    if (!_formKeyOne.currentState!.validate()) return;
+    if (!_formKeyOne.currentState!.validate()) return; //key helps us to target of a specific area
     emit(state.copyWith(status: AuthStatus.nextPage));
     emit(state.copyWith(status: AuthStatus.initial));
   }

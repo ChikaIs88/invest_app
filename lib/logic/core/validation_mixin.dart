@@ -31,6 +31,13 @@ mixin ValidationMixin {
     return null;
   }
 
+  String? validateUserName(String? fullName) {
+    if (fullName!.length < 2) {
+      return 'Enter a valid Username';
+    }
+    return null;
+  }
+
   String? validateBvn(String? phoneNumber) {
     print(phoneNumber!.length);
     if (phoneNumber.length < 11) {
@@ -52,5 +59,18 @@ mixin ValidationMixin {
 
     if (hasDigits & hasUppercase & hasLowercase & hasMinLength) return null;
     return 'Please enter a valid password';
+  }
+
+  String? validatePIN(String? pin) {
+    if (pin == null || pin.isEmpty) {
+      return 'Password field cannot be empty';
+    }
+
+    bool hasDigits = pin.contains(RegExp(r'[0-9]'));
+
+    bool hasMinLength = pin.length > 4;
+
+    if (hasDigits & hasMinLength) return null;
+    return 'Please enter a valid PIN';
   }
 }

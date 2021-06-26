@@ -30,18 +30,28 @@ class CompanyDashboardView extends StatelessWidget {
               'Welcome, Goji😃',
               style: TextStyling.h1.copyWith(color: Colors.black),
             ),
-            verticalSpace(3),
+            verticalSpace(2),
+            Text(
+                'of XYZ Inc.',
+                style: TextStyling.h2.copyWith(color: Colors.black),
+              ),
+            verticalSpace(5),
+
+            // Row(
+              
+            // ),
+ 
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              // ignore: prefer_const_literals_to_create_immutables
               children: [
                 const DashboardTopCard(
-                  color: Colors.red,
+                  color: Colors.green,
                 ),
-                const DashboardTopCard(
-                  color: Colors.blue,
-                )
               ],
             ),
+
+            verticalSpace(5),
             Expanded(
               child: GridView.builder(
                   itemCount: 6,
@@ -139,7 +149,7 @@ class DashboardTopCard extends StatelessWidget {
     return GlassmorphicContainer(
       height: 12.h,
       alignment: Alignment.center,
-      width: 42.w,
+      width: 40.w,
       borderRadius: 10,
       blur: 20,
       border: 2,
@@ -167,19 +177,19 @@ class DashboardTopCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'Total Investment',
+            'Total Interested',
             style: TextStyling.h2.copyWith(color: Colors.black),
           ),
           Align(
-            alignment: Alignment.bottomRight,
+            alignment: Alignment.bottomCenter,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: CircleAvatar(
-                backgroundColor: Colors.white,
+                backgroundColor: Colors.green,
                 maxRadius: 20,
                 child: Text(
                   '1',
-                  style: TextStyling.h2.copyWith(color: Colors.black),
+                  style: TextStyling.h2.copyWith(color: Colors.white),
                 ),
               ),
             ),

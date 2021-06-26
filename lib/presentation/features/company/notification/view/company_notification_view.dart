@@ -19,7 +19,7 @@ class CompanyNotificationView extends StatelessWidget {
           const Padding(
            padding: paddingLR20,
             child: CompanyHeaderDesign(
-              title: 'Packages',
+              title: 'Notifications',
               show: true,
             ),
           ),
@@ -28,7 +28,7 @@ class CompanyNotificationView extends StatelessWidget {
             child: ListView.builder(
                 padding: EdgeInsets.zero,
                 physics: const BouncingScrollPhysics(),
-                itemCount: 5,
+                itemCount: 3,
                 itemBuilder: (context, index) {
                   return const NotifcatioCards();
                 }),

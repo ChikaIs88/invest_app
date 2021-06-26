@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:chipln/app/logger_init.dart';
@@ -13,9 +14,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:progress_state_button/progress_button.dart';
 import 'package:sizer/sizer.dart';
 
+
 import '../cubit/login_cubit.dart';
 
 class InvestorLoginView extends StatelessWidget {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     var buttonState = ButtonState.idle;
@@ -27,7 +33,7 @@ class InvestorLoginView extends StatelessWidget {
           body: SingleChildScrollView(
               child: Column(mainAxisSize: MainAxisSize.max, children: [
         BlocConsumer<LoginCubit, LoginState>(
-          listener: (context, state) {
+          listener: (context, state) { //listen to the change and run whatever it gets
             final _cubit = context.read<LoginCubit>();
             if (state.emailAddress!.isNotEmpty && state.password!.isNotEmpty) {
               _cubit.updateColor(kPrimaryColor);
@@ -41,13 +47,13 @@ class InvestorLoginView extends StatelessWidget {
               _cubit.handleLogin();
             }
           },
-          builder: (context, state) {
+          builder: (context, state) { //allows you update the ui
             final _cubit = context.watch<LoginCubit>();
             return Column(
               children: [
                 Container(
                   height: 25.h,
-                  width: double.infinity,
+                  width: double.infinity, //target the whole width
                   decoration: const BoxDecoration(color: kPrimaryColor),
                   child: Stack(
                     children: [
@@ -85,8 +91,19 @@ class InvestorLoginView extends StatelessWidget {
                     child: Column(
                       children: [
                         verticalSpace(8),
+                        // AppTextField(
+                        //       key: const Key('Login_userName_textfield'),
+                        //       controller: _usernameController,
+                        //       label: 'Username',
+                        //       hintText: 'Enter Username',
+                        //       onChanged: _cubit.usernameChanged,
+                        //       validator: _cubit.validateUserName,
+                        //       textInputAction: TextInputAction.next,
+                        //     ),
+                        //     verticalSpace(4.5),
                         AppTextField(
                           key: const Key('Login_emailaddress_textfield'),
+                          controller: _emailController,
                           label: 'Email Address',
                           hintText: 'Enter Email Address',
                           onChanged: _cubit.emailChanged,
@@ -97,6 +114,7 @@ class InvestorLoginView extends StatelessWidget {
                         verticalSpace(4.5),
                         AppTextField(
                           key: const Key('Login_password_textfield'),
+                          controller: _passwordController,
                           label: 'Password', 
                           endWidget: GestureDetector(
                             onTap: () {},
@@ -112,7 +130,7 @@ class InvestorLoginView extends StatelessWidget {
                           onChanged: _cubit.passwordChanged,
                           obscureText: state.showPassword!,
                           validator: _cubit.validatePassword,
-                          suffixIcon: IconButton(
+                          suffixIcon: IconButton( //puts your icon at the end of the input field
                             icon: Icon(
                               state.showPassword!
                                   ? Icons.visibility_off
@@ -124,7 +142,7 @@ class InvestorLoginView extends StatelessWidget {
                             onPressed: _cubit.togglePasswordVisibility,
                           ),
                           onFieldSubmitted: (val) =>
-                              _cubit.navigateToLoginScreenTwo(),
+                              _cubit.navigateToLoginScreenTwo(), //brings submission button
                         ),
                         verticalSpace(4),
                         ProgressButton(

@@ -9,6 +9,7 @@ import 'package:chipln/presentation/global/text_styling.dart';
 import 'package:chipln/presentation/global/ui_helper.dart';
 import 'package:chipln/presentation/global/widget/app_text_field.dart';
 import 'package:sizer/sizer.dart';
+import 'package:chipln/presentation/global/widget/ioptions.dart';
 
 class InvestView extends StatefulWidget {
   const InvestView({Key? key}) : super(key: key);
@@ -169,7 +170,6 @@ class _InvestViewState extends State<InvestView> with TickerProviderStateMixin {
                         ),
                         Expanded(
                           child: TabBarView(
-                            
                             physics: const NeverScrollableScrollPhysics(),
                             controller: primaryTC,
                             children: <Widget>[
@@ -184,11 +184,15 @@ class _InvestViewState extends State<InvestView> with TickerProviderStateMixin {
                                     child: ListView.builder(
                                         padding: EdgeInsets.zero,
                                         physics: const BouncingScrollPhysics(),
-                                        itemCount: 5,
                                         itemBuilder: (context, index) {
                                           return Column(
                                             children: [
-                                              const FeaturedCard(),
+                                              const FeaturedCard(
+                                                  'Gojek',
+                                                  'Tis product is perfect for you',
+                                                  30,
+                                                  5,
+                                                  'By XYZ Inc.'),
                                               verticalSpace(2),
                                               const MyHorizontalDivider()
                                             ],
@@ -201,11 +205,16 @@ class _InvestViewState extends State<InvestView> with TickerProviderStateMixin {
                                 child: ListView.builder(
                                     padding: EdgeInsets.zero,
                                     physics: const BouncingScrollPhysics(),
-                                    itemCount: 5,
+                                    itemCount: 3,
                                     itemBuilder: (context, index) {
                                       return Column(
                                         children: [
-                                          const FeaturedCard(),
+                                          const FeaturedCard(
+                                              'Gojek',
+                                              'Tis product is perfect for you',
+                                              30,
+                                              5,
+                                              'By XYZ Inc.'),
                                           verticalSpace(2),
                                           const MyHorizontalDivider()
                                         ],
@@ -214,9 +223,6 @@ class _InvestViewState extends State<InvestView> with TickerProviderStateMixin {
                               ),
                               Column(
                                 children: [
-                                  const Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Icon(EvaIcons.options2Outline)),
                                   Expanded(
                                     child: ListView.builder(
                                         padding: EdgeInsets.zero,
@@ -225,7 +231,12 @@ class _InvestViewState extends State<InvestView> with TickerProviderStateMixin {
                                         itemBuilder: (context, index) {
                                           return Column(
                                             children: [
-                                              const FeaturedCard(),
+                                              const FeaturedCard(
+                                                  'Gojek',
+                                                  'Tis product is perfect for you',
+                                                  30,
+                                                  5,
+                                                  'By XYZ Inc.'),
                                               verticalSpace(2),
                                               const MyHorizontalDivider()
                                             ],

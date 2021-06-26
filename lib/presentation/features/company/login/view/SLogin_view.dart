@@ -15,6 +15,10 @@ import 'package:sizer/sizer.dart';
 import '../cubit/login_cubit.dart';
 
 class SLoginView extends StatelessWidget {
+  final TextEditingController _pinController = TextEditingController();
+  final TextEditingController _sconsultantController = TextEditingController();
+  final TextEditingController _companyController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     var buttonState = ButtonState.idle;
@@ -59,7 +63,7 @@ class SLoginView extends StatelessWidget {
                           children: [
                             verticalSpace(10),
                             Text(
-                              'Welcome',
+                              'Welcome Secondary Consultant',
                               style: TextStyling.h1,
                             ),
                             Row(
@@ -85,42 +89,43 @@ class SLoginView extends StatelessWidget {
                       children: [
                         verticalSpace(8),
                         AppTextField(
-                          key: const Key('Login_emailaddress_textfield'),
-                          label: 'Email Address',
-                          hintText: 'Enter Email Address',
-                          onChanged: _cubit.emailChanged,
-                          keyboardType: TextInputType.emailAddress,
-                          validator: _cubit.validateEmail,
+                          controller: _sconsultantController,
+                          key: const Key('Login_consultantName_textfield'),
+                          label: 'Consultant Name',
+                          hintText: 'Enter Consultant Name',
+                          onChanged: _cubit.firstNameChanged,
+                          validator: _cubit.validateFullName,
                           textInputAction: TextInputAction.next,
                         ),
                         verticalSpace(4.5),
                         AppTextField(
-                          key: const Key('Login_password_textfield'),
-                          label: 'Password',
-                          endWidget: GestureDetector(
-                            onTap: () {},
-                            child: Align(
-                              alignment: Alignment.centerRight,
-                              child: Text('Forget Password',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyling.bodyText1.copyWith(
-                                      color: kPrimaryColor, fontSize: 13)),
-                            ),
-                          ),
-                          hintText: 'Password',
-                          onChanged: _cubit.passwordChanged,
-                          obscureText: state.showPassword!,
-                          validator: _cubit.validatePassword,
+                          controller: _companyController,
+                          key: const Key('Login_companyName_textfield'),
+                          label: 'Company Name',
+                          hintText: 'Enter Company Name',
+                          onChanged: _cubit.firstNameChanged,
+                          validator: _cubit.validateFullName,
+                          textInputAction: TextInputAction.next,
+                        ),
+                        verticalSpace(4.5),
+                        AppTextField(
+                          controller: _pinController,
+                          key: const Key('Login_PIN_textfield'),
+                          label: 'PIN Code',
+                          hintText: 'XXXX',
+                          onChanged: _cubit.pinChanged,
+                          obscureText: state.showPIN!,
+                          validator: _cubit.validatePIN,
                           suffixIcon: IconButton(
                             icon: Icon(
                               state.showPassword!
                                   ? Icons.visibility_off
                                   : Icons.visibility,
-                              color: state.showPassword!
+                              color: state.showPIN!
                                   ? kGreyColor
                                   : kPrimaryColor,
                             ),
-                            onPressed: _cubit.togglePasswordVisibility,
+                            onPressed: _cubit.togglePINVisibility,
                           ),
                           onFieldSubmitted: (val) =>
                               _cubit.navigateToLoginScreenTwo(),

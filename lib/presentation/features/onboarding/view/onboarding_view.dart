@@ -12,7 +12,7 @@ import 'package:chipln/presentation/global/widget/transparent_button.dart';
 import '../onboarding.dart';
 
 class OnboardingView extends StatelessWidget {
-  OnboardingView({Key? key}) : super(key: key);
+  OnboardingView({Key? key}) : super(key: key);//Every single class has its specific flutter
 
   /// This method is used to generate
   /// the Page indicator based on the number of pages
@@ -52,7 +52,7 @@ class OnboardingView extends StatelessWidget {
       description: 'Interacr with Interested investors daily',
     ),
     OnboardingItem(
-      svgUrl: Assets.images.startup.money.path,
+      svgUrl: Assets.images.startup.help.path,
       title: 'ChipIn',
       description: 'Connecting the need to those in need',
     ),
@@ -90,7 +90,7 @@ class OnboardingView extends StatelessWidget {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: _buildPageIndicator(_cubit),
+                    children: _buildPageIndicator(_cubit),//this is state that, on the assigned page, the page indicator will be wite and the others will be gray
                   ),
                   verticalSpace(3),
                   GestureDetector(

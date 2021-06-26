@@ -13,7 +13,7 @@ Widget buildBody(itemBuild) {
     case 1:
       return const InvestView();
     case 2:
-      return const InvestorChatView();
+      return InvestorChatView();
     case 3:
       return const InvestorProfileView();
     default:

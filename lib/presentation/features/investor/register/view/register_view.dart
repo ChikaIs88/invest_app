@@ -18,6 +18,11 @@ import 'package:sizer/sizer.dart';
 import '../cubit/register_cubit.dart';
 
 class InvestorRegisterView extends StatelessWidget {
+  final TextEditingController _firstnameController = TextEditingController();
+  final TextEditingController _lastnameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phonenumberController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final ScrollController _controller = ScrollController();
 
@@ -85,7 +90,6 @@ class InvestorRegisterView extends StatelessWidget {
                   state.dateTime != null &&
                   state.phoneNumber != null) {
                 FocusScope.of(context).unfocus();
-              
               }
             },
             builder: (context, state) {
@@ -117,6 +121,7 @@ class InvestorRegisterView extends StatelessWidget {
                           children: [
                             AppTextField(
                               key: const Key('register_firstName_textfield'),
+                              controller: _firstnameController,
                               label: 'First Name',
                               hintText: 'Enter First Name',
                               onChanged: _cubit.firstNameChanged,
@@ -125,7 +130,18 @@ class InvestorRegisterView extends StatelessWidget {
                             ),
                             verticalSpace(4.5),
                             AppTextField(
+                              key: const Key('register_lastName_textfield'),
+                              controller: _lastnameController,
+                              label: 'Last Name',
+                              hintText: 'Enter Last Name',
+                              onChanged: _cubit.lastNameChanged,
+                              validator: _cubit.validateFullName,
+                              textInputAction: TextInputAction.next,
+                            ),
+                            verticalSpace(4.5),
+                            AppTextField(
                               key: const Key('register_emailaddress_textfield'),
+                              controller: _emailController,
                               label: 'Email Address',
                               hintText: 'Enter Email Address',
                               onChanged: _cubit.emailChanged,
@@ -152,6 +168,16 @@ class InvestorRegisterView extends StatelessWidget {
                                 gapPadding: 20.0,
                                 borderRadius: BorderRadius.circular(10),
                               ),
+                            ),
+                            verticalSpace(4.5),
+                             AppTextField(
+                              key: const Key('register_userName_textfield'),
+                              controller: _usernameController,
+                              label: 'Username',
+                              hintText: 'Enter Username',
+                              onChanged: _cubit.usernameChanged,
+                              validator: _cubit.validateUserName,
+                              textInputAction: TextInputAction.next,
                             ),
                             verticalSpace(4.5),
                             AppTextField(
@@ -230,7 +256,7 @@ class InvestorRegisterView extends StatelessWidget {
                               stateColors: {
                                 ButtonState.idle:
                                     state.btnColor ?? Colors.grey.shade400,
-                                ButtonState.loading:kMintGreen ,
+                                ButtonState.loading: kMintGreen,
                                 ButtonState.fail: Colors.red.shade300,
                                 ButtonState.success: Colors.green.shade400,
                               },
@@ -240,7 +266,6 @@ class InvestorRegisterView extends StatelessWidget {
                               },
                               state: buttonState,
                             ),
-                           
                             verticalSpace(4.5),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,

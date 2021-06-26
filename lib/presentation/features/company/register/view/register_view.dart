@@ -18,7 +18,13 @@ import 'package:sizer/sizer.dart';
 import '../cubit/register_cubit.dart';
 
 class InvestorCompanyRegisterView extends StatelessWidget {
+  final formKey = GlobalKey<FormState>();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _mconsultantController = TextEditingController();
+  final TextEditingController _companyController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+
   final ScrollController _controller = ScrollController();
 
   @override
@@ -115,6 +121,19 @@ class InvestorCompanyRegisterView extends StatelessWidget {
                         child: Column(
                           children: [
                             AppTextField(
+                              controller: _mconsultantController,
+                              // ignore: lines_longer_than_80_chars
+                              key: const Key(
+                                  'register_consultantName_textfield'),
+                              label: 'Consultant Name',
+                              hintText: 'Enter Consultant Name',
+                              onChanged: _cubit.firstNameChanged,
+                              validator: _cubit.validateFullName,
+                              textInputAction: TextInputAction.next,
+                            ),
+                            verticalSpace(4.5),
+                            AppTextField(
+                              controller: _companyController,
                               key: const Key('register_companyName_textfield'),
                               label: 'Company Name',
                               hintText: 'Enter Company Name',
@@ -124,6 +143,7 @@ class InvestorCompanyRegisterView extends StatelessWidget {
                             ),
                             verticalSpace(4.5),
                             AppTextField(
+                              controller: _emailController,
                               key: const Key('register_emailaddress_textfield'),
                               label: 'Enter Company Email Address',
                               hintText: 'Enter Email Address',
@@ -269,7 +289,8 @@ class InvestorCompanyRegisterView extends StatelessWidget {
                                 ButtonState.success: Colors.green.shade400,
                               },
                               onPressed: () {
-                                Routes.seafarer.navigate('/investorCompanyConfirmRegister');
+                                Routes.seafarer.navigate(
+                                    '/investorCompanyConfirmRegister');
                                 // _cubit.navigateToRegisterScreenTwo();
                               },
                               state: buttonState,
