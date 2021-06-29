@@ -1,4 +1,6 @@
 // ignore: file_names
+import 'package:chipln/logic/services/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:chipln/app/logger_init.dart';
@@ -9,11 +11,11 @@ import 'package:chipln/presentation/global/routing/routes.dart';
 import 'package:chipln/presentation/global/text_styling.dart';
 import 'package:chipln/presentation/global/ui_helper.dart';
 import 'package:chipln/presentation/global/widget/app_text_field.dart';
+// ignore: unused_import
 import 'package:chipln/presentation/global/widget/transparent_button.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:progress_state_button/progress_button.dart';
 import 'package:sizer/sizer.dart';
-
 
 import '../cubit/login_cubit.dart';
 
@@ -21,6 +23,12 @@ class InvestorLoginView extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  final AuthService _auth = AuthService();
+
+  String? emailAddress = '';
+  String? password = '';
+  String? username = '';
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +41,8 @@ class InvestorLoginView extends StatelessWidget {
           body: SingleChildScrollView(
               child: Column(mainAxisSize: MainAxisSize.max, children: [
         BlocConsumer<LoginCubit, LoginState>(
-          listener: (context, state) { //listen to the change and run whatever it gets
+          listener: (context, state) {
+            //listen to the change and run whatever it gets
             final _cubit = context.read<LoginCubit>();
             if (state.emailAddress!.isNotEmpty && state.password!.isNotEmpty) {
               _cubit.updateColor(kPrimaryColor);
@@ -47,7 +56,8 @@ class InvestorLoginView extends StatelessWidget {
               _cubit.handleLogin();
             }
           },
-          builder: (context, state) { //allows you update the ui
+          builder: (context, state) {
+            //allows you update the ui
             final _cubit = context.watch<LoginCubit>();
             return Column(
               children: [
@@ -92,15 +102,15 @@ class InvestorLoginView extends StatelessWidget {
                       children: [
                         verticalSpace(8),
                         // AppTextField(
-                        //       key: const Key('Login_userName_textfield'),
-                        //       controller: _usernameController,
-                        //       label: 'Username',
-                        //       hintText: 'Enter Username',
-                        //       onChanged: _cubit.usernameChanged,
-                        //       validator: _cubit.validateUserName,
-                        //       textInputAction: TextInputAction.next,
-                        //     ),
-                        //     verticalSpace(4.5),
+                        //   key: const Key('Login_userName_textfield'),
+                        //   controller: _usernameController,
+                        //   label: 'Username',
+                        //   hintText: 'Enter Username',
+                        //   onChanged: _cubit.usernameChanged,
+                        //   validator: _cubit.validateUserName,
+                        //   textInputAction: TextInputAction.next,
+                        // ),
+                        // verticalSpace(4.5),
                         AppTextField(
                           key: const Key('Login_emailaddress_textfield'),
                           controller: _emailController,
@@ -115,7 +125,7 @@ class InvestorLoginView extends StatelessWidget {
                         AppTextField(
                           key: const Key('Login_password_textfield'),
                           controller: _passwordController,
-                          label: 'Password', 
+                          label: 'Password',
                           endWidget: GestureDetector(
                             onTap: () {},
                             child: Align(
@@ -130,7 +140,8 @@ class InvestorLoginView extends StatelessWidget {
                           onChanged: _cubit.passwordChanged,
                           obscureText: state.showPassword!,
                           validator: _cubit.validatePassword,
-                          suffixIcon: IconButton( //puts your icon at the end of the input field
+                          suffixIcon: IconButton(
+                            //puts your icon at the end of the input field
                             icon: Icon(
                               state.showPassword!
                                   ? Icons.visibility_off
@@ -141,8 +152,8 @@ class InvestorLoginView extends StatelessWidget {
                             ),
                             onPressed: _cubit.togglePasswordVisibility,
                           ),
-                          onFieldSubmitted: (val) =>
-                              _cubit.navigateToLoginScreenTwo(), //brings submission button
+                          onFieldSubmitted: (val) => _cubit
+                              .navigateToLoginScreenTwo(), //brings submission button
                         ),
                         verticalSpace(4),
                         ProgressButton(
@@ -184,7 +195,12 @@ class InvestorLoginView extends StatelessWidget {
                             ButtonState.fail: Colors.red.shade300,
                             ButtonState.success: Colors.green.shade400,
                           },
-                          onPressed: () {
+                          onPressed: () async {
+                            UserCredential user = await FirebaseAuth.instance
+                                .signInWithEmailAndPassword(
+                              email: _emailController.text,
+                              password: _passwordController.text,
+                            );
                             _cubit.navigateToLoginScreenTwo();
                           },
                           state: buttonState,

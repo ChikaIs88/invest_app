@@ -152,7 +152,7 @@ class Routes {
           SeafarerTransition.zoom_in,
         ],
         builder: (context, args, params) {
-          return const CompanyPackagesView();
+          return CompanyPackagesView();
         },
       ),
       SeafarerRoute(
@@ -165,7 +165,7 @@ class Routes {
           return const CompanyMessagesView();
         },
       ),
-       SeafarerRoute(
+      SeafarerRoute(
         name: '/investorCompanyAssignWorker',
         defaultTransitions: [
           SeafarerTransition.slide_from_top,
@@ -175,7 +175,7 @@ class Routes {
           return const CompanyAssignWorkerView();
         },
       ),
-         SeafarerRoute(
+      SeafarerRoute(
         name: '/investorCompanyNotification',
         defaultTransitions: [
           SeafarerTransition.slide_from_top,
@@ -185,8 +185,6 @@ class Routes {
           return const CompanyNotificationView();
         },
       ),
-
-      
     ]);
   }
 }

@@ -5,6 +5,7 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
+import 'package:chipln/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 //import 'package:chipln/counter/counter.dart';
@@ -27,6 +28,7 @@ class App extends StatelessWidget {
           SavedLastStateData.instance.navigationObserver,
           SeafarerLoggingObserver()
         ],
+        // ignore: prefer_const_literals_to_create_immutables
         localizationsDelegates: [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,

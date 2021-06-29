@@ -175,27 +175,27 @@ class SLoginView extends StatelessWidget {
                           },
                           state: buttonState,
                         ),
-                        verticalSpace(3),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Don't have an account? ",
-                                textAlign: TextAlign.center,
-                                style: TextStyling.bodyText1.copyWith(
-                                  color: Colors.black,
-                                )),
-                            GestureDetector(
-                              onTap: () {
-                                Routes.seafarer('/investorCompanyRegister');
-                              },
-                              child: Text('Sign Up',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyling.bodyText1.copyWith(
-                                    color: kPrimaryColor,
-                                  )),
-                            ),
-                          ],
-                        ),
+                        // verticalSpace(3),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //     Text("Don't have an account? ",
+                        //         textAlign: TextAlign.center,
+                        //         style: TextStyling.bodyText1.copyWith(
+                        //           color: Colors.black,
+                        //         )),
+                        //     GestureDetector(
+                        //       onTap: () {
+                        //         Routes.seafarer('/investorCompanyRegister');
+                        //       },
+                        //       child: Text('Sign Up',
+                        //           textAlign: TextAlign.center,
+                        //           style: TextStyling.bodyText1.copyWith(
+                        //             color: kPrimaryColor,
+                        //           )),
+                        //     ),
+                        //   ],
+                        // ),
                         verticalSpace(8),
                       ],
                     ),

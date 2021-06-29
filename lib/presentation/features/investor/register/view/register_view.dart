@@ -1,8 +1,3 @@
-import 'package:flexible_scrollbar/flexible_scrollbar.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:international_phone_field/international_phone_field.dart';
 import 'package:chipln/app/logger_init.dart';
 import 'package:chipln/logic/core/auth_status.dart';
 import 'package:chipln/presentation/global/assets/assets.gen.dart';
@@ -13,8 +8,16 @@ import 'package:chipln/presentation/global/ui_helper.dart';
 import 'package:chipln/presentation/global/widget/app_text_field.dart';
 import 'package:chipln/presentation/global/widget/transparent_button.dart';
 import 'package:chipln/presentation/global/widget/validator/flutter_pw_validator.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flexible_scrollbar/flexible_scrollbar.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:international_phone_field/international_phone_field.dart';
 import 'package:progress_state_button/progress_button.dart';
 import 'package:sizer/sizer.dart';
+
 import '../cubit/register_cubit.dart';
 
 class InvestorRegisterView extends StatelessWidget {
@@ -25,6 +28,15 @@ class InvestorRegisterView extends StatelessWidget {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final ScrollController _controller = ScrollController();
+
+  // signMeUp(){
+  //   if(_cubit.formKeyOne.currentState.validate()){
+  //     setState(
+
+  //     )
+  //     //Routes.seafarer.navigate('/investorPrefrence');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -170,7 +182,7 @@ class InvestorRegisterView extends StatelessWidget {
                               ),
                             ),
                             verticalSpace(4.5),
-                             AppTextField(
+                            AppTextField(
                               key: const Key('register_userName_textfield'),
                               controller: _usernameController,
                               label: 'Username',
@@ -260,8 +272,53 @@ class InvestorRegisterView extends StatelessWidget {
                                 ButtonState.fail: Colors.red.shade300,
                                 ButtonState.success: Colors.green.shade400,
                               },
-                              onPressed: () {
+                              onPressed: () async {
+                                // await FirebaseAuth
+                                //     .instance
+                                //     .createUserWithEmailAndPassword(
+                                //         email: _emailController.text,
+                                //         password: _passwordController.text);
+                                //     .then((onValue) {
+                                //   Routes.seafarer.navigate('/investorPrefrence');
+                                //   // ignore: avoid_dynamic_calls
+                                //   Firestore.instance
+                                //       .collection('users')
+                                //       .document()
+                                //       .setData({
+                                //     'email': _emailController.text,
+                                //     'username': _usernameController.text,
+                                //     'first_name': _firstnameController.text,
+                                //   }).then((onValue) {
+                                //     _sheetController.setState(() {
+                                //       _loading = false;
+                                //     });
+                                //   });
+                                // });
+
+                                _cubit.navigateToRegisterScreenTwo();
                                 Routes.seafarer.navigate('/investorPrefrence');
+
+                                // UserUpdateInfo userUpdateInfo =
+                                //     new UserUpdateInfo();
+                                // userUpdateInfo.displayName = _displayName;
+                                // user
+                                //     .updateProfile(userUpdateInfo)
+                                //     .then((onValue) {
+                                //   Routes.seafarer.navigate('/investorPrefrence');
+                                //   Firestore.instance
+                                //       .collection('users')
+                                //       .document()
+                                //       .setData({
+                                //     'email': _emailController.text,
+                                //     'username': _usernameController.text,
+                                //     'first_name': _firstnameController.text,
+                                //   }).then((onValue) {
+                                //     _sheetController.setState(() {
+                                //       _loading = false;
+                                //     });
+                                //   });
+                                // });
+
                                 // _cubit.navigateToRegisterScreenTwo();
                               },
                               state: buttonState,
