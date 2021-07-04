@@ -94,81 +94,89 @@ class CompanyPackagesView extends StatelessWidget {
             forceCustomHeight: true,
             expendedBackgroundColor: Color(0xffFFFAFA),
             withChild: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                verticalSpace(1.5),
-                Text('Add Package📋',
-                    style: TextStyling.h1.copyWith(
-                      color: kTransBlack,
-                    )),
-                verticalSpace(4.5),
-                Text(
-                    'Please note that after adding,\nyou will not be able to edit it',
-                    textAlign: TextAlign.center,
-                    style: TextStyling.bodyText1.copyWith(
-                      color: kTransBlack,
-                    )),
-                verticalSpace(1.5),
-                Padding(
-                  padding: paddingLR20,
-                  child: AppTextField(
-                    key: const Key('package_name_textfield'),
-                    label: 'Name',
-                    hintText: 'Enter the package name',
-                    onChanged: (value) {},
-                    keyboardType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.next,
-                  ),
-                ),
-                verticalSpace(4.5),
-                Padding(
-                  padding: paddingLR20,
-                  child: AppTextField(
-                    key: const Key('package_description_textfield'),
-                    label: 'Description',
-                    hintText: 'Enter Package Description',
-                    maxLines: 5,
-                    onChanged: (value) {},
-                    keyboardType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.next,
-                  ),
-                ),
-                verticalSpace(4.5),
-                // AppDropDown1(
-                //   dropdownTestItems: _dropdownTestItems,
-                //   label: 'Investmnt Type',
-                //   title: 'Investment Type',
-                //   selectedItem: state.selectedItem,
-                // ignore: lines_longer_than_80_chars
-                //   onChangeDropdownList: _readPackageData.onChangeDropdownList,
-                // ),
-                verticalSpace(4.5),
-                Padding(
-                  padding: paddingLR20,
-                  child: Row(
+                Expanded(
+                  child: ListView(
                     children: [
-                      SizedBox(
-                        width: responsiveWidth(35),
-                        child: const AppTextField(
-                          key: Key('package_price_textfield'),
-                          label: 'Value',
-                          hintText: 'Enter package value',
+                      verticalSpace(1.5),
+                      Text('Add Package📋',
+                          style: TextStyling.h1.copyWith(
+                            color: kTransBlack,
+                          )),
+                      verticalSpace(4.5),
+                      Text(
+                          'Please note that after adding,\nyou will not be able to edit it',
+                          textAlign: TextAlign.center,
+                          style: TextStyling.bodyText1.copyWith(
+                            color: kTransBlack,
+                          )),
+                      verticalSpace(1.5),
+                      Padding(
+                        padding: paddingLR20,
+                        child: AppTextField(
+                          key: const Key('package_name_textfield'),
+                          label: 'Name',
+                          hintText: 'Enter the package name',
+                          onChanged: (value) {},
+                          keyboardType: TextInputType.emailAddress,
                           textInputAction: TextInputAction.next,
                         ),
                       ),
-                      horizontalSpace(2),
-                      SizedBox(
-                        width: responsiveWidth(35),
-                        child: const AppTextField(
-                          key: Key('register_lastname_textfield'),
-                          label: 'Unit',
-                          hintText: 'Enter package unit',
+                      verticalSpace(4.5),
+                      Padding(
+                        padding: paddingLR20,
+                        child: AppTextField(
+                          key: const Key('package_description_textfield'),
+                          label: 'Description',
+                          hintText: 'Enter Package Description',
+                          maxLines: 5,
+                          onChanged: (value) {},
+                          keyboardType: TextInputType.emailAddress,
                           textInputAction: TextInputAction.next,
                         ),
                       ),
+                      verticalSpace(4.5),
+                      // AppDropDown1(
+                      //   dropdownTestItems: _dropdownTestItems,
+                      //   label: 'Investmnt Type',
+                      //   title: 'Investment Type',
+                      //   selectedItem: state.selectedItem,
+                      // ignore: lines_longer_than_80_chars
+                      //   onChangeDropdownList: _readPackageData.onChangeDropdownList,
+                      // ),
+                      verticalSpace(4.5),
+                      Padding(
+                        padding: paddingLR20,
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: responsiveWidth(35),
+                              child: const AppTextField(
+                                key: Key('package_price_textfield'),
+                                label: 'Value',
+                                hintText: 'Enter package value',
+                                textInputAction: TextInputAction.next,
+                              ),
+                            ),
+                            horizontalSpace(2),
+                            SizedBox(
+                              width: responsiveWidth(35),
+                              child: const AppTextField(
+                                key: Key('register_lastname_textfield'),
+                                label: 'Unit',
+                                hintText: 'Enter package unit',
+                                textInputAction: TextInputAction.next,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      verticalSpace(4.5),
                     ],
                   ),
                 ),
-                verticalSpace(4.5),
+                
                 // AppDropDown(
                 //   dropdownSectorItems: _dropdownSectorItems,
                 //   label: 'Sector',
@@ -191,7 +199,7 @@ class CompanyPackagesView extends StatelessWidget {
                         onPressed: () {
                           mabialaFABController.isCollapsed = true;
                         },
-                        icon: Icon(EvaIcons.questionMarkCircle))
+                        icon: const Icon(EvaIcons.questionMarkCircle))
                   ],
                 )
               ],

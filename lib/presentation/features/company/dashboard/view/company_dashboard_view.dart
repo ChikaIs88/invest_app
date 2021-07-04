@@ -86,7 +86,7 @@ List<String> dashboardRoutingPath = [
 List<String> titles = [
   'Packages',
   'Messages',
-  'Assign Worker',
+  'Assign Consultant',
   'Notfication',
   'Edit Profile',
   'Logout'

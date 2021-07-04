@@ -51,6 +51,7 @@ mixin ValidationMixin {
       return 'Password field cannot be empty';
     }
 
+    // ignore: omit_local_variable_types
     bool hasUppercase = password.contains(new RegExp(r'[A-Z]'));
     bool hasDigits = password.contains(new RegExp(r'[0-9]'));
     bool hasLowercase = password.contains(new RegExp(r'[a-z]'));
@@ -65,12 +66,16 @@ mixin ValidationMixin {
     if (pin == null || pin.isEmpty) {
       return 'Password field cannot be empty';
     }
-
+  
+    // ignore: omit_local_variable_types
     bool hasDigits = pin.contains(RegExp(r'[0-9]'));
 
+    // ignore: omit_local_variable_types
     bool hasMinLength = pin.length > 4;
+    // ignore: omit_local_variable_types
+    bool hasMaxLength = pin.length < 4;
 
-    if (hasDigits & hasMinLength) return null;
+    if (hasDigits & hasMinLength & hasMaxLength) return null;
     return 'Please enter a valid PIN';
   }
 }

@@ -281,10 +281,10 @@ class InvestorRegisterView extends StatelessWidget {
                                 //     .then((onValue) {
                                 //   Routes.seafarer.navigate('/investorPrefrence');
                                 //   // ignore: avoid_dynamic_calls
-                                //   Firestore.instance
+                                //   FirebaseFirestore.instance
                                 //       .collection('users')
-                                //       .document()
-                                //       .setData({
+                                //       .add
+                                //       ({
                                 //     'email': _emailController.text,
                                 //     'username': _usernameController.text,
                                 //     'first_name': _firstnameController.text,
@@ -293,7 +293,7 @@ class InvestorRegisterView extends StatelessWidget {
                                 //       _loading = false;
                                 //     });
                                 //   });
-                                // });
+                                // });                 
 
                                 _cubit.navigateToRegisterScreenTwo();
                                 Routes.seafarer.navigate('/investorPrefrence');
