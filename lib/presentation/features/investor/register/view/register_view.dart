@@ -243,7 +243,10 @@ class InvestorRegisterView extends StatelessWidget {
                                 )
                               },
                               stateColors: {
-                                ButtonState.idle: state.btnColor!,
+                                ButtonState.idle:
+                                    state.buttonState == ButtonState.idle
+                                        ? kGreyColor
+                                        : kPrimaryColor,
                                 ButtonState.loading: kMintGreen,
                                 ButtonState.fail: Colors.red.shade300,
                                 ButtonState.success: Colors.green.shade400,

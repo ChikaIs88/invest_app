@@ -17,6 +17,7 @@ abstract class BaseConfig<T> {
   Future<String?> signUpUser({String? email, String? password});
   Future<String?> signInUser({String? email, String? password});
   Future<String?> checkCurrentUser();
+  Future<String?> prefrence({Map<String, dynamic>? data});
   Future<void> logOUt();
 }
 
@@ -85,8 +86,8 @@ class Authentication<T> extends BaseConfig<T> {
           email: email!, password: password!);
       logger.i('signup:: adding the user profile');
       await add.addUser(data: info, id: userCredential.user!.uid);
-      await add.getUserData(id: userUid);
       userUid = userCredential.user!.uid;
+      await add.getUserData(id: userUid);
       await saveStorage('uid', userCredential.user!.uid);
 
       return userCredential.user!.uid;
@@ -100,6 +101,17 @@ class Authentication<T> extends BaseConfig<T> {
         apiError = 'The account already exists for $email.';
         showToast(apiError);
       }
+    } catch (e) {
+      apiError = '$e';
+      showToast(apiError);
+    }
+  }
+
+  @override
+  Future<String?> prefrence({Map<String, dynamic>? data}) async {
+    try {
+      await add.addUserPrefrence(data: data, id: userUid);
+      return 'success';
     } catch (e) {
       apiError = '$e';
       showToast(apiError);

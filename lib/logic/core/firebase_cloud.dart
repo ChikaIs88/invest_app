@@ -10,6 +10,9 @@ abstract class Database {
   Future<void> addUser();
   // Get user data
   Future<void> getUserData();
+  // Add User Prefrence
+
+  Future<void> addUserPrefrence();
 }
 
 ///This function is use to add data to your firestore.
@@ -34,5 +37,12 @@ class AddToDatabase extends Database {
     await saveStorage('username', userInfo!.username);
 
     return '$userInfo.email';
+  }
+
+  @override
+  Future<void> addUserPrefrence({Map<String, dynamic>? data, String? id}) {
+    CollectionReference prefrence =
+        FirebaseFirestore.instance.collection('prefrence');
+    return prefrence.doc(id).set(data);
   }
 }

@@ -45,7 +45,7 @@ class _PrefrenceViewState extends State<PrefrenceView> {
     {'no': 2, 'keyword': 'High (15% and above)'},
   ];
 
-  List<DropdownMenuItem> buildDropdownTestItems() {
+  List<DropdownMenuItem> buildDropdownInestmentItems() {
     var items = <DropdownMenuItem>[];
     for (var i in _investmentTypes) {
       items.add(
@@ -86,7 +86,7 @@ class _PrefrenceViewState extends State<PrefrenceView> {
 
   @override
   void initState() {
-    _dropdownTestItems = buildDropdownTestItems();
+    _dropdownTestItems = buildDropdownInestmentItems();
     _dropdownSectorItems = buildDropdownSectorItems();
     _dropdownInterestItems = buildDropdownInterestItems();
 
@@ -102,6 +102,8 @@ class _PrefrenceViewState extends State<PrefrenceView> {
           child: Scaffold(
             body: SingleChildScrollView(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Container(
                     height: 17.h,
@@ -160,9 +162,9 @@ class _PrefrenceViewState extends State<PrefrenceView> {
                                 dropdownSectorItems: _dropdownSectorItems,
                                 label: 'Preferred Sector',
                                 title: 'Sector',
-                                selectedItem: state.selectedItem,
+                                selectedItem: state.selectedSector,
                                 onChangeDropdownList:
-                                    _readPrefrenceData.onChangeDropdownList,
+                                    _readPrefrenceData.onChangeDropDownSector,
                               ),
                               verticalSpace(2),
                               Text('Amount you want to invest',
@@ -186,7 +188,7 @@ class _PrefrenceViewState extends State<PrefrenceView> {
                                       color: Colors.white,
                                     ),
                                     child: Text(
-                                      '0\u20A6 - Any',
+                                      '${state.amount}\u20A6 - Any',
                                       style: GoogleFonts.quicksand(
                                         fontSize: 13,
                                         color: const Color.fromRGBO(
@@ -197,12 +199,12 @@ class _PrefrenceViewState extends State<PrefrenceView> {
                                   SizedBox(
                                     width: 62.w,
                                     child: FlutterSlider(
-                                      values: [10, 100],
-                                      rangeSlider: true,
-                                      max: 100,
+                                      values: [state.amount],
+
+                                      max: 10000,
                                       min: 0,
-                                      step: const FlutterSliderStep(step: 5),
-                                      jump: true,
+                                      // // step: const FlutterSliderStep(step: 5),
+                                      // jump: true,
                                       trackBar: const FlutterSliderTrackBar(
                                         activeTrackBar:
                                             BoxDecoration(color: kPrimaryColor),
@@ -210,20 +212,17 @@ class _PrefrenceViewState extends State<PrefrenceView> {
                                         activeTrackBarHeight: 3,
                                       ),
                                       disabled: false,
+
                                       handler:
                                           customHandler(Icons.chevron_right),
                                       rightHandler:
                                           customHandler(Icons.chevron_left),
                                       tooltip: FlutterSliderTooltip(
-                                        leftPrefix: const Icon(
-                                          Icons.attach_money,
-                                          size: 19,
-                                          color: Colors.black45,
-                                        ),
-                                        rightSuffix: const Icon(
-                                          Icons.attach_money,
-                                          size: 19,
-                                          color: Colors.black45,
+                                        rightPrefix: const Text(
+                                          '\u{20A6}',
+                                          style: TextStyle(
+                                              fontSize: 17,
+                                              color: Colors.black45),
                                         ),
                                         textStyle: const TextStyle(
                                             fontSize: 17,
@@ -231,7 +230,9 @@ class _PrefrenceViewState extends State<PrefrenceView> {
                                       ),
                                       onDragging: (handlerIndex, lowerValue,
                                           upperValue) {
-                                        setState(() {});
+                                        _readPrefrenceData
+                                            .onChangeDropDownAmmount(
+                                                lowerValue);
                                       },
                                     ),
                                   )
@@ -241,9 +242,9 @@ class _PrefrenceViewState extends State<PrefrenceView> {
                                 dropdownInterestItems: _dropdownInterestItems,
                                 label: 'What is your preferred interest rate?',
                                 title: 'Preferred Interest Rate',
-                                selectedItem: state.selectedItem,
+                                selectedItem: state.rate,
                                 onChangeDropdownList:
-                                    _readPrefrenceData.onChangeDropdownList,
+                                    _readPrefrenceData.onChangeDropDownRate,
                               ),
                               verticalSpace(5),
                               ProgressButton(
@@ -284,11 +285,9 @@ class _PrefrenceViewState extends State<PrefrenceView> {
                                   ButtonState.success: Colors.green.shade400,
                                 },
                                 onPressed: () {
-                                  Routes.seafarer
-                                      .navigate('/investorDashboardView');
-                                  // _cubit.navigateToRegisterScreenTwo();
+                                  _readPrefrenceData.handleAddPrefrence();
                                 },
-                                state: ButtonState.idle,
+                                state: state.buttonState,
                               ),
                             ],
                           );

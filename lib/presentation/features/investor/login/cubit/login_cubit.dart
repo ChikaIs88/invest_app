@@ -77,7 +77,7 @@ class LoginCubit extends Cubit<LoginState> with ValidationMixin {
         updateButtonState(ButtonState.fail);
       } else {
         updateButtonState(ButtonState.success);
-       
+
         Future.delayed(const Duration(seconds: 2), handleNavigateHome);
       }
     });

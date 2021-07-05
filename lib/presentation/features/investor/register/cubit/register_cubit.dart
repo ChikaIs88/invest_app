@@ -89,7 +89,7 @@ class RegisterCubit extends Cubit<RegisterState> with ValidationMixin {
       'first_name': state.firstName,
       'last_name': state.lastName,
       'username': state.username,
-      'phone_nummber': state.phoneNumber
+      'phone_nummber':state.phoneNumber
     }).then((value) {
       if (value == null) {
         updateButtonState(ButtonState.fail);
