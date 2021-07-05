@@ -2,7 +2,8 @@ part of 'login_cubit.dart';
 
 // ignore: must_be_immutable   Used to manage the states of the variables
 class LoginState extends Equatable {
- LoginState({
+  LoginState({
+    this.buttonState = ButtonState.idle,
     this.emailAddress = '',
     this.username = '',
     this.btnColor = kGreyColor,
@@ -19,16 +20,17 @@ class LoginState extends Equatable {
   final Color? btnColor;
   final AuthStatus? status;
   final bool? isActive;
+  final ButtonState buttonState;
 
-  LoginState copyWith({
-    String? emailAddress,
-    String? password,
-    String? username,
-    bool? showPassword,
-    AuthStatus? status,
-    Color? btnColor,
-    bool? isActive
-  }) {
+  LoginState copyWith(
+      {String? emailAddress,
+      String? password,
+      String? username,
+      bool? showPassword,
+      AuthStatus? status,
+      Color? btnColor,
+      ButtonState? buttonState,
+      bool? isActive}) {
     return LoginState(
       isActive: isActive ?? this.isActive,
       btnColor: btnColor,
@@ -37,6 +39,7 @@ class LoginState extends Equatable {
       password: password ?? this.password,
       status: status ?? this.status,
       showPassword: showPassword ?? this.showPassword,
+      buttonState: buttonState ?? this.buttonState,
     );
   }
 
@@ -44,6 +47,7 @@ class LoginState extends Equatable {
   List<Object?> get props => [
         emailAddress,
         password,
+        buttonState,
         status,
         showPassword,
         btnColor,

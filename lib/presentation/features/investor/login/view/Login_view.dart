@@ -1,4 +1,5 @@
 // ignore: file_names
+import 'package:chipln/logic/core/firebase_core.dart';
 import 'package:chipln/logic/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ import 'package:chipln/presentation/global/ui_helper.dart';
 import 'package:chipln/presentation/global/widget/app_text_field.dart';
 // ignore: unused_import
 import 'package:chipln/presentation/global/widget/transparent_button.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:progress_state_button/progress_button.dart';
 import 'package:sizer/sizer.dart';
@@ -32,7 +34,6 @@ class InvestorLoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var buttonState = ButtonState.idle;
     logger.d(' LoginScreen has been initialized');
 
     return BlocProvider(
@@ -49,12 +50,7 @@ class InvestorLoginView extends StatelessWidget {
             } else {
               _cubit.updateColor(kGrishTransWhiteColor);
             }
-            if (state.status == AuthStatus.nextPage) {
-              FocusScope.of(context).unfocus();
-
-              // buttonState = ButtonState.loading;
-              _cubit.handleLogin();
-            }
+            if (state.status == AuthStatus.nextPage) {}
           },
           builder: (context, state) {
             //allows you update the ui
@@ -152,8 +148,7 @@ class InvestorLoginView extends StatelessWidget {
                             ),
                             onPressed: _cubit.togglePasswordVisibility,
                           ),
-                          onFieldSubmitted: (val) => _cubit
-                              .navigateToLoginScreenTwo(), //brings submission button
+                          onFieldSubmitted: (val) =>  _cubit.handleLogin() //brings submission button
                         ),
                         verticalSpace(4),
                         ProgressButton(
@@ -196,14 +191,10 @@ class InvestorLoginView extends StatelessWidget {
                             ButtonState.success: Colors.green.shade400,
                           },
                           onPressed: () async {
-                            UserCredential user = await FirebaseAuth.instance
-                                .signInWithEmailAndPassword(
-                              email: _emailController.text,
-                              password: _passwordController.text,
-                            );
-                            _cubit.navigateToLoginScreenTwo();
+                            FocusScope.of(context).unfocus();
+                            _cubit.handleLogin();
                           },
-                          state: buttonState,
+                          state: state.buttonState,
                         ),
                         verticalSpace(3),
                         Row(
@@ -215,9 +206,7 @@ class InvestorLoginView extends StatelessWidget {
                                   color: Colors.black,
                                 )),
                             GestureDetector(
-                              onTap: () {
-                                Routes.seafarer('/investorRegister');
-                              },
+                              onTap: _cubit.handleNavigateToRegister,
                               child: Text('Sign Up',
                                   textAlign: TextAlign.center,
                                   style: GoogleFonts.quicksand(

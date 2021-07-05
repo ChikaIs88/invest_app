@@ -1,0 +1,38 @@
+import 'package:chipln/logic/core/storage.dart';
+import 'package:chipln/models/investor_user_model/investor_user_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'variable.dart';
+
+/// Base of the configuration
+abstract class Database {
+  // Add user
+  Future<void> addUser();
+  // Get user data
+  Future<void> getUserData();
+}
+
+///This function is use to add data to your firestore.
+///You can call the one which fit for you
+class AddToDatabase extends Database {
+  // Create a CollectionReference called users
+  // that references the firestore collection
+  CollectionReference users = FirebaseFirestore.instance.collection('investor');
+  @override
+  Future addUser({Map<String, dynamic>? data, String? id}) {
+    // Call the user's CollectionReference to add a new user
+    return users.doc(id).set(data);
+  }
+
+  @override
+  Future<String> getUserData({String? id}) async {
+    var userData = await users.doc(id).get();
+    userInfo =
+        InvestorUserModel.fromJson(userData.data() as Map<String, dynamic>);
+    await saveStorage('first_name', userInfo!.first_name);
+    await saveStorage('last_name', userInfo!.last_name);
+    await saveStorage('username', userInfo!.username);
+
+    return '$userInfo.email';
+  }
+}

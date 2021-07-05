@@ -5,13 +5,16 @@
 
 import 'dart:async';
 import 'dart:developer';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:last_state/last_state.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:bloc/bloc.dart';
 import 'package:chipln/app/app.dart';
 import 'package:chipln/app/app_bloc_observer.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:last_state/last_state.dart';
 
+import 'app/app_module.dart';
 import 'presentation/global/routing/routes.dart';
 
 Future<void> main() async {
@@ -25,7 +28,7 @@ Future<void> main() async {
 
   await SavedLastStateData.init();
   runZonedGuarded(
-    () => runApp(const App()),
+    () => runApp(ModularApp(module: AppModule(), child: const App())),
     (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
   );
 }

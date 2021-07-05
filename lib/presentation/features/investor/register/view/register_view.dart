@@ -6,10 +6,8 @@ import 'package:chipln/presentation/global/routing/routes.dart';
 import 'package:chipln/presentation/global/text_styling.dart';
 import 'package:chipln/presentation/global/ui_helper.dart';
 import 'package:chipln/presentation/global/widget/app_text_field.dart';
-import 'package:chipln/presentation/global/widget/transparent_button.dart';
 import 'package:chipln/presentation/global/widget/validator/flutter_pw_validator.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flexible_scrollbar/flexible_scrollbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,27 +19,12 @@ import 'package:sizer/sizer.dart';
 import '../cubit/register_cubit.dart';
 
 class InvestorRegisterView extends StatelessWidget {
-  final TextEditingController _firstnameController = TextEditingController();
-  final TextEditingController _lastnameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _phonenumberController = TextEditingController();
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
   final ScrollController _controller = ScrollController();
-
-  // signMeUp(){
-  //   if(_cubit.formKeyOne.currentState.validate()){
-  //     setState(
-
-  //     )
-  //     //Routes.seafarer.navigate('/investorPrefrence');
-  //   }
-  // }
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     logger.d(' RegisterScreen has been initialized');
-    var buttonState = ButtonState.idle;
     return BlocProvider(
       create: (context) => RegisterCubit(),
       child: Scaffold(
@@ -100,9 +83,7 @@ class InvestorRegisterView extends StatelessWidget {
               }
               if (state.status == AuthStatus.nextPage &&
                   state.dateTime != null &&
-                  state.phoneNumber != null) {
-                FocusScope.of(context).unfocus();
-              }
+                  state.phoneNumber != null) {}
             },
             builder: (context, state) {
               final _cubit = context.watch<RegisterCubit>();
@@ -133,7 +114,6 @@ class InvestorRegisterView extends StatelessWidget {
                           children: [
                             AppTextField(
                               key: const Key('register_firstName_textfield'),
-                              controller: _firstnameController,
                               label: 'First Name',
                               hintText: 'Enter First Name',
                               onChanged: _cubit.firstNameChanged,
@@ -143,7 +123,6 @@ class InvestorRegisterView extends StatelessWidget {
                             verticalSpace(4.5),
                             AppTextField(
                               key: const Key('register_lastName_textfield'),
-                              controller: _lastnameController,
                               label: 'Last Name',
                               hintText: 'Enter Last Name',
                               onChanged: _cubit.lastNameChanged,
@@ -153,7 +132,6 @@ class InvestorRegisterView extends StatelessWidget {
                             verticalSpace(4.5),
                             AppTextField(
                               key: const Key('register_emailaddress_textfield'),
-                              controller: _emailController,
                               label: 'Email Address',
                               hintText: 'Enter Email Address',
                               onChanged: _cubit.emailChanged,
@@ -184,7 +162,6 @@ class InvestorRegisterView extends StatelessWidget {
                             verticalSpace(4.5),
                             AppTextField(
                               key: const Key('register_userName_textfield'),
-                              controller: _usernameController,
                               label: 'Username',
                               hintText: 'Enter Username',
                               onChanged: _cubit.usernameChanged,
@@ -212,7 +189,7 @@ class InvestorRegisterView extends StatelessWidget {
                                 onPressed: _cubit.togglePasswordVisibility,
                               ),
                               onFieldSubmitted: (val) =>
-                                  _cubit.navigateToRegisterScreenTwo(),
+                                  _cubit.handleRegistration(),
                             ),
                             verticalSpace(1),
                             FlutterPwValidator(
@@ -266,62 +243,16 @@ class InvestorRegisterView extends StatelessWidget {
                                 )
                               },
                               stateColors: {
-                                ButtonState.idle:
-                                    state.btnColor ?? Colors.grey.shade400,
+                                ButtonState.idle: state.btnColor!,
                                 ButtonState.loading: kMintGreen,
                                 ButtonState.fail: Colors.red.shade300,
                                 ButtonState.success: Colors.green.shade400,
                               },
                               onPressed: () async {
-                                // await FirebaseAuth
-                                //     .instance
-                                //     .createUserWithEmailAndPassword(
-                                //         email: _emailController.text,
-                                //         password: _passwordController.text);
-                                //     .then((onValue) {
-                                //   Routes.seafarer.navigate('/investorPrefrence');
-                                //   // ignore: avoid_dynamic_calls
-                                //   FirebaseFirestore.instance
-                                //       .collection('users')
-                                //       .add
-                                //       ({
-                                //     'email': _emailController.text,
-                                //     'username': _usernameController.text,
-                                //     'first_name': _firstnameController.text,
-                                //   }).then((onValue) {
-                                //     _sheetController.setState(() {
-                                //       _loading = false;
-                                //     });
-                                //   });
-                                // });                 
-
-                                _cubit.navigateToRegisterScreenTwo();
-                                Routes.seafarer.navigate('/investorPrefrence');
-
-                                // UserUpdateInfo userUpdateInfo =
-                                //     new UserUpdateInfo();
-                                // userUpdateInfo.displayName = _displayName;
-                                // user
-                                //     .updateProfile(userUpdateInfo)
-                                //     .then((onValue) {
-                                //   Routes.seafarer.navigate('/investorPrefrence');
-                                //   Firestore.instance
-                                //       .collection('users')
-                                //       .document()
-                                //       .setData({
-                                //     'email': _emailController.text,
-                                //     'username': _usernameController.text,
-                                //     'first_name': _firstnameController.text,
-                                //   }).then((onValue) {
-                                //     _sheetController.setState(() {
-                                //       _loading = false;
-                                //     });
-                                //   });
-                                // });
-
-                                // _cubit.navigateToRegisterScreenTwo();
+                                FocusScope.of(context).unfocus();
+                                _cubit.handleRegistration();
                               },
-                              state: buttonState,
+                              state: state.buttonState,
                             ),
                             verticalSpace(4.5),
                             Row(

@@ -28,17 +28,12 @@ class CompanyDashboardView extends StatelessWidget {
               'Welcome, Goji😃',
               style: TextStyling.h1.copyWith(color: Colors.black),
             ),
-            verticalSpace(2),
+            verticalSpace(1),
             Text(
               'of XYZ Inc.',
               style: TextStyling.h2.copyWith(color: Colors.black),
             ),
-            verticalSpace(5),
-
-            // Row(
-
-            // ),
-
+            verticalSpace(1),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               // ignore: prefer_const_literals_to_create_immutables
@@ -49,7 +44,7 @@ class CompanyDashboardView extends StatelessWidget {
               ],
             ),
 
-            verticalSpace(5),
+           
             Expanded(
               child: GridView.builder(
                   itemCount: 6,

@@ -65,7 +65,9 @@ class $AssetsImagesLoginGen {
       const AssetGenImage('assets/images/login/investorRegister.png');
   SvgGenImage get loginbg =>
       const SvgGenImage('assets/images/login/loginbg.svg');
-  SvgGenImage get logo => const SvgGenImage('assets/images/login/logo.svg');
+  AssetGenImage get logoPng =>
+      const AssetGenImage('assets/images/login/logo.png');
+  SvgGenImage get logoSvg => const SvgGenImage('assets/images/login/logo.svg');
   AssetGenImage get register =>
       const AssetGenImage('assets/images/login/register.png');
   AssetGenImage get welcome =>
@@ -79,8 +81,6 @@ class $AssetsImagesStartupGen {
       const AssetGenImage('assets/images/startup/Help.png');
   AssetGenImage get money =>
       const AssetGenImage('assets/images/startup/Money.png');
-  AssetGenImage get logo =>
-      const AssetGenImage('assets/images/login/logo.png');
   AssetGenImage get nomad =>
       const AssetGenImage('assets/images/startup/Nomad.png');
   AssetGenImage get onboarding1 =>
@@ -91,8 +91,6 @@ class $AssetsImagesStartupGen {
       const AssetGenImage('assets/images/startup/onboarding3.png');
   SvgGenImage get onboardingbg =>
       const SvgGenImage('assets/images/startup/onboardingbg.svg');
-  SvgGenImage get logo1 =>
-      const SvgGenImage('assets/images/login/logo.svg');
 }
 
 class Assets {

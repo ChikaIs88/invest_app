@@ -1,3 +1,5 @@
+import 'package:chipln/logic/core/firebase_core.dart';
+import 'package:chipln/logic/core/variable.dart';
 import 'package:chipln/presentation/global/routing/routes.dart';
 import 'package:chipln/presentation/global/widget/app_flat_button.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
@@ -9,6 +11,7 @@ import 'package:chipln/presentation/global/widget/curve_painter.dart';
 import 'package:chipln/presentation/global/text_styling.dart';
 import 'package:chipln/presentation/global/ui_helper.dart';
 import 'package:chipln/presentation/global/widget/curve_wave.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:sizer/sizer.dart';
 
 class InvestorProfileView extends StatefulWidget {
@@ -37,6 +40,7 @@ class _InvestorProfileViewState extends State<InvestorProfileView>
 
   @override
   Widget build(BuildContext context) {
+    final appAuth = Modular.get<Authentication>();
     return Scaffold(
       body: Column(
         children: [
@@ -62,9 +66,12 @@ class _InvestorProfileViewState extends State<InvestorProfileView>
                               Assets.images.home.chat.image(height: 8.h),
                               horizontalSpace(3),
                               Text(
-                                'Chika Agbakuru',
-                                style: TextStyling.h1
-                                    .copyWith(color: Colors.white),
+                                '${userInfo!.first_name} ${userInfo!.last_name} ',
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyling.h2.copyWith(
+                                  color: Colors.white,
+                                  fontSize: 15.sp,
+                                ),
                               ),
                             ],
                           ),
@@ -79,10 +86,9 @@ class _InvestorProfileViewState extends State<InvestorProfileView>
                                 child: AppFlatButton(
                                   color: Colors.red[100],
                                   label: 'Log Out',
-                                  onPressed: () {
-                                    Routes.seafarer
-                                        .navigate('/');
-                                    // _cubit.navigateToRegisterScreenTwo();
+                                  onPressed: () async {
+                                    await appAuth.logOUt();
+                                    Modular.to.navigate('/investorlogin');
                                   },
                                 ),
                               ),

@@ -1,9 +1,12 @@
 import 'package:bloc/bloc.dart';
+import 'package:chipln/logic/core/firebase_core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:chipln/logic/core/auth_status.dart';
 import 'package:chipln/logic/core/validation_mixin.dart';
 import 'package:chipln/presentation/global/constants.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:progress_state_button/progress_button.dart';
 
 part 'register_state.dart';
 
@@ -13,6 +16,7 @@ class RegisterCubit extends Cubit<RegisterState> with ValidationMixin {
   // Local Variables
   final _formKeyOne = GlobalKey<FormState>();
   final _formKeyTwo = GlobalKey<FormState>();
+  final appAuth = Modular.get<Authentication>();
 
   // Getters
   GlobalKey get formKeyOne => _formKeyOne;
@@ -48,6 +52,10 @@ class RegisterCubit extends Cubit<RegisterState> with ValidationMixin {
     emit(state.copyWith(btnColor: value));
   }
 
+  void updateButtonState(value) {
+    emit(state.copyWith(buttonState: value));
+  }
+
   void usernameChanged(String value) {
     emit(state.copyWith(username: value));
   }
@@ -72,20 +80,30 @@ class RegisterCubit extends Cubit<RegisterState> with ValidationMixin {
     emit(state.copyWith(showPassword: !state.showPassword!));
   }
 
-  void navigateToRegisterScreenTwo() {
+  void handleRegistration() async {
     if (!_formKeyOne.currentState!.validate()) return;
-    emit(state.copyWith(status: AuthStatus.nextPage));
-    emit(state.copyWith(status: AuthStatus.initial));
+    updateButtonState(ButtonState.loading);
+    await appAuth
+        .signUpUser(email: state.emailAddress, password: state.password, info: {
+      'email': state.emailAddress,
+      'first_name': state.firstName,
+      'last_name': state.lastName,
+      'username': state.username,
+      'phone_nummber': state.phoneNumber
+    }).then((value) {
+      if (value == null) {
+        updateButtonState(ButtonState.fail);
+      } else {
+        updateButtonState(ButtonState.success);
+        Future.delayed(const Duration(seconds: 2), handleNavigatePrefrence);
+      }
+    });
   }
 
-  Future<void> register() async {
-    if (!_formKeyTwo.currentState!.validate()) return;
-    emit(state.copyWith(status: AuthStatus.submissionInProgress));
-    try {
-      await Future.delayed(Duration(seconds: 3));
-      emit(state.copyWith(status: AuthStatus.submissionSuccess));
-    } on Exception {
-      emit(state.copyWith(status: AuthStatus.submissionFailure));
-    }
+  void handleNavigateHome() {
+    Modular.to.navigate('/investorDashboard');
+  }
+  void handleNavigatePrefrence(){
+    Modular.to.pushNamed('/investorlogin/investorPrefrence');
   }
 }

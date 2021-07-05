@@ -1,4 +1,6 @@
 import 'package:animations/animations.dart';
+import 'package:chipln/logic/core/firebase_cloud.dart';
+import 'package:chipln/logic/core/variable.dart';
 import 'package:chipln/presentation/global/routing/routes.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +12,7 @@ import 'package:chipln/presentation/global/widget/app_flat_button.dart';
 import 'package:chipln/presentation/global/widget/app_text_field.dart';
 import 'package:chipln/presentation/global/widget/container_clipper.dart';
 import 'package:chipln/presentation/global/widget/transparent_status_bar.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -108,7 +111,6 @@ class FeaturedProductCard extends StatelessWidget {
                               30,
                               5,
                               'By XYZ Inc.'),
-                              
                           verticalSpace(2),
                           const MyHorizontalDivider(),
                           const FeaturedCard(
@@ -241,7 +243,7 @@ class InvestorHomeTop extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      'Hi, Chika',
+                      'Hi,${userInfo!.username}',
                       style: TextStyling.h1.copyWith(color: Colors.black),
                     ),
                     horizontalSpace(3),
