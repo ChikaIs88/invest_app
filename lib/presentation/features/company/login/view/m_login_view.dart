@@ -94,7 +94,7 @@ class InvestmentCompanyView extends StatelessWidget {
                           key: const Key('login_email_textfield'),
                           label: 'Email',
                           hintText: 'Enter Email Address',
-                          onChanged: _cubit.firstNameChanged,
+                          onChanged: _cubit.emailChanged,
                           validator: _cubit.validateFullName,
                           textInputAction: TextInputAction.next,
                         ),
@@ -172,9 +172,9 @@ class InvestmentCompanyView extends StatelessWidget {
                             ButtonState.success: Colors.green.shade400,
                           },
                           onPressed: () {
-                            _cubit.navigateToLoginScreenTwo();
+                            _cubit.handleLogin();
                           },
-                          state: buttonState,
+                          state: state.buttonState,
                         ),
                         verticalSpace(3),
                         Row(

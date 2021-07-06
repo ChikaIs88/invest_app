@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+
 import 'firebase_cloud.dart';
 import 'storage.dart';
 
@@ -19,8 +19,10 @@ abstract class BaseConfig<T> {
   Future<String?> signUpUser({String? email, String? password});
   Future<String?> signUpCompanyUser({String? email, String? password});
   Future<String?> signInUser({String? email, String? password});
+  Future<String?> signInCompanyUser({String? email, String? password});
   Future<String?> checkCurrentUser();
   Future<String?> prefrence({Map<String, dynamic>? data});
+  Future<String?> info({Map<String, dynamic>? data});
   Future<void> logOUt();
 }
 
@@ -150,16 +152,42 @@ class Authentication<T> extends BaseConfig<T> {
     }
   }
 
-  Future<void> handleUploadImage(File? imageFile, String? uid) async {
-    var task = firebase_storage.FirebaseStorage.instance
-        .ref('company/$uid')
-        .putFile(imageFile!);
+  @override
+  Future<String?> info({Map<String, dynamic>? data, File? imageFile}) async {
     try {
-      // Storage tasks function as a Delegating Future so we can await them.
-      var snapshot = await task;
-      debugPrint('Uploaded ${snapshot.bytesTransferred} bytes.');
+      await add.handleUploadImage(imageFile, userUid);
+      await add.addCompanyInfo(data: data, id: userUid);
+      return 'success';
     } catch (e) {
-      debugPrint('$e');
+      apiError = '$e';
+      showToast(apiError);
+    }
+  }
+
+  @override
+  Future<String?> signInCompanyUser({String? email, String? password}) async {
+    //  This is where all the magic for sign in with password happens
+    try {
+      var userCredential = await _firebaseAuth.signInWithEmailAndPassword(
+          email: email!, password: password!);
+      debugPrint(userCredential.toString());
+      userUid = userCredential.user!.uid;
+      await saveStorage('uid', userUid);
+      await add.getCompanyUserData(id: userUid);
+      return userCredential.user!.uid;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        // Assign the error to a variable
+        apiError = 'The account $email does not exist';
+        showToast(apiError);
+      } else if (e.code == 'wrong-password') {
+        // Assign the error to a variable
+        apiError = 'The password provided is incorrect';
+        showToast(apiError);
+      }
+    } catch (e) {
+      apiError = '$e';
+      showToast(apiError);
     }
   }
 }

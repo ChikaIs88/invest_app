@@ -1,9 +1,12 @@
+import 'package:chipln/logic/core/firebase_core.dart';
+import 'package:chipln/logic/core/variable.dart';
 import 'package:chipln/presentation/global/assets/assets.gen.dart';
 import 'package:chipln/presentation/global/routing/routes.dart';
 import 'package:chipln/presentation/global/text_styling.dart';
 import 'package:chipln/presentation/global/ui_helper.dart';
 import 'package:chipln/presentation/global/widget/company_header_design.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 import 'package:sizer/sizer.dart';
 
@@ -12,6 +15,7 @@ class CompanyDashboardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     final appAuth = Modular.get<Authentication>();
     return Scaffold(
       body: Padding(
         padding: paddingLR20,
@@ -25,14 +29,14 @@ class CompanyDashboardView extends StatelessWidget {
             ),
             verticalSpace(5),
             Text(
-              'Welcome, Goji😃',
+              'Welcome, ${userInfo.company_name}😃',
               style: TextStyling.h1.copyWith(color: Colors.black),
             ),
             verticalSpace(1),
-            Text(
-              'of XYZ Inc.',
-              style: TextStyling.h2.copyWith(color: Colors.black),
-            ),
+            // Text(
+            //   'of XYZ Inc.',
+            //   style: TextStyling.h2.copyWith(color: Colors.black),
+            // ),
             verticalSpace(1),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -40,11 +44,16 @@ class CompanyDashboardView extends StatelessWidget {
               children: [
                 const DashboardTopCard(
                   color: Colors.green,
+                  title: 'Total Interested',
+                  subTitle: '1',
+                ),
+                const DashboardTopCard(
+                  color: Colors.green,
+                  title: 'New Messages',
+                  subTitle: '1',
                 ),
               ],
             ),
-
-           
             Expanded(
               child: GridView.builder(
                   itemCount: 6,
@@ -52,8 +61,13 @@ class CompanyDashboardView extends StatelessWidget {
                       crossAxisCount: 2),
                   itemBuilder: (context, index) {
                     return InkWell(
-                      onTap: () {
-                        Routes.seafarer.navigate(dashboardRoutingPath[index]);
+                      onTap: () async {
+                        if (index == 5) {
+                          await appAuth.logOUt();
+                          Modular.to.pushNamed('/companyLogin');
+                          return null;
+                        }
+                        Modular.to.navigate(dashboardRoutingPath[index]);
                       },
                       child: DashLayout(
                         image: images[index],
@@ -70,7 +84,7 @@ class CompanyDashboardView extends StatelessWidget {
 }
 
 List<String> dashboardRoutingPath = [
-  '/investorCompanyPackages',
+  '/companyLogin/addPackages',
   '/investorCompanyMessages',
   '/investorCompanyAssignWorker',
   '/investorCompanyNotification',
@@ -133,9 +147,13 @@ class DashboardTopCard extends StatelessWidget {
   const DashboardTopCard({
     Key? key,
     this.color,
+    this.title,
+    this.subTitle,
   }) : super(key: key);
 
   final Color? color;
+  final String? title;
+  final String? subTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -170,7 +188,7 @@ class DashboardTopCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'Total Interested',
+            title!,
             style: TextStyling.h2.copyWith(color: Colors.black),
           ),
           Align(
@@ -181,7 +199,7 @@ class DashboardTopCard extends StatelessWidget {
                 backgroundColor: Colors.green,
                 maxRadius: 20,
                 child: Text(
-                  '1',
+                  subTitle!,
                   style: TextStyling.h2.copyWith(color: Colors.white),
                 ),
               ),

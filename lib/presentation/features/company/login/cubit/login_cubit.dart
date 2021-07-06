@@ -1,4 +1,5 @@
 import 'package:chipln/logic/core/auth_status.dart';
+import 'package:chipln/logic/core/firebase_core.dart';
 import 'package:chipln/logic/core/validation_mixin.dart';
 
 import 'package:bloc/bloc.dart';
@@ -6,6 +7,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:chipln/presentation/global/constants.dart';
 import 'package:chipln/presentation/global/routing/routes.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:progress_state_button/progress_button.dart';
 
 part 'login_state.dart';
 
@@ -15,16 +18,12 @@ class LoginCubit extends Cubit<LoginState> with ValidationMixin {
   // Local Variables
   final _formKeyOne = GlobalKey<FormState>();
   final _formKeyTwo = GlobalKey<FormState>();
-
+  final appAuth = Modular.get<Authentication>();
   // Getters
   GlobalKey get formKeyOne => _formKeyOne;
   GlobalKey get formKeyTwo => _formKeyTwo;
 
   // Methods
-
-  void handleLogin() {
-    Routes.seafarer('/');
-  }
 
   void updateColor(Color value) {
     emit(state.copyWith(btnColor: value));
@@ -81,5 +80,28 @@ class LoginCubit extends Cubit<LoginState> with ValidationMixin {
     } on Exception {
       emit(state.copyWith(status: AuthStatus.submissionFailure));
     }
+  }
+
+  void updateButtonState(value) {
+    emit(state.copyWith(buttonState: value));
+  }
+
+  void handleNavigateHome() {
+    Modular.to.navigate('/companyLogin/companyDashboard');
+  }
+
+  void handleLogin() {
+    if (!_formKeyOne.currentState!.validate()) return;
+    updateButtonState(ButtonState.loading);
+    appAuth
+        .signInCompanyUser(email: state.emailAddress, password: state.password)
+        .then((value) {
+      if (value == null) {
+        updateButtonState(ButtonState.fail);
+      } else {
+        updateButtonState(ButtonState.success);
+        Future.delayed(const Duration(seconds: 2), handleNavigateHome);
+      }
+    });
   }
 }

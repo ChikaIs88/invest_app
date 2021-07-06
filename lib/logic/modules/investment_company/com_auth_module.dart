@@ -1,5 +1,7 @@
 import 'package:chipln/presentation/features/company/confirm/view/confirm_registration_view.dart';
+import 'package:chipln/presentation/features/company/dashboard/view/company_dashboard_view.dart';
 import 'package:chipln/presentation/features/company/login/view/m_login_view.dart';
+import 'package:chipln/presentation/features/company/packages/view/company_packages_view.dart';
 import 'package:chipln/presentation/features/company/register/view/register_view.dart';
 import 'package:chipln/presentation/features/company/registrationcomplete/view/investor_register_complete_view.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -16,7 +18,11 @@ class CompanyAuthModular extends Module {
         ChildRoute('/signup', child: (_, __) => InvestorCompanyRegisterView()),
         ChildRoute('/confirm',
             child: (_, __) => const ConfirmInvestorRegistrationView()),
-      ChildRoute('/completeRegister',
-            child: (_, __) => const InvestorRegistorCompleteView())
+        ChildRoute('/completeRegister',
+            child: (_, __) => const InvestorRegistorCompleteView()),
+        ChildRoute('/companyDashboard',
+            child: (_, __) => const CompanyDashboardView()),
+        ChildRoute('/addPackages',
+            child: (_, __) => const CompanyPackagesView()),
       ];
 }

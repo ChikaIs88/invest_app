@@ -4,7 +4,8 @@ import 'package:chipln/logic/core/storage.dart';
 import 'package:chipln/models/company_user_model/company_user_model.dart';
 import 'package:chipln/models/investor_user_model/investor_user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:flutter/foundation.dart';
 import 'variable.dart';
 
 /// Base of the configuration
@@ -15,9 +16,11 @@ abstract class Database {
   // Get user data
   Future<void> getUserData();
   Future<void> getCompanyUserData();
+
   // Add User Prefrence
 
   Future<void> addUserPrefrence();
+  Future<void> addCompanyInfo();
 }
 
 ///This function is use to add data to your firestore.
@@ -28,6 +31,7 @@ class AddToDatabase extends Database {
   CollectionReference users = FirebaseFirestore.instance.collection('investor');
   CollectionReference company =
       FirebaseFirestore.instance.collection('company');
+  CollectionReference info = FirebaseFirestore.instance.collection('info');
   @override
   Future addUser({Map<String, dynamic>? data, String? id}) {
     // Call the user's CollectionReference to add a new user
@@ -71,5 +75,21 @@ class AddToDatabase extends Database {
     return '$userInfo.email';
   }
 
- 
+  @override
+  Future<void> addCompanyInfo({Map<String, dynamic>? data, String? id}) {
+    return info.doc(id).set(data);
+  }
+
+   Future<void> handleUploadImage(File? imageFile, String? uid) async {
+    var task = firebase_storage.FirebaseStorage.instance
+        .ref('company/$uid')
+        .putFile(imageFile!);
+    try {
+      // Storage tasks function as a Delegating Future so we can await them.
+      var snapshot = await task;
+      debugPrint('Uploaded ${snapshot.bytesTransferred} bytes.');
+    } catch (e) {
+      debugPrint('$e');
+    }
+  }
 }

@@ -8,6 +8,7 @@ import 'package:chipln/presentation/global/widget/header_text.dart';
 import 'package:dropdown_below/dropdown_below.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:sizer/sizer.dart';
 import 'package:chipln/presentation/features/company/packages/packages_cubit.dart';
 
@@ -99,10 +100,19 @@ class CompanyPackagesView extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   verticalSpace(1.5),
-                  Text('Add Package📋',
-                      style: TextStyling.h1.copyWith(
-                        color: kTransBlack,
-                      )),
+                  Row(
+                    children: [
+                      Text('Add Package📋',
+                          style: TextStyling.h1.copyWith(
+                            color: kTransBlack,
+                          )),
+                          InkWell(
+                            onTap: (){
+                              Modular.to.pop();
+                            },
+                            child: Icon(EvaIcons.close, color: Colors.red,))
+                    ],
+                  ),
                   verticalSpace(4.5),
                   Text(
                       'Please note that after adding,\nyou will not be able to edit it',
@@ -194,6 +204,7 @@ class CompanyPackagesView extends StatelessWidget {
                       IconButton(
                           onPressed: () {
                             mabialaFABController.isCollapsed = true;
+                            
                           },
                           icon: const Icon(EvaIcons.questionMarkCircle))
                     ],

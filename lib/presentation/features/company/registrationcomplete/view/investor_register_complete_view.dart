@@ -29,7 +29,7 @@ class InvestorRegistorCompleteView extends StatelessWidget {
             child: BlocBuilder<InvestorregistercompleteCubit,
                 InvestorregistercompleteState>(builder: (context, state) {
               final _readInvestorRegistorProfile =
-                  context.read<InvestorregistercompleteCubit>();
+                  context.watch<InvestorregistercompleteCubit>();
               return Column(
                 children: [
                   const HeaderText(
@@ -51,8 +51,9 @@ class InvestorRegistorCompleteView extends StatelessWidget {
                         borderColor: Colors.white,
                         child: state.profileImage != null
                             ? Image.file(
-                                File(state.profileImage.path),
-                                fit: BoxFit.fill,
+                                File(state.profileImage!.path),
+                                fit: BoxFit.cover,
+                                width: double.infinity,
                               )
                             : null,
                         borderWidth: 8,
@@ -64,7 +65,7 @@ class InvestorRegistorCompleteView extends StatelessWidget {
                         right: 1,
                         child: GestureDetector(
                           onTap: () => getImage(ImgSource.Both, context)
-                              .then(_readInvestorRegistorProfile.updateImage),
+                              .then(_readInvestorRegistorProfile.updateUserImage),
                           child: const CircleAvatar(
                               backgroundColor: kBackgroundColor,
                               maxRadius: 25,
@@ -83,7 +84,7 @@ class InvestorRegistorCompleteView extends StatelessWidget {
                       key: const Key('register_years_textfield'),
                       label: 'Years',
                       hintText: 'Enter years of establish',
-                      onChanged: (value) {},
+                      onChanged: _readInvestorRegistorProfile.updateYears,
                       keyboardType: TextInputType.number,
                       textInputAction: TextInputAction.next,
                     ),
@@ -96,19 +97,19 @@ class InvestorRegistorCompleteView extends StatelessWidget {
                       label: 'Description',
                       hintText: 'Enter Company Description',
                       maxLines: 5,
-                      onChanged: (value) {},
+                      onChanged: _readInvestorRegistorProfile.updateDescription,
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
                     ),
                   ),
                   verticalSpace(4.5),
-                   Padding(
+                  Padding(
                     padding: paddingLR20,
                     child: AppTextField(
                       key: const Key('register_website_textfield'),
                       label: 'Website',
                       hintText: 'Enter company website',
-                      onChanged: (value) {},
+                      onChanged: _readInvestorRegistorProfile.updateWebsite,
                       keyboardType: TextInputType.url,
                       textInputAction: TextInputAction.next,
                     ),
@@ -149,9 +150,9 @@ class InvestorRegistorCompleteView extends StatelessWidget {
                         ButtonState.success: Colors.green.shade400,
                       },
                       onPressed: () {
-                        Routes.seafarer.navigate('/investorCompanyDashboard');
+                        _readInvestorRegistorProfile.handleAddInfo();
                       },
-                      state: ButtonState.idle,
+                      state: state.buttonState,
                     ),
                   ),
                   verticalSpace(5),
