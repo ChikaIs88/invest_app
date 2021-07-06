@@ -154,6 +154,7 @@ class InvestorRegistorCompleteView extends StatelessWidget {
                       state: ButtonState.idle,
                     ),
                   ),
+                  verticalSpace(5),
                 ],
               );
             }),

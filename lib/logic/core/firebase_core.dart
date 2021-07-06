@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:chipln/app/logger_init.dart';
 import 'package:chipln/logic/core/variable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -5,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'firebase_cloud.dart';
 import 'storage.dart';
 
@@ -120,7 +122,8 @@ class Authentication<T> extends BaseConfig<T> {
   }
 
   @override
-  Future<String?> signUpCompanyUser({String? email, String? password, info}) async{
+  Future<String?> signUpCompanyUser(
+      {String? email, String? password, info}) async {
     try {
       logger.i('signup:: creating the user profile');
       var userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
@@ -128,9 +131,8 @@ class Authentication<T> extends BaseConfig<T> {
       logger.i('signup:: adding the user profile');
       await add.addCompanyUser(data: info, id: userCredential.user!.uid);
       userUid = userCredential.user!.uid;
-      // await add.getUserData(id: userUid);
+      await add.getCompanyUserData(id: userUid);
       await saveStorage('uid', userCredential.user!.uid);
-
       return userCredential.user!.uid;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -145,6 +147,19 @@ class Authentication<T> extends BaseConfig<T> {
     } catch (e) {
       apiError = '$e';
       showToast(apiError);
+    }
+  }
+
+  Future<void> handleUploadImage(File? imageFile, String? uid) async {
+    var task = firebase_storage.FirebaseStorage.instance
+        .ref('company/$uid')
+        .putFile(imageFile!);
+    try {
+      // Storage tasks function as a Delegating Future so we can await them.
+      var snapshot = await task;
+      debugPrint('Uploaded ${snapshot.bytesTransferred} bytes.');
+    } catch (e) {
+      debugPrint('$e');
     }
   }
 }

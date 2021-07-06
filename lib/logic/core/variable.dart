@@ -5,4 +5,4 @@ var userCredentials = '';
 String? userUid = '';
  Map<String, String>? userDetails;
 
-InvestorUserModel? userInfo; 
+dynamic? userInfo; 

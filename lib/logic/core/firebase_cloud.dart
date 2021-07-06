@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:chipln/logic/core/storage.dart';
+import 'package:chipln/models/company_user_model/company_user_model.dart';
 import 'package:chipln/models/investor_user_model/investor_user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -11,6 +14,7 @@ abstract class Database {
   Future<void> addCompanyUser();
   // Get user data
   Future<void> getUserData();
+  Future<void> getCompanyUserData();
   // Add User Prefrence
 
   Future<void> addUserPrefrence();
@@ -22,6 +26,8 @@ class AddToDatabase extends Database {
   // Create a CollectionReference called users
   // that references the firestore collection
   CollectionReference users = FirebaseFirestore.instance.collection('investor');
+  CollectionReference company =
+      FirebaseFirestore.instance.collection('company');
   @override
   Future addUser({Map<String, dynamic>? data, String? id}) {
     // Call the user's CollectionReference to add a new user
@@ -52,9 +58,18 @@ class AddToDatabase extends Database {
     String? id,
     Map<String, dynamic>? data,
   }) {
-    CollectionReference company =
-        FirebaseFirestore.instance.collection('company');
-
     return company.doc(id).set(data);
   }
+
+  @override
+  Future<String> getCompanyUserData({String? id}) async {
+    var userData = await company.doc(id).get();
+    userInfo =
+        CompanyUserModel.fromJson(userData.data() as Map<String, dynamic>);
+    await saveStorage('city', userInfo!.city);
+    await saveStorage('company_name', userInfo!.company_name);
+    return '$userInfo.email';
+  }
+
+ 
 }

@@ -4,6 +4,7 @@ import 'package:chipln/presentation/global/routing/routes.dart';
 import 'package:chipln/presentation/global/text_styling.dart';
 import 'package:chipln/presentation/global/ui_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:sizer/sizer.dart';
 
 class ConfirmInvestorRegistrationView extends StatelessWidget {
@@ -32,7 +33,7 @@ class ConfirmInvestorRegistrationView extends StatelessWidget {
           ),
           InkWell(
             onTap: () =>
-                Routes.seafarer.navigate('/investorCompanyCompleteRegister'),
+                Modular.to.navigate('/companyLogin/completeRegister'),
             child: Container(
               width: 50.w,
               height: 7.h,
