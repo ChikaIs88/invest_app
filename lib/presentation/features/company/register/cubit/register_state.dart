@@ -3,8 +3,11 @@ part of 'register_cubit.dart';
 class RegisterState extends Equatable {
   const RegisterState({
     this.firstName = '',
+    this.buttonState = ButtonState.idle,
+    this.state = '',
     this.lastName = '',
     this.username = '',
+    this.city = '',
     this.phoneNumber = '',
     this.emailAddress = '',
     this.isoCode = '+234',
@@ -17,6 +20,7 @@ class RegisterState extends Equatable {
   });
 
   final String? firstName;
+    final ButtonState buttonState;
   final String? lastName;
   final String? isoCode;
   final String? username;
@@ -28,6 +32,8 @@ class RegisterState extends Equatable {
   final bool? showPassword;
   final Color? btnColor;
   final AuthStatus? status;
+  final String state;
+  final String city;
 
   RegisterState copyWith({
     String? firstName,
@@ -37,14 +43,20 @@ class RegisterState extends Equatable {
     String? emailAddress,
     String? password,
     String? accountType,
+    String? state,
+    String? city,
     bool? showPassword,
     DateTime? dateTime,
     String? isoCode,
     AuthStatus? status,
     Color? btnColor,
+    ButtonState? buttonState,
   }) {
     return RegisterState(
+      city: city ?? this.city,
+      state: state ?? this.state,
       isoCode: isoCode ?? this.isoCode,
+      buttonState: buttonState ?? this.buttonState,
       btnColor: btnColor,
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
@@ -71,7 +83,10 @@ class RegisterState extends Equatable {
         showPassword,
         dateTime,
         btnColor,
+        buttonState,
         lastName,
-          isoCode
+        isoCode, 
+        city,
+        state
       ];
 }

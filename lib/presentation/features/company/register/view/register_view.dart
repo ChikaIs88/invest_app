@@ -1,4 +1,5 @@
-import 'package:csc_picker/csc_picker.dart';
+
+import 'package:chipln/presentation/global/widget/csc/csc_picker.dart';
 import 'package:flexible_scrollbar/flexible_scrollbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -120,18 +121,18 @@ class InvestorCompanyRegisterView extends StatelessWidget {
                         key: _cubit.formKeyOne,
                         child: Column(
                           children: [
-                            AppTextField(
-                              controller: _mconsultantController,
-                              // ignore: lines_longer_than_80_chars
-                              key: const Key(
-                                  'register_consultantName_textfield'),
-                              label: 'Consultant Name',
-                              hintText: 'Enter Consultant Name',
-                              onChanged: _cubit.firstNameChanged,
-                              validator: _cubit.validateFullName,
-                              textInputAction: TextInputAction.next,
-                            ),
-                            verticalSpace(4.5),
+                            // AppTextField(
+                            //   controller: _mconsultantController,
+                            //   // ignore: lines_longer_than_80_chars
+                            //   key: const Key(
+                            //       'register_consultantName_textfield'),
+                            //   label: 'Consultant Name',
+                            //   hintText: 'Enter Consultant Name',
+                            //   onChanged: _cubit.firstNameChanged,
+                            //   validator: _cubit.validateFullName,
+                            //   textInputAction: TextInputAction.next,
+                            // ),
+                            // verticalSpace(4.5),
                             AppTextField(
                               controller: _companyController,
                               key: const Key('register_companyName_textfield'),
@@ -204,8 +205,12 @@ class InvestorCompanyRegisterView extends StatelessWidget {
                               dropdownDialogRadius: 10.0,
                               searchBarRadius: 10.0,
                               onCountryChanged: (value) {},
-                              onStateChanged: (value) {},
-                              onCityChanged: (value) {},
+                              onStateChanged: (value) {
+                                _cubit.updateState(value);
+                              },
+                              onCityChanged: (value) {
+                                _cubit.updateCity(value);
+                              },
                             ),
                             verticalSpace(4.5),
                             AppTextField(
@@ -289,11 +294,10 @@ class InvestorCompanyRegisterView extends StatelessWidget {
                                 ButtonState.success: Colors.green.shade400,
                               },
                               onPressed: () {
-                                Routes.seafarer.navigate(
-                                    '/investorCompanyConfirmRegister');
-                                // _cubit.navigateToRegisterScreenTwo();
+                            
+                                _cubit.handleRegistration();
                               },
-                              state: buttonState,
+                              state: state.buttonState,
                             ),
                             verticalSpace(4.5),
                             Row(

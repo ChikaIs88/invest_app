@@ -7,13 +7,14 @@ import 'package:chipln/presentation/global/routing/routes.dart';
 import 'package:chipln/presentation/global/text_styling.dart';
 import 'package:chipln/presentation/global/ui_helper.dart';
 import 'package:chipln/presentation/global/widget/app_text_field.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:progress_state_button/progress_button.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter/material.dart';
 import '../cubit/login_cubit.dart';
 
-class MLoginView extends StatelessWidget {
-  MLoginView({Key? key}) : super(key: key);
+class InvestmentCompanyView extends StatelessWidget {
+  InvestmentCompanyView({Key? key}) : super(key: key);
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _mconsultantController = TextEditingController();
   final TextEditingController _companyController = TextEditingController();
@@ -62,7 +63,7 @@ class MLoginView extends StatelessWidget {
                           children: [
                             verticalSpace(10),
                             Text(
-                              'Welcome Main Consultant',
+                              'Welcome Back',
                               style: TextStyling.h1,
                             ),
                             Row(
@@ -90,19 +91,9 @@ class MLoginView extends StatelessWidget {
                         verticalSpace(8),
                         AppTextField(
                           controller: _mconsultantController,
-                          key: const Key('Login_consultantName_textfield'),
-                          label: 'Consultant Name',
-                          hintText: 'Enter Consultant Name',
-                          onChanged: _cubit.firstNameChanged,
-                          validator: _cubit.validateFullName,
-                          textInputAction: TextInputAction.next,
-                        ),
-                        verticalSpace(4.5),
-                        AppTextField(
-                          controller: _companyController,
-                          key: const Key('Login_companyName_textfield'),
-                          label: 'Company Name',
-                          hintText: 'Enter Company Name',
+                          key: const Key('login_email_textfield'),
+                          label: 'Email',
+                          hintText: 'Enter Email Address',
                           onChanged: _cubit.firstNameChanged,
                           validator: _cubit.validateFullName,
                           textInputAction: TextInputAction.next,
@@ -196,7 +187,7 @@ class MLoginView extends StatelessWidget {
                                 )),
                             GestureDetector(
                               onTap: () {
-                                Routes.seafarer('/investorCompanyRegister');
+                                Modular.to.navigate('/companyLogin/signup');
                               },
                               child: Text('Sign Up',
                                   textAlign: TextAlign.center,

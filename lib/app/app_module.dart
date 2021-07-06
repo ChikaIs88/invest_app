@@ -2,6 +2,7 @@ import 'package:chipln/logic/core/firebase_cloud.dart';
 import 'package:chipln/logic/core/firebase_core.dart';
 import 'package:chipln/logic/core/storage.dart';
 import 'package:chipln/logic/core/variable.dart';
+import 'package:chipln/logic/modules/investment_company/com_auth_module.dart';
 import 'package:chipln/logic/modules/investor/home/investor_home_modular.dart';
 import 'package:chipln/logic/modules/investor/login/auth_guard.dart';
 import 'package:chipln/logic/modules/investor/login/auth_module.dart';
@@ -23,6 +24,12 @@ class AppModule extends Module {
   // This contains all the routes for your module
   @override
   List<ModularRoute> get routes => [
+        // Company Routing
+        ModuleRoute(
+          '/companyLogin',
+          module: CompanyAuthModular(),
+        ),
+        // Investor Routing
         ModuleRoute(
           '/investorlogin',
           module: AuthModule(),
@@ -31,6 +38,7 @@ class AppModule extends Module {
           '/investorDashboard',
           module: InvestorHomeModular(),
         ),
+        // End Investor Routing
         ChildRoute(
           '/',
           child: (_, __) => OnboardingView(),

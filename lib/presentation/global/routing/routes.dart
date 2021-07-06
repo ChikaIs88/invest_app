@@ -95,16 +95,7 @@ class Routes {
           return SLoginView();
         },
       ),
-      SeafarerRoute(
-        name: '/MinvestorCompanyLogin',
-        defaultTransitions: [
-          SeafarerTransition.slide_from_top,
-          SeafarerTransition.zoom_in,
-        ],
-        builder: (context, args, params) {
-          return MLoginView();
-        },
-      ),
+   
       SeafarerRoute(
         name: '/investorCompanyRegister',
         defaultTransitions: [

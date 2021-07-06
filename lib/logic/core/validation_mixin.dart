@@ -23,6 +23,8 @@ mixin ValidationMixin {
     return null;
   }
 
+
+
   String? validatePhoneNumber(String? phoneNumber) {
     print(phoneNumber!.length);
     if (phoneNumber.length < 10) {
@@ -66,7 +68,7 @@ mixin ValidationMixin {
     if (pin == null || pin.isEmpty) {
       return 'Password field cannot be empty';
     }
-  
+
     // ignore: omit_local_variable_types
     bool hasDigits = pin.contains(RegExp(r'[0-9]'));
 

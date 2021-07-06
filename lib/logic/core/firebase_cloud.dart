@@ -8,6 +8,7 @@ import 'variable.dart';
 abstract class Database {
   // Add user
   Future<void> addUser();
+  Future<void> addCompanyUser();
   // Get user data
   Future<void> getUserData();
   // Add User Prefrence
@@ -44,5 +45,16 @@ class AddToDatabase extends Database {
     CollectionReference prefrence =
         FirebaseFirestore.instance.collection('prefrence');
     return prefrence.doc(id).set(data);
+  }
+
+  @override
+  Future<void> addCompanyUser({
+    String? id,
+    Map<String, dynamic>? data,
+  }) {
+    CollectionReference company =
+        FirebaseFirestore.instance.collection('company');
+
+    return company.doc(id).set(data);
   }
 }

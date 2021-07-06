@@ -33,7 +33,7 @@ class OnboardingCubit extends Cubit<int> {
   }
 
   void navigateInvestorCompanyLoginView() {
-    Routes.seafarer.navigate('/investorCompany');
+    Modular.to.pushNamed('/companyLogin');
   }
 
   void navigateMLoginView() {

@@ -15,6 +15,7 @@ import 'storage.dart';
 /// about sing in with email and password
 abstract class BaseConfig<T> {
   Future<String?> signUpUser({String? email, String? password});
+  Future<String?> signUpCompanyUser({String? email, String? password});
   Future<String?> signInUser({String? email, String? password});
   Future<String?> checkCurrentUser();
   Future<String?> prefrence({Map<String, dynamic>? data});
@@ -112,6 +113,35 @@ class Authentication<T> extends BaseConfig<T> {
     try {
       await add.addUserPrefrence(data: data, id: userUid);
       return 'success';
+    } catch (e) {
+      apiError = '$e';
+      showToast(apiError);
+    }
+  }
+
+  @override
+  Future<String?> signUpCompanyUser({String? email, String? password, info}) async{
+    try {
+      logger.i('signup:: creating the user profile');
+      var userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
+          email: email!, password: password!);
+      logger.i('signup:: adding the user profile');
+      await add.addCompanyUser(data: info, id: userCredential.user!.uid);
+      userUid = userCredential.user!.uid;
+      // await add.getUserData(id: userUid);
+      await saveStorage('uid', userCredential.user!.uid);
+
+      return userCredential.user!.uid;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        // Assign the error to a snackBar
+        apiError = 'The password provided is too weak.';
+        showToast(apiError);
+      } else if (e.code == 'email-already-in-use') {
+        // Assign the error to a variable
+        apiError = 'The account already exists for $email.';
+        showToast(apiError);
+      }
     } catch (e) {
       apiError = '$e';
       showToast(apiError);

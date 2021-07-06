@@ -14,6 +14,12 @@ class $AssetsAnimationGen {
       const AssetGenImage('assets/animation/accountsucess.gif');
 }
 
+class $AssetsCountryGen {
+  const $AssetsCountryGen();
+
+  String get country => 'assets/country/country.json';
+}
+
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
@@ -97,6 +103,7 @@ class Assets {
   Assets._();
 
   static const $AssetsAnimationGen animation = $AssetsAnimationGen();
+  static const $AssetsCountryGen country = $AssetsCountryGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 
