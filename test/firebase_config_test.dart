@@ -9,12 +9,9 @@ class MockConfiguration extends Mock implements FirebaseConfiguration {}
 void main() {
   final appConfig = MockConfiguration();
 
-
   test('Signing in Investor', () async {
     when(() => appConfig.signInUser(
         email: 'test@email.com',
         password: 'testpassword')).thenAnswer((_) => Future.value(userUid));
-
-  
   });
 }
