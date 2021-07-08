@@ -1,7 +1,6 @@
 import 'package:chipln/logic/core/firebase_core.dart';
 import 'package:chipln/logic/core/variable.dart';
 import 'package:chipln/presentation/global/assets/assets.gen.dart';
-import 'package:chipln/presentation/global/routing/routes.dart';
 import 'package:chipln/presentation/global/text_styling.dart';
 import 'package:chipln/presentation/global/ui_helper.dart';
 import 'package:chipln/presentation/global/widget/company_header_design.dart';
@@ -15,70 +14,98 @@ class CompanyDashboardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     final appAuth = Modular.get<Authentication>();
+    final appAuth = Modular.get<FirebaseConfiguration>();
     return Scaffold(
-      body: Padding(
-        padding: paddingLR20,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            verticalSpace(5),
-            const CompanyHeaderDesign(
-              title: 'Dashboard',
-            ),
-            verticalSpace(5),
-            Text(
-              'Welcome, ${userInfo.company_name}😃',
-              style: TextStyling.h1.copyWith(color: Colors.black),
-            ),
-            verticalSpace(1),
-            // Text(
-            //   'of XYZ Inc.',
-            //   style: TextStyling.h2.copyWith(color: Colors.black),
-            // ),
-            verticalSpace(1),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              // ignore: prefer_const_literals_to_create_immutables
-              children: [
-                const DashboardTopCard(
-                  color: Colors.green,
-                  title: 'Total Interested',
-                  subTitle: '1',
-                ),
-                const DashboardTopCard(
-                  color: Colors.green,
-                  title: 'New Messages',
-                  subTitle: '1',
-                ),
-              ],
-            ),
-            Expanded(
-              child: GridView.builder(
-                  itemCount: 6,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2),
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () async {
-                        if (index == 5) {
-                          await appAuth.logOUt();
-                          Modular.to.pushNamed('/companyLogin');
-                          return null;
-                        }
-                        Modular.to.navigate(dashboardRoutingPath[index]);
-                      },
-                      child: DashLayout(
-                        image: images[index],
-                        label: titles[index],
-                      ),
-                    );
-                  }),
-            )
-          ],
-        ),
+      body: CompanyDashboardBody(appAuth: appAuth),
+    );
+  }
+}
+
+class CompanyDashboardBody extends StatelessWidget {
+  const CompanyDashboardBody({
+    Key? key,
+    required this.appAuth,
+  }) : super(key: key);
+
+  final FirebaseConfiguration appAuth;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: paddingLR20,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          verticalSpace(5),
+          const CompanyHeaderDesign(
+            title: 'Dashboard',
+          ),
+          verticalSpace(5),
+          Text(
+            'Welcome, ${userInfo.company_name}😃',
+            style: TextStyling.h1.copyWith(color: Colors.black),
+          ),
+          verticalSpace(1),
+          // Text(
+          //   'of XYZ Inc.',
+          //   style: TextStyling.h2.copyWith(color: Colors.black),
+          // ),
+          verticalSpace(1),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            // ignore: prefer_const_literals_to_create_immutables
+            children: [
+              const DashboardTopCard(
+                color: Colors.green,
+                title: 'Total Interested',
+                subTitle: '1',
+              ),
+              const DashboardTopCard(
+                color: Colors.green,
+                title: 'New Messages',
+                subTitle: '1',
+              ),
+            ],
+          ),
+          PageBelowSection(appAuth: appAuth)
+        ],
       ),
+    );
+  }
+}
+
+class PageBelowSection extends StatelessWidget {
+  const PageBelowSection({
+    Key? key,
+    required this.appAuth,
+  }) : super(key: key);
+
+  final FirebaseConfiguration appAuth;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: GridView.builder(
+          itemCount: 6,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2),
+          itemBuilder: (context, index) {
+            return InkWell(
+              onTap: () async {
+                if (index == 5) {
+                  await appAuth.logOUt();
+                  Modular.to.navigate('/companyLogin');
+                  return;
+                }
+                await Modular.to.pushNamed(dashboardRoutingPath[index]);
+              },
+              child: DashLayout(
+                image: images[index],
+                label: titles[index],
+              ),
+            );
+          }),
     );
   }
 }
@@ -87,7 +114,7 @@ List<String> dashboardRoutingPath = [
   '/companyLogin/addPackages',
   '/investorCompanyMessages',
   '/investorCompanyAssignWorker',
-  '/investorCompanyNotification',
+  '/companyLogin/notification',
   '/investorCompanyCompleteRegister',
   '/'
 ];

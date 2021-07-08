@@ -16,7 +16,7 @@ class RegisterCubit extends Cubit<RegisterState> with ValidationMixin {
   // Local Variables
   final _formKeyOne = GlobalKey<FormState>();
   final _formKeyTwo = GlobalKey<FormState>();
-  final appAuth = Modular.get<Authentication>();
+  final appAuth = Modular.get<FirebaseConfiguration>();
   // Getters
   GlobalKey get formKeyOne => _formKeyOne;
   GlobalKey get formKeyTwo => _formKeyTwo;

@@ -1,5 +1,4 @@
 import 'package:chipln/logic/core/variable.dart';
-import 'package:chipln/models/investor_user_model/investor_user_model.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 //[Func] this allow us to save params to the users phone
@@ -27,5 +26,18 @@ Future<String> getUid() async {
     userDetails = await storage.readAll();
   }
 
+  return value;
+}
+
+//[Func] this allow us to get the user role
+Future<String> getRole() async {
+  const storage = FlutterSecureStorage();
+  var value = await storage.read(key: 'role');
+  if (value == null) {
+    value = '';
+  } else {
+    role = value;
+    userDetails = await storage.readAll();
+  }
   return value;
 }

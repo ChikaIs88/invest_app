@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'firebase_cloud.dart';
 import 'storage.dart';
 
@@ -23,6 +23,12 @@ abstract class BaseConfig<T> {
   Future<String?> checkCurrentUser();
   Future<String?> prefrence({Map<String, dynamic>? data});
   Future<String?> info({Map<String, dynamic>? data});
+  Future<String?> intrested({Map<String, dynamic>? data});
+  Future<String?> package({Map<String, dynamic>? data});
+  Future<String?> downloadImageURL({id});
+  Future<String?> notification({
+    Map<String, dynamic>? data,
+  });
   Future<void> logOUt();
 }
 
@@ -31,18 +37,24 @@ abstract class BaseConfig<T> {
 /// This class contain all the method which is needed
 /// for firebase sign with email
 @Injectable(singleton: true)
-class Authentication<T> extends BaseConfig<T> {
+class FirebaseConfiguration<T> extends BaseConfig<T> {
   // Intiallising firebase
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   FirebaseAuth auth = FirebaseAuth.instance;
   final AddToDatabase add = AddToDatabase();
 
+  // @Method
+  // checking current user
+  // checkCurrentUser()
   @override
   Future<String> checkCurrentUser() async {
     userUid = auth.currentUser!.uid;
     return auth.currentUser != null ? auth.currentUser!.uid : '';
   }
 
+  // @Method
+  // loging current user out
+  // logOUt()
   @override
   Future<void> logOUt() async {
     const storage = FlutterSecureStorage();
@@ -51,6 +63,9 @@ class Authentication<T> extends BaseConfig<T> {
     return _firebaseAuth.signOut();
   }
 
+  // @Method
+  // signing in investor  User
+  // signInUser()
   @override
   Future<String?> signInUser({
     String? email,
@@ -64,23 +79,36 @@ class Authentication<T> extends BaseConfig<T> {
       userUid = userCredential.user!.uid;
       await saveStorage('uid', userUid);
       await add.getUserData(id: userUid);
+      await saveStorage('role', 'user');
       return userCredential.user!.uid;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
+        const storage = FlutterSecureStorage();
+        await storage.deleteAll();
+        userUid = '';
         // Assign the error to a variable
         apiError = 'The account $email does not exist';
         showToast(apiError);
       } else if (e.code == 'wrong-password') {
+        const storage = FlutterSecureStorage();
+        await storage.deleteAll();
+        userUid = '';
         // Assign the error to a variable
         apiError = 'The password provided is incorrect';
         showToast(apiError);
       }
     } catch (e) {
+      const storage = FlutterSecureStorage();
+      await storage.deleteAll();
+      userUid = '';
       apiError = '$e';
       showToast(apiError);
     }
   }
 
+  // @Method
+  // signing up investor  User
+  // signUpUser()
   @override
   Future<String?> signUpUser(
       {String? email, String? password, Map<String, dynamic>? info}) async {
@@ -94,7 +122,7 @@ class Authentication<T> extends BaseConfig<T> {
       userUid = userCredential.user!.uid;
       await add.getUserData(id: userUid);
       await saveStorage('uid', userCredential.user!.uid);
-
+      await saveStorage('role', 'user');
       return userCredential.user!.uid;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -112,6 +140,9 @@ class Authentication<T> extends BaseConfig<T> {
     }
   }
 
+  // @Method
+  // adding up investor  User prefrence
+  // prefrence({Map<String, dynamic>? data})
   @override
   Future<String?> prefrence({Map<String, dynamic>? data}) async {
     try {
@@ -123,6 +154,54 @@ class Authentication<T> extends BaseConfig<T> {
     }
   }
 
+  // @Method
+  // adding up company package
+  // package({Map<String, dynamic>? data})
+  @override
+  Future<String?> package({Map<String, dynamic>? data}) async {
+    try {
+      await add.addPackage(data: data, id: userUid);
+      return 'success';
+    } catch (e) {
+      apiError = '$e';
+      showToast(apiError);
+    }
+  }
+
+  // @Method
+  // adding up user intrested package
+  // intrested({Map<String, dynamic>? data, productId})
+  @override
+  Future<String?> intrested({Map<String, dynamic>? data, productId}) async {
+    try {
+      await add.addintrestedPackage(
+          data: data, id: userUid, productId: productId);
+      return 'success';
+    } catch (e) {
+      apiError = '$e';
+      showToast(apiError);
+    }
+  }
+
+  // @Method
+  // adding up notification
+  // notification({Map<String, dynamic>? data})
+  @override
+  Future<String?> notification({
+    Map<String, dynamic>? data,
+  }) async {
+    try {
+      await add.addNotification(data: data);
+      return 'success';
+    } catch (e) {
+      apiError = '$e';
+      showToast(apiError);
+    }
+  }
+
+  // @Method
+  // signing up company user
+  // signUpCompanyUser({String? email, String? password, info})
   @override
   Future<String?> signUpCompanyUser(
       {String? email, String? password, info}) async {
@@ -135,6 +214,7 @@ class Authentication<T> extends BaseConfig<T> {
       userUid = userCredential.user!.uid;
       await add.getCompanyUserData(id: userUid);
       await saveStorage('uid', userCredential.user!.uid);
+      await saveStorage('role', 'company');
       return userCredential.user!.uid;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -152,6 +232,9 @@ class Authentication<T> extends BaseConfig<T> {
     }
   }
 
+  // @Method
+  // adding up company user info
+  // info({Map<String, dynamic>? data, File? imageFile})
   @override
   Future<String?> info({Map<String, dynamic>? data, File? imageFile}) async {
     try {
@@ -164,6 +247,9 @@ class Authentication<T> extends BaseConfig<T> {
     }
   }
 
+  // @Method
+  // signing in company user
+  // signInCompanyUser({String? email, String? password})
   @override
   Future<String?> signInCompanyUser({String? email, String? password}) async {
     //  This is where all the magic for sign in with password happens
@@ -174,20 +260,39 @@ class Authentication<T> extends BaseConfig<T> {
       userUid = userCredential.user!.uid;
       await saveStorage('uid', userUid);
       await add.getCompanyUserData(id: userUid);
+      await saveStorage('role', 'company');
       return userCredential.user!.uid;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
+        const storage = FlutterSecureStorage();
+        await storage.deleteAll();
+        userUid = '';
         // Assign the error to a variable
         apiError = 'The account $email does not exist';
         showToast(apiError);
       } else if (e.code == 'wrong-password') {
+        const storage = FlutterSecureStorage();
+        await storage.deleteAll();
+        userUid = '';
         // Assign the error to a variable
         apiError = 'The password provided is incorrect';
         showToast(apiError);
       }
     } catch (e) {
+      const storage = FlutterSecureStorage();
+      await storage.deleteAll();
+      userUid = '';
       apiError = '$e';
       showToast(apiError);
     }
+  }
+
+// @Method
+  // getting Image url
+  // downloadImageURL({id})
+  @override
+  Future<String?> downloadImageURL({id}) async {
+    var image = await add.getImage(id: id);
+    return image;
   }
 }

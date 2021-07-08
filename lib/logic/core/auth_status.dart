@@ -1,3 +1,4 @@
+// Authentication state extension and enum to maintain the app auth states
 enum AuthStatus {
   initial,
   submissionInProgress,

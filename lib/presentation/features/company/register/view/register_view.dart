@@ -20,18 +20,15 @@ import '../cubit/register_cubit.dart';
 
 class InvestorCompanyRegisterView extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _mconsultantController = TextEditingController();
-  final TextEditingController _companyController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
+ 
 
   final ScrollController _controller = ScrollController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     logger.d('Investor Companay RegisterScreen has been initialized');
-    var buttonState = ButtonState.idle;
+
     return BlocProvider(
       create: (context) => RegisterCubit(),
       child: Scaffold(
@@ -134,7 +131,7 @@ class InvestorCompanyRegisterView extends StatelessWidget {
                             // ),
                             // verticalSpace(4.5),
                             AppTextField(
-                              controller: _companyController,
+                             
                               key: const Key('register_companyName_textfield'),
                               label: 'Company Name',
                               hintText: 'Enter Company Name',
@@ -144,7 +141,7 @@ class InvestorCompanyRegisterView extends StatelessWidget {
                             ),
                             verticalSpace(4.5),
                             AppTextField(
-                              controller: _emailController,
+                              
                               key: const Key('register_emailaddress_textfield'),
                               label: 'Enter Company Email Address',
                               hintText: 'Enter Email Address',

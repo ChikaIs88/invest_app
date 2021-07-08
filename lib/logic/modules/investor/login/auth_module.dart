@@ -3,6 +3,7 @@ import 'package:chipln/presentation/features/investor/prefrence/view/prefrence_v
 import 'package:chipln/presentation/features/investor/register/view/register_view.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+// [class] Auth Modular for managin authentication in the app
 class AuthModule extends Module {
   //This contains a list of dependencies to inject into your project
   @override

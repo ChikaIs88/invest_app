@@ -14,7 +14,7 @@ class InvestorregistercompleteCubit
     extends Cubit<InvestorregistercompleteState> {
   InvestorregistercompleteCubit()
       : super(const InvestorregistercompleteState());
-  final appAuth = Modular.get<Authentication>();
+  final appAuth = Modular.get<FirebaseConfiguration>();
 // Method to update  state
   void updateImage(value) {
     emit(state.copyWith(profileImage: File(value.path)));

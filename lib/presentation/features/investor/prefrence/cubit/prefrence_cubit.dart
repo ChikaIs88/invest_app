@@ -10,7 +10,7 @@ part 'prefrence_state.dart';
 
 class PrefrenceCubit extends Cubit<PrefrenceState> {
   PrefrenceCubit() : super(const PrefrenceState());
-  final appAuth = Modular.get<Authentication>();
+  final appAuth = Modular.get<FirebaseConfiguration>();
 
   dynamic onChangeDropdownList(value) {
     emit(state.copyWith(selectedItem: value));

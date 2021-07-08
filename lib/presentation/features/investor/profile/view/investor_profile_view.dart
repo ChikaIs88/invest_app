@@ -1,17 +1,17 @@
 import 'package:chipln/logic/core/firebase_core.dart';
 import 'package:chipln/logic/core/variable.dart';
-import 'package:chipln/presentation/global/routing/routes.dart';
 import 'package:chipln/presentation/global/widget/app_flat_button.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:chipln/presentation/global/assets/assets.gen.dart';
 import 'package:chipln/presentation/global/constants.dart';
-import 'package:chipln/presentation/global/widget/curve_painter.dart';
 import 'package:chipln/presentation/global/text_styling.dart';
 import 'package:chipln/presentation/global/ui_helper.dart';
 import 'package:chipln/presentation/global/widget/curve_wave.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:get_time_ago/get_time_ago.dart';
 import 'package:sizer/sizer.dart';
 
 class InvestorProfileView extends StatefulWidget {
@@ -40,113 +40,154 @@ class _InvestorProfileViewState extends State<InvestorProfileView>
 
   @override
   Widget build(BuildContext context) {
-    final appAuth = Modular.get<Authentication>();
+    final appAuth = Modular.get<FirebaseConfiguration>();
+    final Stream<QuerySnapshot> _notifications = FirebaseFirestore.instance
+        .collection('notification')
+        .where('userId', isEqualTo: userUid)
+        .snapshots();
+
     return Scaffold(
-      body: Column(
-        children: [
-          Container(
-            height: 40.h,
-            width: double.infinity,
-            decoration: const BoxDecoration(color: kPrimaryColor),
-            child: Stack(
-              children: [
-                Assets.images.login.loginbg.svg(height: 40.h),
-                verticalSpace(10),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      padding: paddingLR20,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Assets.images.home.chat.image(height: 8.h),
-                              horizontalSpace(3),
-                              Text(
-                                '${userInfo!.first_name} ${userInfo!.last_name} ',
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyling.h2.copyWith(
-                                  color: Colors.white,
-                                  fontSize: 15.sp,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                width: 21.w,
-                                height: 5.h,
-                                decoration: BoxDecoration(
-                                    color: Colors.red[100],
-                                    borderRadius: BorderRadius.circular(5)),
-                                child: AppFlatButton(
-                                  color: Colors.red[100],
-                                  label: 'Log Out',
-                                  onPressed: () async {
-                                    await appAuth.logOUt();
-                                    Modular.to.navigate('/investorlogin');
-                                  },
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                    verticalSpace(5),
-                    Padding(
-                      padding: paddingLR20,
-                      child: IntrinsicHeight(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          // ignore: prefer_const_literals_to_create_immutables
+      body: InvestorProfileBodySection(
+          appAuth: appAuth, notifications: _notifications),
+    );
+  }
+}
+
+class InvestorProfileBodySection extends StatelessWidget {
+  const InvestorProfileBodySection({
+    Key? key,
+    required this.appAuth,
+    required Stream<QuerySnapshot<Object?>> notifications,
+  })  : _notifications = notifications,
+        super(key: key);
+
+  final FirebaseConfiguration appAuth;
+  final Stream<QuerySnapshot<Object?>> _notifications;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          height: 40.h,
+          width: double.infinity,
+          decoration: const BoxDecoration(color: kPrimaryColor),
+          child: Stack(
+            children: [
+              Assets.images.login.loginbg.svg(height: 40.h),
+              verticalSpace(10),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: paddingLR20,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
                           children: [
-                            const ProfileText(
-                              title: '20,000',
-                              subText: 'Min Investment',
-                            ),
-                            const VerticalDivider(color: Colors.white54),
-                            const ProfileText(
-                              title: '10',
-                              subText: 'Total Connection',
-                            ),
-                            const VerticalDivider(color: Colors.white54),
-                            const ProfileText(
-                              title: '100',
-                              subText: 'Intrested',
+                            Assets.images.home.chat.image(height: 8.h),
+                            horizontalSpace(3),
+                            Text(
+                              '${userInfo!.first_name} ${userInfo!.last_name} ',
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyling.h2.copyWith(
+                                color: Colors.white,
+                                fontSize: 15.sp,
+                              ),
                             ),
                           ],
                         ),
+                        Row(
+                          children: [
+                            Container(
+                              width: 21.w,
+                              height: 5.h,
+                              decoration: BoxDecoration(
+                                  color: Colors.red[100],
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: AppFlatButton(
+                                color: Colors.red[100],
+                                label: 'Log Out',
+                                onPressed: () async {
+                                  await appAuth.logOUt();
+                                  Modular.to.navigate('/investorlogin');
+                                },
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                  verticalSpace(5),
+                  Padding(
+                    padding: paddingLR20,
+                    child: IntrinsicHeight(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        // ignore: prefer_const_literals_to_create_immutables
+                        children: [
+                          const ProfileText(
+                            title: '20,000',
+                            subText: 'Min Investment',
+                          ),
+                          const VerticalDivider(color: Colors.white54),
+                          const ProfileText(
+                            title: '10',
+                            subText: 'Total Connection',
+                          ),
+                          const VerticalDivider(color: Colors.white54),
+                          const ProfileText(
+                            title: '100',
+                            subText: 'Intrested',
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+            ],
           ),
-          verticalSpace(2),
-          Expanded(
-            child: ListView.builder(
+        ),
+        verticalSpace(2),
+        StreamBuilder<QuerySnapshot>(
+            stream: _notifications,
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Text('Something went wrong');
+              }
+
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Text("Loading");
+              }
+              return Expanded(
+                  child: ListView(
                 padding: EdgeInsets.zero,
                 physics: const BouncingScrollPhysics(),
-                itemCount: 5,
-                itemBuilder: (context, index) {
-                  return const NotifcatioCards();
-                }),
-          ),
-        ],
-      ),
+                children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                  var data = document.data() as Map<String, dynamic>;
+                  return NotifcatioCards(
+                    company: data['companyName'],
+                    time: data['time'],
+                  );
+                }).toList(),
+              ));
+            }),
+      ],
     );
   }
 }
 
 class NotifcatioCards extends StatelessWidget {
+  final dynamic time;
+  final String company;
   const NotifcatioCards({
     Key? key,
+    required this.time,
+    required this.company,
   }) : super(key: key);
 
   @override
@@ -190,7 +231,7 @@ class NotifcatioCards extends StatelessWidget {
                 ],
               ),
               Text(
-                'Today',
+                TimeAgo.getTimeAgo(time.toDate()),
                 style: TextStyling.bodyText1
                     .copyWith(fontSize: 13, color: Colors.black54),
               )
@@ -198,7 +239,7 @@ class NotifcatioCards extends StatelessWidget {
           ),
           verticalSpace(2),
           Text(
-            'Your just liked an investment.you have intrest in Goki Investment,Jamp to thier dm',
+            'You showed intrest in ${company}\'s Investment,Jamp to thier dm',
             style: TextStyling.bodyText1
                 .copyWith(fontSize: 13, color: Colors.black54),
           ),

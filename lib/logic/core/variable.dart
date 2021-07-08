@@ -1,8 +1,9 @@
-import 'package:chipln/models/investor_user_model/investor_user_model.dart';
-
+//[var] global varables for app
 var apiError = '';
 var userCredentials = '';
 String? userUid = '';
- Map<String, String>? userDetails;
+String? role = '';
+Map<String, String>? userDetails;
 
-dynamic? userInfo; 
+dynamic userInfo;
+dynamic imageInfo;

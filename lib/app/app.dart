@@ -1,8 +1,3 @@
-// Copyright (c) 2021
-//
-// Use of this source code is governed by an MIT-style
-// license that can be found in the LICENSE file or at
-// https://opensource.org/licenses/MIT.
 import 'package:chipln/l10n/l10n.dart';
 import 'package:chipln/presentation/global/constants.dart';
 import 'package:chipln/presentation/global/routing/routes.dart';
@@ -15,6 +10,7 @@ import 'package:last_state/last_state.dart';
 import 'package:seafarer/seafarer.dart';
 import 'package:sizer/sizer.dart';
 
+//[Chipln App] configuration
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
 

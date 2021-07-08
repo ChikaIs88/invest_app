@@ -23,7 +23,7 @@ class CompanyAssignWorkerView extends StatelessWidget {
             showLogs: true,
             heightToExpandTo: 75,
             forceCustomHeight: true,
-            expendedBackgroundColor: Color(0xffFFFAFA),
+            expendedBackgroundColor: const Color(0xffFFFAFA),
             withChild: Column(
               children: [
                 verticalSpace(1.5),

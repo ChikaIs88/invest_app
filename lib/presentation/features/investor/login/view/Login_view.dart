@@ -22,11 +22,7 @@ import 'package:sizer/sizer.dart';
 import '../cubit/login_cubit.dart';
 
 class InvestorLoginView extends StatelessWidget {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
-  final AuthService _auth = AuthService();
 
   String? emailAddress = '';
   String? password = '';
@@ -39,86 +35,92 @@ class InvestorLoginView extends StatelessWidget {
     return BlocProvider(
       create: (context) => LoginCubit(),
       child: Scaffold(
-          body: SingleChildScrollView(
-              child: Column(mainAxisSize: MainAxisSize.max, children: [
-        BlocConsumer<LoginCubit, LoginState>(
-          listener: (context, state) {
-            //listen to the change and run whatever it gets
-            final _cubit = context.read<LoginCubit>();
-            if (state.emailAddress!.isNotEmpty && state.password!.isNotEmpty) {
-              _cubit.updateColor(kPrimaryColor);
-            } else {
-              _cubit.updateColor(kGrishTransWhiteColor);
-            }
-            if (state.status == AuthStatus.nextPage) {}
-          },
-          builder: (context, state) {
-            //allows you update the ui
-            final _cubit = context.watch<LoginCubit>();
-            return Column(
-              children: [
-                Container(
-                  height: 25.h,
-                  width: double.infinity, //target the whole width
-                  decoration: const BoxDecoration(color: kPrimaryColor),
-                  child: Stack(
-                    children: [
-                      Assets.images.login.loginbg.svg(height: 25.h),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            verticalSpace(10),
-                            Text(
-                              'Welcome',
-                              style: TextStyling.h1,
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  'Happy to see you again!',
-                                  style: TextStyling.h2,
-                                ),
-                                Assets.images.login.welcome.image(height: 60)
-                              ],
-                            )
-                          ],
-                        ),
+          body: InvestorLoginBodySection(
+              passwordController: _passwordController)),
+    );
+  }
+}
+
+class InvestorLoginBodySection extends StatelessWidget {
+  const InvestorLoginBodySection({
+    Key? key,
+    required TextEditingController passwordController,
+  })  : _passwordController = passwordController,
+        super(key: key);
+
+  final TextEditingController _passwordController;
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+        child: Column(mainAxisSize: MainAxisSize.max, children: [
+      BlocConsumer<LoginCubit, LoginState>(
+        listener: (context, state) {
+          //listen to the change and run whatever it gets
+          final _cubit = context.read<LoginCubit>();
+          if (state.emailAddress!.isNotEmpty && state.password!.isNotEmpty) {
+            _cubit.updateColor(kPrimaryColor);
+          } else {
+            _cubit.updateColor(kGrishTransWhiteColor);
+          }
+          if (state.status == AuthStatus.nextPage) {}
+        },
+        builder: (context, state) {
+          //allows you update the ui
+          final _cubit = context.watch<LoginCubit>();
+          return Column(
+            children: [
+              Container(
+                height: 25.h,
+                width: double.infinity, //target the whole width
+                decoration: const BoxDecoration(color: kPrimaryColor),
+                child: Stack(
+                  children: [
+                    Assets.images.login.loginbg.svg(height: 25.h),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          verticalSpace(10),
+                          Text(
+                            'Welcome',
+                            style: TextStyling.h1,
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                'Happy to see you again!',
+                                style: TextStyling.h2,
+                              ),
+                              Assets.images.login.welcome.image(height: 60)
+                            ],
+                          )
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: paddingLR20,
-                  child: Form(
-                    key: _cubit.formKeyOne,
-                    child: Column(
-                      children: [
-                        verticalSpace(8),
-                        // AppTextField(
-                        //   key: const Key('Login_userName_textfield'),
-                        //   controller: _usernameController,
-                        //   label: 'Username',
-                        //   hintText: 'Enter Username',
-                        //   onChanged: _cubit.usernameChanged,
-                        //   validator: _cubit.validateUserName,
-                        //   textInputAction: TextInputAction.next,
-                        // ),
-                        // verticalSpace(4.5),
-                        AppTextField(
-                          key: const Key('Login_emailaddress_textfield'),
-                          controller: _emailController,
-                          label: 'Email Address',
-                          hintText: 'Enter Email Address',
-                          onChanged: _cubit.emailChanged,
-                          keyboardType: TextInputType.emailAddress,
-                          validator: _cubit.validateEmail,
-                          textInputAction: TextInputAction.next,
-                        ),
-                        verticalSpace(4.5),
-                        AppTextField(
+              ),
+              Padding(
+                padding: paddingLR20,
+                child: Form(
+                  key: _cubit.formKeyOne,
+                  child: Column(
+                    children: [
+                      verticalSpace(8),
+                      AppTextField(
+                        key: const Key('Login_emailaddress_textfield'),
+                        label: 'Email Address',
+                        hintText: 'Enter Email Address',
+                        onChanged: _cubit.emailChanged,
+                        keyboardType: TextInputType.emailAddress,
+                        validator: _cubit.validateEmail,
+                        textInputAction: TextInputAction.next,
+                      ),
+                      verticalSpace(4.5),
+                      AppTextField(
                           key: const Key('Login_password_textfield'),
                           controller: _passwordController,
                           label: 'Password',
@@ -148,83 +150,83 @@ class InvestorLoginView extends StatelessWidget {
                             ),
                             onPressed: _cubit.togglePasswordVisibility,
                           ),
-                          onFieldSubmitted: (val) =>  _cubit.handleLogin() //brings submission button
-                        ),
-                        verticalSpace(4),
-                        ProgressButton(
-                          minWidth: 100.0,
-                          radius: 100.0,
-                          progressIndicatorAligment: MainAxisAlignment.center,
-                          stateWidgets: {
-                            ButtonState.idle: Text(
-                              'Login',
-                              style: TextStyling.h2.copyWith(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            ButtonState.loading: Text(
-                              '',
-                              style: TextStyling.h2.copyWith(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            ButtonState.fail: Text(
-                              'Fail',
-                              style: TextStyling.h2.copyWith(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            ButtonState.success: Text(
-                              'Success',
-                              style: TextStyling.h2.copyWith(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500),
-                            )
-                          },
-                          stateColors: {
-                            ButtonState.idle: state.emailAddress!.isNotEmpty &&
-                                    state.password!.isNotEmpty
-                                ? kPrimaryColor
-                                : Colors.grey.shade400,
-                            ButtonState.loading: kMintGreen,
-                            ButtonState.fail: Colors.red.shade300,
-                            ButtonState.success: Colors.green.shade400,
-                          },
-                          onPressed: () async {
-                            FocusScope.of(context).unfocus();
-                            _cubit.handleLogin();
-                          },
-                          state: state.buttonState,
-                        ),
-                        verticalSpace(3),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Don't have an account? ",
+                          onFieldSubmitted: (val) =>
+                              _cubit.handleLogin() //brings submission button
+                          ),
+                      verticalSpace(4),
+                      ProgressButton(
+                        minWidth: 100.0,
+                        radius: 100.0,
+                        progressIndicatorAligment: MainAxisAlignment.center,
+                        stateWidgets: {
+                          ButtonState.idle: Text(
+                            'Login',
+                            style: TextStyling.h2.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          ButtonState.loading: Text(
+                            '',
+                            style: TextStyling.h2.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          ButtonState.fail: Text(
+                            'Fail',
+                            style: TextStyling.h2.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          ButtonState.success: Text(
+                            'Success',
+                            style: TextStyling.h2.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500),
+                          )
+                        },
+                        stateColors: {
+                          ButtonState.idle: state.emailAddress!.isNotEmpty &&
+                                  state.password!.isNotEmpty
+                              ? kPrimaryColor
+                              : Colors.grey.shade400,
+                          ButtonState.loading: kMintGreen,
+                          ButtonState.fail: Colors.red.shade300,
+                          ButtonState.success: Colors.green.shade400,
+                        },
+                        onPressed: () async {
+                          FocusScope.of(context).unfocus();
+                          _cubit.handleLogin();
+                        },
+                        state: state.buttonState,
+                      ),
+                      verticalSpace(3),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Don't have an account? ",
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.quicksand(
+                                color: Colors.black,
+                              )),
+                          GestureDetector(
+                            onTap: _cubit.handleNavigateToRegister,
+                            child: Text('Sign Up',
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.quicksand(
-                                  color: Colors.black,
+                                  color: kPrimaryColor,
                                 )),
-                            GestureDetector(
-                              onTap: _cubit.handleNavigateToRegister,
-                              child: Text('Sign Up',
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.quicksand(
-                                    color: kPrimaryColor,
-                                  )),
-                            ),
-                          ],
-                        ),
-                        verticalSpace(8),
-                      ],
-                    ),
+                          ),
+                        ],
+                      ),
+                      verticalSpace(8),
+                    ],
                   ),
                 ),
-              ],
-            );
-          },
-        )
-      ]))),
-    );
+              ),
+            ],
+          );
+        },
+      )
+    ]));
   }
 }

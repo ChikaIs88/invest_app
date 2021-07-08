@@ -1,6 +1,7 @@
 import 'package:chipln/presentation/global/routing/routes.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 import '../text_styling.dart';
 
@@ -19,7 +20,7 @@ class CompanyHeaderDesign extends StatelessWidget {
       children: [
         show == true
             ? IconButton(
-                onPressed: Routes.seafarer.pop,
+                onPressed: Modular.to.pop,
                 icon: const Icon(
                   EvaIcons.arrowBack,
                 ))

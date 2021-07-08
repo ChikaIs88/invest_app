@@ -1,9 +1,13 @@
+import 'package:chipln/logic/core/firebase_core.dart';
+import 'package:chipln/logic/core/variable.dart';
 import 'package:chipln/presentation/global/assets/assets.gen.dart';
 import 'package:chipln/presentation/global/routing/routes.dart';
+import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:chipln/presentation/global/constants.dart';
 import 'package:chipln/presentation/global/text_styling.dart';
 import 'package:chipln/presentation/global/ui_helper.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:sizer/sizer.dart';
 
 import 'app_flat_button.dart';
@@ -12,25 +16,44 @@ import 'container_clipper.dart';
 class FeaturedCard extends StatelessWidget {
   final String title;
   final String subtitle;
-  final double price;
-  final int unit;
+  final String price;
+  final String unit;
   final String company;
-
+  final String? url;
   // ignore: lines_longer_than_80_chars
-  const FeaturedCard(this.title, this.subtitle, this.price, this.unit, this.company);
+  const FeaturedCard(
+      this.title, this.subtitle, this.price, this.unit, this.company,
+      {required this.url});
 
   @override
   Widget build(BuildContext context) {
     return Row(
-     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const CircleAvatar(
-            backgroundColor: Colors.grey,
-            radius: 33,
-          ),
+        // CircleAvatar(
+        //   backgroundColor: Colors.grey,
+        //   radius: 33,
+        //   child: url == ''
+        //       ? null
+        //       : FittedBox(
+        //           child: Image.network(
+        //           url,
+        //           fit: BoxFit.cover,
+        //         )),
+        // ),
+        CircularProfileAvatar(
+          url ?? '',
+          backgroundColor: Colors.grey,
+          borderColor: Colors.white,
+          borderWidth: 0,
+          elevation: 2,
+          radius: 33,
+        ),
+        horizontalSpace(2),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
             verticalSpace(2),
             Text(
@@ -38,10 +61,16 @@ class FeaturedCard extends StatelessWidget {
               style: TextStyling.h2.copyWith(color: Colors.black),
             ),
             verticalSpace(1),
-            Text(
-              subtitle,
-              style: TextStyling.bodyText1
-                  .copyWith(fontSize: 13, color: Colors.black45),
+            SizedBox(
+              width: responsiveWidth(65),
+              child: Text(
+                subtitle,
+                softWrap: false,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: TextStyling.bodyText1
+                    .copyWith(fontSize: 13, color: Colors.black45),
+              ),
             ),
             verticalSpace(1),
             GestureDetector(
@@ -99,16 +128,22 @@ class FeaturedCard extends StatelessWidget {
 class ProductDetailDown extends StatelessWidget {
   final String title;
   final String description;
-  final double price;
-  final int unit;
+  final String price;
+  final String unit;
   final String company;
+  final dynamic productId;
+  final dynamic companyId;
+  final dynamic companyName;
+  final dynamic image;
   //final Assets profile;
 
   // ignore: lines_longer_than_80_chars
-  const ProductDetailDown(this.title, this.description, this.price, this.unit, this.company);
+  const ProductDetailDown(this.productId, this.title, this.description,
+      this.price, this.unit, this.company, this.companyId, this.companyName, this.image);
 
   @override
   Widget build(BuildContext context) {
+    final appConfig = Modular.get<FirebaseConfiguration>();
     return Padding(
       padding: paddingLR20,
       child: Column(
@@ -229,7 +264,30 @@ class ProductDetailDown extends StatelessWidget {
                 child: AppFlatButton(
                   color: kPrimaryColor,
                   label: 'Intrested',
-                  onPressed: () {},
+                  onPressed: () async {
+                    await appConfig.intrested(productId: '$productId', data: {
+                      'userId': userUid,
+                      'packageName': title,
+                      'image': image,
+                      'description': description,
+                      'unit': unit,
+                      'price': price,
+                      'company': companyName
+                    }).then((value) => {
+                          if (value == null)
+                            {}
+                          else
+                            {
+                              appConfig.notification(data: {
+                                'userId': userUid,
+                                'companyId': companyId,
+                                'userName': userInfo.username,
+                                'companyName': companyName,
+                                'time': DateTime.now()
+                              })
+                            }
+                        });
+                  },
                 ),
               ),
             ],
@@ -241,8 +299,10 @@ class ProductDetailDown extends StatelessWidget {
 }
 
 class ProductDetailTop extends StatelessWidget {
+  final String? url;
   const ProductDetailTop({
     Key? key,
+    this.url,
   }) : super(key: key);
 
   @override
@@ -265,11 +325,14 @@ class ProductDetailTop extends StatelessWidget {
             ),
           ),
         ),
-        CircleAvatar(
+        CircularProfileAvatar(
+          url!,
           backgroundColor: Colors.white,
-          maxRadius: 60,
-          child: Assets.images.home.samplecompany.image(),
-        )
+          borderColor: Colors.white,
+          borderWidth: 10,
+          elevation: 2,
+          radius: 60,
+        ),
       ],
     );
   }

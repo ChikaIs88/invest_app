@@ -1,7 +1,9 @@
 import 'package:animations/animations.dart';
 import 'package:chipln/logic/core/firebase_cloud.dart';
+import 'package:chipln/logic/core/firebase_core.dart';
 import 'package:chipln/logic/core/variable.dart';
 import 'package:chipln/presentation/global/routing/routes.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:chipln/presentation/global/assets/assets.gen.dart';
@@ -52,6 +54,9 @@ class FeaturedProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Stream<QuerySnapshot> _companyPackages =
+        FirebaseFirestore.instance.collection('package').limit(4).snapshots();
+    final appConfig = Modular.get<FirebaseConfiguration>();
     return Container(
       height: 80.h,
       color: Colors.white,
@@ -73,56 +78,68 @@ class FeaturedProductCard extends StatelessWidget {
             ],
           ),
           Expanded(
-            child: ListView.builder(
-                padding: EdgeInsets.zero,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return OpenContainer(
-                    closedElevation: 0,
-                    transitionType: ContainerTransitionType.fade,
-                    transitionDuration: const Duration(milliseconds: 500),
-                    openBuilder: (context, action) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        // ignore: prefer_const_literals_to_create_immutables
-                        children: [
-                          const ProductDetailTop(),
-                          const ProductDetailDown(
-                              'Gojek',
-                              'Tis product is perfect for you. It offers special rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr',
-                              30,
-                              5,
-                              'By XYZ Inc.'),
-                          const ProductDetailDown(
-                              'New one',
-                              'Tis product is perfect for you. It offers special rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr',
-                              30,
-                              5,
-                              'By XYZ Inc.'),
-                        ],
-                      );
-                    },
-                    closedBuilder: (context, action) {
-                      return Column(
-                        children: [
-                          const FeaturedCard(
-                              'Gojek',
-                              'Tis product is perfect for you',
-                              30,
-                              5,
-                              'By XYZ Inc.'),
-                          verticalSpace(2),
-                          const MyHorizontalDivider(),
-                          const FeaturedCard(
-                              'New one',
-                              'Tis product is perfect for you',
-                              50,
-                              18,
-                              'By PQRS Inc.'),
-                        ],
-                      );
-                    },
-                  );
+            child: StreamBuilder<QuerySnapshot>(
+                stream: _companyPackages,
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.hasError) {
+                    return Text('Something went wrong');
+                  }
+
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Text("Loading");
+                  }
+
+                  return ListView(
+                      padding: EdgeInsets.zero,
+                      physics: const NeverScrollableScrollPhysics(),
+                      children:
+                          snapshot.data!.docs.map((DocumentSnapshot document) {
+                        var data = document.data() as Map<String, dynamic>;
+
+                        return OpenContainer(
+                          closedElevation: 0,
+                          transitionType: ContainerTransitionType.fade,
+                          transitionDuration: const Duration(milliseconds: 500),
+                          openBuilder: (context, action) {
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              // ignore: prefer_const_literals_to_create_immutables
+                              children: [
+                                ProductDetailTop(
+                                  url: data['image'],
+                                ),
+                                ProductDetailDown(
+                                    data['id'],
+                                    data['packageName'],
+                                    data['description'],
+                                    data['price'],
+                                    data['unit'],
+                                    'By ${data['company']}.',
+                                    data['companyId'],
+                                    data['company'],
+                                    data['image']
+                                    ),
+                              ],
+                            );
+                          },
+                          closedBuilder: (context, action) {
+                            return Column(
+                              children: [
+                                FeaturedCard(
+                                  data['packageName'],
+                                  data['description'],
+                                  data['price'],
+                                  data['unit'],
+                                  'By ${data['company']}.',
+                                  url: data['image'],
+                                ),
+                                verticalSpace(2),
+                                const MyHorizontalDivider(),
+                              ],
+                            );
+                          },
+                        );
+                      }).toList());
                 }),
           ),
         ],
