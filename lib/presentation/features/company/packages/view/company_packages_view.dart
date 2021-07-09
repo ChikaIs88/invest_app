@@ -245,7 +245,7 @@ class AdvFloatingActionButton extends StatelessWidget {
           showLogs: true,
           heightToExpandTo: 68,
           forceCustomHeight: true,
-          expendedBackgroundColor: Color(0xffFFFAFA),
+          expendedBackgroundColor: const Color(0xffFFFAFA),
           withChild: AddPackage(
               mabialaFABController: mabialaFABController,
               controller: _controller,

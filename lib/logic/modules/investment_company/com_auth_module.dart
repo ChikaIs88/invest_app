@@ -1,3 +1,4 @@
+import 'package:chipln/presentation/features/company/assign/view/company_assign_worker_view.dart';
 import 'package:chipln/presentation/features/company/confirm/view/confirm_registration_view.dart';
 import 'package:chipln/presentation/features/company/dashboard/view/company_dashboard_view.dart';
 import 'package:chipln/presentation/features/company/login/view/m_login_view.dart';
@@ -16,7 +17,7 @@ class CompanyAuthModular extends Module {
   // This contains all the routes for your module
   @override
   List<ModularRoute> get routes => [
-        ChildRoute('/', child: (_, __) => InvestmentCompanyView()),
+        ChildRoute('/', child: (_, __) => const InvestmentCompanyView()),
         ChildRoute('/signup', child: (_, __) => InvestorCompanyRegisterView()),
         ChildRoute('/confirm',
             child: (_, __) => const ConfirmInvestorRegistrationView()),
@@ -26,6 +27,8 @@ class CompanyAuthModular extends Module {
             child: (_, __) => const CompanyDashboardView()),
         ChildRoute('/addPackages',
             child: (_, __) => const CompanyPackagesView()),
-        ChildRoute('/notification', child: (_,__)=> CompanyNotificationView())
+        ChildRoute('/notification',
+            child: (_, __) => const CompanyNotificationView()),
+        ChildRoute('/assign', child: (_, __) => const CompanyAssignWorkerView())
       ];
 }

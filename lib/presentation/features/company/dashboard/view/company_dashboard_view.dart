@@ -113,7 +113,7 @@ class PageBelowSection extends StatelessWidget {
 List<String> dashboardRoutingPath = [
   '/companyLogin/addPackages',
   '/investorCompanyMessages',
-  '/investorCompanyAssignWorker',
+  '/companyLogin/assign',
   '/companyLogin/notification',
   '/investorCompanyCompleteRegister',
   '/'

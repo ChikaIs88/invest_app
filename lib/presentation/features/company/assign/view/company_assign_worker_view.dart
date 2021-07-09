@@ -1,36 +1,64 @@
+import 'package:adv_fab/adv_fab.dart';
 import 'package:chipln/presentation/global/constants.dart';
 import 'package:chipln/presentation/global/text_styling.dart';
 import 'package:chipln/presentation/global/ui_helper.dart';
 import 'package:chipln/presentation/global/widget/app_text_field.dart';
 import 'package:chipln/presentation/global/widget/company_header_design.dart';
+import 'package:chipln/presentation/global/widget/transparent_button.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:adv_fab/adv_fab.dart';
 
-class CompanyAssignWorkerView extends StatelessWidget {
+class CompanyAssignWorkerView extends StatefulWidget {
   const CompanyAssignWorkerView({Key? key}) : super(key: key);
 
   @override
+  State<CompanyAssignWorkerView> createState() =>
+      _CompanyAssignWorkerViewState();
+}
+
+class _CompanyAssignWorkerViewState extends State<CompanyAssignWorkerView> {
+  AdvFabController? mabialaFABController;
+
+  @override
+  void initState() {
+    mabialaFABController = AdvFabController();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final mabialaFABController = AdvFabController();
     return Scaffold(
       floatingActionButton: AdvFab(
         showLogs: true,
         onFloatingActionButtonTapped: () {
           // ignore: avoid_dynamic_calls
-          mabialaFABController.setExpandedWidgetConfiguration(
+          mabialaFABController!.setExpandedWidgetConfiguration(
             showLogs: true,
-            heightToExpandTo: 75,
+            heightToExpandTo: 73,
             forceCustomHeight: true,
             expendedBackgroundColor: const Color(0xffFFFAFA),
             withChild: Column(
               children: [
                 verticalSpace(1.5),
-                Text('Assign Consultant',
-                    style: TextStyling.h1.copyWith(
-                      color: kTransBlack,
-                    )),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(''),
+                    Text('Assign Consultant ✨',
+                        style: TextStyling.h1.copyWith(
+                          color: kTransBlack,
+                        )),
+                    InkWell(
+                        onTap: () {
+                          mabialaFABController!.collapseFAB();
+                        },
+                        child: const Icon(
+                          EvaIcons.close,
+                          color: Colors.red,
+                        ))
+                  ],
+                ),
                 verticalSpace(4.5),
                 Text(
                     'Please note that after adding,\nyou will not be able to edit it',
@@ -66,30 +94,46 @@ class CompanyAssignWorkerView extends StatelessWidget {
                 Padding(
                   padding: paddingLR20,
                   child: AppTextField(
-                    key: const Key('consultant_pin_textfield'),
-                    label: 'PIN',
-                    hintText: 'Assign PIN to consultant. Must be 4 digits',
+                    key: const Key('consultant_password_textfield'),
+                    label: 'Password',
+                    hintText: 'Assign password to consultant',
                     onChanged: (value) {},
                     keyboardType: TextInputType.number,
                     textInputAction: TextInputAction.next,
                   ),
                 ),
                 verticalSpace(4.5),
-                Row(
-                  children: [
-                    IconButton(
-                        onPressed: () {
-                          mabialaFABController.isCollapsed = true;
-                        },
-                        icon: const Icon(EvaIcons.questionMarkCircle))
-                  ],
+                Padding(
+                  padding: paddingLR20,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(''),
+                      const Text(''),
+                      SizedBox(
+                        width: 35.w,
+                        child: Align(
+                          alignment: Alignment.topRight,
+                          child: InkWell(
+                            onTap: () {},
+                            child: TransparentBtn(
+                              marginSet: EdgeInsets.zero,
+                              title: 'Next',
+                              color: kPrimaryColor,
+                              textColor: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 )
               ],
             ),
           );
-          mabialaFABController.isCollapsed
-              ? mabialaFABController.expandFAB()
-              : mabialaFABController.collapseFAB();
+          mabialaFABController!.isCollapsed
+              ? mabialaFABController!.expandFAB()
+              : mabialaFABController!.collapseFAB();
         },
         floatingActionButtonIcon: Icons.add,
         floatingActionButtonIconColor: Colors.red,
