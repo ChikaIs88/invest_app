@@ -123,11 +123,11 @@ class NotifcatioCards extends StatelessWidget {
                   )
                 ],
               ),
-              Text(
-                TimeAgo.getTimeAgo(time.toDate()),
-                style: TextStyling.bodyText1
-                    .copyWith(fontSize: 13, color: Colors.black54),
-              )
+              // Text(
+              //   TimeAgo.getTimeAgo(time.toDate()),
+              //   style: TextStyling.bodyText1
+              //       .copyWith(fontSize: 13, color: Colors.black54),
+              // )
             ],
           ),
           verticalSpace(2),

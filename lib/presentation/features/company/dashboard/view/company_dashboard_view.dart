@@ -3,6 +3,7 @@ import 'package:chipln/logic/core/variable.dart';
 import 'package:chipln/presentation/global/assets/assets.gen.dart';
 import 'package:chipln/presentation/global/text_styling.dart';
 import 'package:chipln/presentation/global/ui_helper.dart';
+import 'package:chipln/presentation/global/widget/app_flat_button.dart';
 import 'package:chipln/presentation/global/widget/company_header_design.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -42,6 +43,23 @@ class CompanyDashboardBody extends StatelessWidget {
             title: 'Dashboard',
           ),
           verticalSpace(5),
+          Container(
+              //alignment: Alignment.topRight,
+              width: 21.w,
+              height: 5.h,
+              decoration: BoxDecoration(
+                  color: Colors.red[100],
+                  borderRadius: BorderRadius.circular(5)),
+              child: AppFlatButton(
+                color: Colors.red[100],
+                label: 'Log Out',
+                onPressed: () async {
+                  await appAuth.logOUt();
+                  Modular.to.navigate('/');
+                },
+              ),
+            ),
+            verticalSpace(5),
           Text(
             'Welcome, ${userInfo.company_name}😃',
             style: TextStyling.h1.copyWith(color: Colors.black),
@@ -87,7 +105,7 @@ class PageBelowSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: GridView.builder(
-          itemCount: 6,
+          itemCount: 4,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2),
           itemBuilder: (context, index) {
@@ -106,6 +124,7 @@ class PageBelowSection extends StatelessWidget {
               ),
             );
           }),
+          
     );
   }
 }
@@ -113,7 +132,6 @@ class PageBelowSection extends StatelessWidget {
 List<String> dashboardRoutingPath = [
   '/companyLogin/addPackages',
   '/investorCompanyMessages',
-  '/companyLogin/assign',
   '/companyLogin/notification',
   '/investorCompanyCompleteRegister',
   '/'
@@ -122,19 +140,15 @@ List<String> dashboardRoutingPath = [
 List<String> titles = [
   'Packages',
   'Messages',
-  'Assign Consultant',
   'Notfication',
   'Edit Profile',
-  'Logout'
 ];
 
 List<Widget> images = [
   Assets.images.company.package.image(height: 60),
   Assets.images.company.chat.image(height: 60),
-  Assets.images.company.assign.image(height: 60),
   Assets.images.company.notification.image(height: 60),
   Assets.images.company.edit.image(height: 60),
-  Assets.images.company.logout.image(height: 60)
 ];
 
 class DashLayout extends StatelessWidget {
