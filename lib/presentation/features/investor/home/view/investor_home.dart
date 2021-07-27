@@ -19,6 +19,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:chipln/presentation/global/widget/ioptions.dart';
+import 'package:chipln/presentation/global/widget/compinfo.dart';
+import 'package:chipln/presentation/features/investor/prefrence/view/prefrence_view.dart';
 
 PageController _controller =
     PageController(initialPage: 0, viewportFraction: 0.9);
@@ -57,6 +59,8 @@ class FeaturedProductCard extends StatelessWidget {
     final Stream<QuerySnapshot> _companyPackages =
         FirebaseFirestore.instance.collection('package').limit(4).snapshots();
     final appConfig = Modular.get<FirebaseConfiguration>();
+    // ignore: avoid_dynamic_calls
+
     return Container(
       height: 80.h,
       color: Colors.white,
@@ -72,9 +76,34 @@ class FeaturedProductCard extends StatelessWidget {
                 'Featured Products',
                 style: TextStyling.h2.copyWith(color: Colors.black),
               ),
-              Text('See all',
-                  style: TextStyling.bodyText1
-                      .copyWith(fontSize: 13, color: kLightBlue))
+              GestureDetector(
+                onTap: () {
+                  FocusScope.of(context).unfocus();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const PrefrenceView()),
+                  );
+                },
+                child: Text('Back to Preference Form',
+                    textAlign: TextAlign.center,
+                    style: TextStyling.bodyText1
+                        .copyWith(fontSize: 13, color: kLightBlue)),
+              )
+              // GestureDetector(
+              //   onTap: () async {
+              //     FocusScope.of(context).unfocus();
+              //     // ignore: unnecessary_statements
+              //     '/investorlogin/investorPrefrence';
+              //   },
+              //   child: Text('Sign Up',
+              //       textAlign: TextAlign.center,
+              //       style: TextStyling.bodyText1
+              //           .copyWith(fontSize: 13, color: kLightBlue)),
+              // ),
+              // Text('See all',
+              //     style: TextStyling.bodyText1
+              //         .copyWith(fontSize: 13, color: kLightBlue))
             ],
           ),
           Expanded(
@@ -117,8 +146,7 @@ class FeaturedProductCard extends StatelessWidget {
                                     'By ${data['company']}.',
                                     data['companyId'],
                                     data['company'],
-                                    data['image']
-                                    ),
+                                    data['image']),
                               ],
                             );
                           },

@@ -1,4 +1,4 @@
-// mixin for user validaion
+// mixin for user validaion. It's a normal classes from which we can borrow methods(or variables) from without extending the class
 mixin ValidationMixin {
   String? validateNotEmpty(String? value) {
     if (value == null || value.isEmpty) {

@@ -8,6 +8,7 @@ class Investor {
   String email;
   String password;
 
+  // ignore: sort_constructors_first
   Investor(
       {required this.firstName,
       required this.lastName,

@@ -1,3 +1,4 @@
+// Modular deals with issues related to routing
 import 'package:chipln/presentation/features/company/assign/view/company_assign_worker_view.dart';
 import 'package:chipln/presentation/features/company/confirm/view/confirm_registration_view.dart';
 import 'package:chipln/presentation/features/company/dashboard/view/company_dashboard_view.dart';

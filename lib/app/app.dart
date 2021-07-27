@@ -7,7 +7,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:last_state/last_state.dart';
-import 'package:seafarer/seafarer.dart';
+import 'package:seafarer/seafarer.dart'; //this package allows you to pass parameters to the page that you are navigating to
 import 'package:sizer/sizer.dart';
 
 //[Chipln App] configuration

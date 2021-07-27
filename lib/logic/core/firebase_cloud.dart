@@ -10,7 +10,7 @@ import 'package:flutter/foundation.dart';
 import 'variable.dart';
 
 /// Base of the configuration
-abstract class Database {
+abstract class Database { //this is to create and gets data from the collections to be stored in the database
   // =======================Add user========================
   Future<void> addUser();
   Future<void> addCompanyUser();

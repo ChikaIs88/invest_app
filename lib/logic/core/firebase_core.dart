@@ -1,3 +1,5 @@
+//this carries out the tasks in the firebase cloud and manages errors
+
 import 'dart:io';
 
 import 'package:chipln/app/logger_init.dart';
@@ -36,7 +38,7 @@ abstract class BaseConfig<T> {
 ///
 /// This class contain all the method which is needed
 /// for firebase sign with email
-@Injectable(singleton: true)
+@Injectable(singleton: true) //for other files to use it with ease
 class FirebaseConfiguration<T> extends BaseConfig<T> {
   // Intiallising firebase
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;

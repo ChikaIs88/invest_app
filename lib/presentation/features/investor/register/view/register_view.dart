@@ -287,7 +287,7 @@ class InvestorRegisterBodySection extends StatelessWidget {
                                         const Color.fromRGBO(103, 112, 126, 1),
                                   )),
                               GestureDetector(
-                                onTap: Routes.seafarer.pop,
+                                onTap: _cubit.navigateInvestorLoginView,
                                 child: Text('Login',
                                     textAlign: TextAlign.center,
                                     style: TextStyling.bodyText1.copyWith(

@@ -106,4 +106,8 @@ class RegisterCubit extends Cubit<RegisterState> with ValidationMixin {
   void handleNavigatePrefrence(){
     Modular.to.pushNamed('/investorlogin/investorPrefrence');
   }
+  void navigateInvestorLoginView() {
+    Modular.to.pushNamed('/investorlogin');
+  }
+
 }
