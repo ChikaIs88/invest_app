@@ -230,11 +230,11 @@ class NotifcatioCards extends StatelessWidget {
                   )
                 ],
               ),
-              // Text(
-              //   TimeAgo.getTimeAgo(time.toDate()),
-              //   style: TextStyling.bodyText1
-              //       .copyWith(fontSize: 13, color: Colors.black54),
-              // )
+              Text(
+                GetTimeAgo.parse(time.toDate()),
+                style: TextStyling.bodyText1
+                    .copyWith(fontSize: 13, color: Colors.black54),
+              )
             ],
           ),
           verticalSpace(2),

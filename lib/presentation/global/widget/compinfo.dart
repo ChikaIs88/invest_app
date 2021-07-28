@@ -1,8 +1,16 @@
+import 'dart:html';
+
 import 'package:chipln/logic/core/firebase_core.dart';
 import 'package:animations/animations.dart';
 import 'package:chipln/logic/core/variable.dart';
 import 'package:chipln/presentation/global/assets/assets.gen.dart';
 import 'package:chipln/presentation/global/routing/routes.dart';
+import 'package:animations/animations.dart';
+import 'package:chipln/logic/core/firebase_cloud.dart';
+import 'package:chipln/logic/core/firebase_core.dart';
+import 'package:chipln/logic/core/variable.dart';
+import 'package:chipln/presentation/global/routing/routes.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:chipln/presentation/global/constants.dart';
@@ -10,123 +18,158 @@ import 'package:chipln/presentation/global/text_styling.dart';
 import 'package:chipln/presentation/global/ui_helper.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:sizer/sizer.dart';
+import 'package:async/async.dart' show StreamGroup;
 
 import 'app_flat_button.dart';
 import 'container_clipper.dart';
 
-// class FeaturedCard extends StatelessWidget {
-//   final String title;
-//   final String subtitle;
-//   final String price;
-//   final String unit;
-//   final String company;
-//   final String? url;
-//   // ignore: lines_longer_than_80_chars
-//   const FeaturedCard(
-//       this.title, this.subtitle, this.price, this.unit, this.company,
-//       {required this.url});
+// class CompInfo extends StatelessWidget {
+//   const CompInfo({
+//     Key? key,
+//   }) : super(key: key);
 
 //   @override
 //   Widget build(BuildContext context) {
-//     return Row(
-//       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//       crossAxisAlignment: CrossAxisAlignment.center,
-//       children: [
-//         // CircleAvatar(
-//         //   backgroundColor: Colors.grey,
-//         //   radius: 33,
-//         //   child: url == ''
-//         //       ? null
-//         //       : FittedBox(
-//         //           child: Image.network(
-//         //           url,
-//         //           fit: BoxFit.cover,
-//         //         )),
-//         // ),
-//         CircularProfileAvatar(
-//           url ?? '',
-//           backgroundColor: Colors.grey,
-//           borderColor: Colors.white,
-//           borderWidth: 0,
-//           elevation: 2,
-//           radius: 33,
-//         ),
-//         horizontalSpace(2),
-//         Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           mainAxisSize: MainAxisSize.min,
-//           children: [
-//             verticalSpace(2),
-//             Text(
-//               title,
-//               style: TextStyling.h2.copyWith(color: Colors.black),
-//             ),
-//             verticalSpace(1),
-//             SizedBox(
-//               width: responsiveWidth(65),
-//               child: Text(
-//                 subtitle,
-//                 softWrap: false,
-//                 overflow: TextOverflow.ellipsis,
-//                 maxLines: 1,
-//                 style: TextStyling.bodyText1
-//                     .copyWith(fontSize: 13, color: Colors.black45),
-//               ),
-//             ),
-//             verticalSpace(1),
-//             GestureDetector(
-//               onTap: () {
-//                 //Routes.seafarer('/investorRegister');
-//               },
-//               child: Text(company,
-//                   textAlign: TextAlign.center,
-//                   style: TextStyling.bodyText1
-//                       .copyWith(fontSize: 13, color: kLightBlue)),
-//             ),
-//             verticalSpace(1),
-//             Row(
-//               mainAxisAlignment: MainAxisAlignment.spaceAround,
-//               children: [
-//                 Container(
-//                   child: Row(
-//                     children: [
-//                       Text(
-//                         '$price',
-//                         style: TextStyling.bodyText1
-//                             .copyWith(color: Colors.black, fontSize: 13),
-//                       ),
-//                       horizontalSpace(1),
-//                       Text(
-//                         'Per unit',
-//                         style: TextStyling.bodyText1
-//                             .copyWith(fontSize: 13, color: Colors.black45),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//                 horizontalSpace(4),
-//                 SizedBox(
-//                   height: 4.h,
-//                   width: 25.w,
-//                   child: TextButton(
-//                       style: TextButton.styleFrom(
-//                           backgroundColor:
-//                               const Color.fromRGBO(5, 103, 208, 0.1)),
-//                       onPressed: () {},
-//                       child: Text('$unit unit left',
-//                           style: TextStyling.bodyText1
-//                               .copyWith(fontSize: 13, color: kLightBlue))),
-//                 )
-//               ],
-//             ),
-//           ],
-//         ),
-//       ],
-//     );
+//     Stream<QuerySnapshot> _companyInfo =
+//         FirebaseFirestore.instance.collection('info').limit(1).snapshots();
+//     Stream<QuerySnapshot> _company =
+//         FirebaseFirestore.instance.collection('company').limit(1).snapshots();
+//     // ignore: non_constant_identifier_names
+//     // ignore: prefer_typing_uninitialized_variables
+//     // ignore: unused_local_variable
+//     var streamGroup = 
+//       StreamGroup.merge([_company, _companyInfo]).asBroadcastStream();
+//     final appConfig = Modular.get<FirebaseConfiguration>();
+
+//     return Expanded(
+//         // ignore: lines_longer_than_80_chars
+        
+//         child: StreamBuilder<QuerySnapshot>(
+//           stream: streamGroup,
+//           builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+//             if (snapshot.hasError) {
+//               return const Text('Something went wrong');
+//             }
+//             if (snapshot.connectionState == ConnectionState.waiting) {
+//               return const Text('Loading');
+//             }
+//             return Expanded(
+//               child: 
+//               snapshot);
+//           },
+//       // return Column(children: [],)
+//     ));
 //   }
 // }
 
+class CompCard extends StatelessWidget {
+  final String title;
+  final String subtitle;
 
+  final String company;
+  final String? url;
+  // ignore: lines_longer_than_80_chars
+  const CompCard(this.title, this.subtitle, this.company, {required this.url});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        // CircleAvatar(
+        //   backgroundColor: Colors.grey,
+        //   radius: 33,
+        //   child: url == ''
+        //       ? null
+        //       : FittedBox(
+        //           child: Image.network(
+        //           url,
+        //           fit: BoxFit.cover,
+        //         )),
+        // ),
+        CircularProfileAvatar(
+          url ?? '',
+          backgroundColor: Colors.grey,
+          borderColor: Colors.white,
+          borderWidth: 0,
+          elevation: 2,
+          radius: 33,
+        ),
+        horizontalSpace(2),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            verticalSpace(2),
+            Text(
+              title,
+              style: TextStyling.h2.copyWith(color: Colors.black),
+            ),
+            verticalSpace(1),
+            SizedBox(
+              width: responsiveWidth(65),
+              child: Text(
+                subtitle,
+                softWrap: false,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: TextStyling.bodyText1
+                    .copyWith(fontSize: 13, color: Colors.black45),
+              ),
+            ),
+            verticalSpace(1),
+            GestureDetector(
+              onTap: () {
+                //Routes.seafarer('/investorRegister');
+              },
+              child: Text(company,
+                  textAlign: TextAlign.center,
+                  style: TextStyling.bodyText1
+                      .copyWith(fontSize: 13, color: kLightBlue)),
+            ),
+            verticalSpace(1),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //   children: [
+            //     Container(
+            //       child: Row(
+            //         children: [
+            //           Text(
+            //             '$price',
+            //             style: TextStyling.bodyText1
+            //                 .copyWith(color: Colors.black, fontSize: 13),
+            //           ),
+            //           horizontalSpace(1),
+            //           Text(
+            //             'Per unit',
+            //             style: TextStyling.bodyText1
+            //                 .copyWith(fontSize: 13, color: Colors.black45),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //     horizontalSpace(4),
+            //     SizedBox(
+            //       height: 4.h,
+            //       width: 25.w,
+            //       child: TextButton(
+            //           style: TextButton.styleFrom(
+            //               backgroundColor:
+            //                   const Color.fromRGBO(5, 103, 208, 0.1)),
+            //           onPressed: () {},
+            //           child: Text('$unit unit left',
+            //               style: TextStyling.bodyText1
+            //                   .copyWith(fontSize: 13, color: kLightBlue))),
+            //     )
+            //   ],
+            // ),
+          ],
+        ),
+      ],
+    );
+  }
+}
 
 class CompanyDetailTop extends StatelessWidget {
   final String? url;
@@ -198,7 +241,6 @@ class CompanyDetailDown extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          
           Text(
             companyName,
             style: TextStyling.h1.copyWith(color: Colors.black),
@@ -227,8 +269,7 @@ class CompanyDetailDown extends StatelessWidget {
               ),
             ],
           ),
-          
-         
+
           verticalSpace(5),
           // Row(
           //   children: [
@@ -287,4 +328,3 @@ class CompanyDetailDown extends StatelessWidget {
     );
   }
 }
-

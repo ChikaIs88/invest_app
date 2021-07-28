@@ -20,7 +20,7 @@ class FeaturedCard extends StatelessWidget {
   final String unit;
   final String company;
   final String? url;
-  // ignore: lines_longer_than_80_chars
+
   const FeaturedCard(
       this.title, this.subtitle, this.price, this.unit, this.company,
       {required this.url});

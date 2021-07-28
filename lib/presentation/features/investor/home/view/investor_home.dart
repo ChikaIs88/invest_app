@@ -19,7 +19,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:chipln/presentation/global/widget/ioptions.dart';
-import 'package:chipln/presentation/global/widget/compinfo.dart';
+// import 'package:chipln/presentation/global/widget/compinfo.dart';
 import 'package:chipln/presentation/features/investor/prefrence/view/prefrence_view.dart';
 
 PageController _controller =
@@ -56,8 +56,11 @@ class FeaturedProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Stream<QuerySnapshot> _companyPackages =
-        FirebaseFirestore.instance.collection('package').limit(4).snapshots();
+    final Stream<QuerySnapshot> _companyPackages = FirebaseFirestore.instance
+        .collection('package')
+        .where('price')
+        .limit(4)
+        .snapshots();
     final appConfig = Modular.get<FirebaseConfiguration>();
     // ignore: avoid_dynamic_calls
 
