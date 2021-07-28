@@ -4,6 +4,7 @@ import 'package:chipln/logic/core/storage.dart';
 import 'package:chipln/models/company_user_model/company_user_model.dart';
 import 'package:chipln/models/image_model/image_model.dart';
 import 'package:chipln/models/investor_user_model/investor_user_model.dart';
+import 'package:chipln/models/prefrence_user_model/prefrence_user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/foundation.dart';
@@ -25,6 +26,7 @@ abstract class Database { //this is to create and gets data from the collections
   Future<void> addCompanyInfo();
   Future<void> addPackage();
   Future<void> addintrestedPackage({String? id, Map<String, dynamic>? data});
+   Future<String> getUserPrefrence({String? id});
   Future<void> addNotification(
       {String? id, Map<String, dynamic>? data, productId});
 }
@@ -102,6 +104,17 @@ class AddToDatabase extends Database {
     await saveStorage('city', userInfo!.city);
     await saveStorage('company_name', userInfo!.company_name);
     return '$userInfo.email';
+  }
+  //@Method
+  // getting a company user to the collection
+  // getUserPrefrence({})
+  @override
+  Future<String> getUserPrefrence({String? id}) async {
+    var userdata = await company.doc(id).get();
+    userPrefrence =
+        PrefrenceUserModel.fromJson(userdata.data() as Map<String, dynamic>);
+    
+    return '$userPrefrence';
   }
 
   //@Method

@@ -81,6 +81,7 @@ class FirebaseConfiguration<T> extends BaseConfig<T> {
       userUid = userCredential.user!.uid;
       await saveStorage('uid', userUid);
       await add.getUserData(id: userUid);
+      await add.getUserPrefrence(id: userUid);
       await saveStorage('role', 'user');
       return userCredential.user!.uid;
     } on FirebaseAuthException catch (e) {
@@ -124,6 +125,7 @@ class FirebaseConfiguration<T> extends BaseConfig<T> {
       userUid = userCredential.user!.uid;
       await add.getUserData(id: userUid);
       await saveStorage('uid', userCredential.user!.uid);
+      await add.getUserPrefrence(id: userUid);
       await saveStorage('role', 'user');
       return userCredential.user!.uid;
     } on FirebaseAuthException catch (e) {
@@ -215,6 +217,7 @@ class FirebaseConfiguration<T> extends BaseConfig<T> {
       await add.addCompanyUser(data: info, id: userCredential.user!.uid);
       userUid = userCredential.user!.uid;
       await add.getCompanyUserData(id: userUid);
+      
       await saveStorage('uid', userCredential.user!.uid);
       await saveStorage('role', 'company');
       return userCredential.user!.uid;
