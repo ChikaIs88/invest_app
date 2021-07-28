@@ -46,6 +46,8 @@ class AddToDatabase extends Database {
       FirebaseFirestore.instance.collection('intrested');
   CollectionReference notification =
       FirebaseFirestore.instance.collection('notification');
+  CollectionReference prefrence =
+      FirebaseFirestore.instance.collection('prefrence');    
 
   // @Method
   // Adding users to the collection
@@ -110,7 +112,7 @@ class AddToDatabase extends Database {
   // getUserPrefrence({})
   @override
   Future<String> getUserPrefrence({String? id}) async {
-    var userdata = await company.doc(id).get();
+    var userdata = await prefrence.doc(id).get();
     userPrefrence =
         PrefrenceUserModel.fromJson(userdata.data() as Map<String, dynamic>);
     

@@ -1,4 +1,3 @@
-import 'dart:html';
 
 import 'package:chipln/logic/core/firebase_core.dart';
 import 'package:animations/animations.dart';
@@ -23,44 +22,49 @@ import 'package:async/async.dart' show StreamGroup;
 import 'app_flat_button.dart';
 import 'container_clipper.dart';
 
-// class CompInfo extends StatelessWidget {
-//   const CompInfo({
-//     Key? key,
-//   }) : super(key: key);
+class CompInfo extends StatelessWidget {
+  const CompInfo({
+    Key? key,
+  }) : super(key: key);
 
-//   @override
-//   Widget build(BuildContext context) {
-//     Stream<QuerySnapshot> _companyInfo =
-//         FirebaseFirestore.instance.collection('info').limit(1).snapshots();
-//     Stream<QuerySnapshot> _company =
-//         FirebaseFirestore.instance.collection('company').limit(1).snapshots();
-//     // ignore: non_constant_identifier_names
-//     // ignore: prefer_typing_uninitialized_variables
-//     // ignore: unused_local_variable
-//     var streamGroup = 
-//       StreamGroup.merge([_company, _companyInfo]).asBroadcastStream();
-//     final appConfig = Modular.get<FirebaseConfiguration>();
+  @override
+  Widget build(BuildContext context) {
+    CollectionReference _companyInfo =
+        FirebaseFirestore.instance.collection('info');
+    CollectionReference _company =
+        FirebaseFirestore.instance.collection('company');
+    // ignore: non_constant_identifier_names
+    // ignore: prefer_typing_uninitialized_variables
+    // ignore: unused_local_variable
+    
+    final appConfig = Modular.get<FirebaseConfiguration>();
 
-//     return Expanded(
-//         // ignore: lines_longer_than_80_chars
+    return Scaffold(
+        // ignore: lines_longer_than_80_chars
         
-//         child: StreamBuilder<QuerySnapshot>(
-//           stream: streamGroup,
-//           builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-//             if (snapshot.hasError) {
-//               return const Text('Something went wrong');
-//             }
-//             if (snapshot.connectionState == ConnectionState.waiting) {
-//               return const Text('Loading');
-//             }
-//             return Expanded(
-//               child: 
-//               snapshot);
-//           },
-//       // return Column(children: [],)
-//     ));
-//   }
-// }
+        body: SafeArea(
+          child: FutureBuilder<DocumentSnapshot>(
+            future: _companyInfo.doc(id).get(),
+            builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+              if (snapshot.hasError) {
+                return const Text('Something went wrong');
+              }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Text('Loading');
+              }
+              Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+              return Center(
+                child: 
+                Text(
+                  data['description'],
+                  style: TextStyling.h2.copyWith(color: Colors.black),
+                ));
+            },
+              // return Column(children: [],)
+            ),
+        ));
+  }
+}
 
 class CompCard extends StatelessWidget {
   final String title;

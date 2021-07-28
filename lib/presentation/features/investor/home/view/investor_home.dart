@@ -58,7 +58,7 @@ class FeaturedProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _companyPackages = FirebaseFirestore.instance
         .collection('package')
-        .where('price')
+        .where('price', isLessThanOrEqualTo: userPrefrence.amount)
         .limit(4)
         .snapshots();
     final appConfig = Modular.get<FirebaseConfiguration>();
@@ -157,6 +157,7 @@ class FeaturedProductCard extends StatelessWidget {
                             return Column(
                               children: [
                                 FeaturedCard(
+                                  data['id'],
                                   data['packageName'],
                                   data['description'],
                                   data['price'],

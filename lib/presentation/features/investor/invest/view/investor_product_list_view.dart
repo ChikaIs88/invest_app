@@ -278,6 +278,7 @@ class InvestorProductListBodySection extends StatelessWidget {
                                               return Column(
                                                 children: [
                                                   FeaturedCard(
+                                                    data['id'],
                                                     data['packageName'],
                                                     data['description'],
                                                     data['price'],
@@ -357,6 +358,7 @@ class InvestorProductListBodySection extends StatelessWidget {
                                           return Column(
                                             children: [
                                               FeaturedCard(
+                                                data['id'],
                                                 data['packageName'],
                                                 data['description'],
                                                 data['price'],
@@ -434,6 +436,7 @@ class InvestorProductListBodySection extends StatelessWidget {
                                           return Column(
                                             children: [
                                               FeaturedCard(
+                                                data['id'],
                                                 data['packageName'],
                                                 data['description'],
                                                 data['price'],

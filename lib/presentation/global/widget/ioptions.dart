@@ -9,6 +9,7 @@ import 'package:chipln/presentation/global/text_styling.dart';
 import 'package:chipln/presentation/global/ui_helper.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:sizer/sizer.dart';
+import 'package:chipln/presentation/global/widget/compinfo.dart';
 
 import 'app_flat_button.dart';
 import 'container_clipper.dart';
@@ -16,13 +17,14 @@ import 'container_clipper.dart';
 class FeaturedCard extends StatelessWidget {
   final String title;
   final String subtitle;
-  final String price;
+  final int price;
   final String unit;
   final String company;
   final String? url;
+  final dynamic id;
 
   const FeaturedCard(
-      this.title, this.subtitle, this.price, this.unit, this.company,
+      this.id, this.title, this.subtitle, this.price, this.unit, this.company,
       {required this.url});
 
   @override
@@ -76,6 +78,7 @@ class FeaturedCard extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 //Routes.seafarer('/investorRegister');
+                
               },
               child: Text(company,
                   textAlign: TextAlign.center,
@@ -128,7 +131,7 @@ class FeaturedCard extends StatelessWidget {
 class ProductDetailDown extends StatelessWidget {
   final String title;
   final String description;
-  final String price;
+  final int price;
   final String unit;
   final String company;
   final dynamic productId;
@@ -138,8 +141,16 @@ class ProductDetailDown extends StatelessWidget {
   //final Assets profile;
 
   // ignore: lines_longer_than_80_chars
-  const ProductDetailDown(this.productId, this.title, this.description,
-      this.price, this.unit, this.company, this.companyId, this.companyName, this.image);
+  const ProductDetailDown(
+      this.productId,
+      this.title,
+      this.description,
+      this.price,
+      this.unit,
+      this.company,
+      this.companyId,
+      this.companyName,
+      this.image);
 
   @override
   Widget build(BuildContext context) {
@@ -158,6 +169,9 @@ class ProductDetailDown extends StatelessWidget {
           GestureDetector(
             onTap: () {
               //Routes.seafarer('/investorRegister');
+              id = companyId;
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const CompInfo()));
             },
             child: Text(company,
                 textAlign: TextAlign.center,

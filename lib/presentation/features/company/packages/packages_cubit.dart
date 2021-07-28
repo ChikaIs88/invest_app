@@ -67,7 +67,7 @@ class PackageCubit extends Cubit<PackageState> {
         'packageName': state.packageName,
         'description': state.description,
         'unit': state.unit,
-        'price': state.amount,
+        'price':  int.tryParse(state.amount),
         'type': state.selectedSector['keyword'],
         'rate': state.rate['keyword']
       }).then((value) => {

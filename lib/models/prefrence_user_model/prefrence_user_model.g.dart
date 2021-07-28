@@ -8,8 +8,8 @@ part of 'prefrence_user_model.dart';
 
 PrefrenceUserModel _$PrefrenceUserModelFromJson(Map<String, dynamic> json) {
   return PrefrenceUserModel(
-    json['amount'] as int?,
-    json['rate'] as int?,
+    json['amount'] as dynamic,
+    json['rate'] as dynamic,
     json['sector'] as String?,
     json['type'] as String?,
   );

@@ -125,7 +125,7 @@ class FirebaseConfiguration<T> extends BaseConfig<T> {
       userUid = userCredential.user!.uid;
       await add.getUserData(id: userUid);
       await saveStorage('uid', userCredential.user!.uid);
-      await add.getUserPrefrence(id: userUid);
+      
       await saveStorage('role', 'user');
       return userCredential.user!.uid;
     } on FirebaseAuthException catch (e) {
@@ -151,6 +151,7 @@ class FirebaseConfiguration<T> extends BaseConfig<T> {
   Future<String?> prefrence({Map<String, dynamic>? data}) async {
     try {
       await add.addUserPrefrence(data: data, id: userUid);
+      await add.getUserPrefrence(id: userUid);
       return 'success';
     } catch (e) {
       apiError = '$e';

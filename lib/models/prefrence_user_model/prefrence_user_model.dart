@@ -7,8 +7,8 @@ class PrefrenceUserModel {
    factory PrefrenceUserModel.fromJson(Map<String, dynamic> json) =>
       _$PrefrenceUserModelFromJson(json);
   PrefrenceUserModel(this.amount, this.rate, this.sector, this.type);
-  final int? amount;
-  final int? rate;
+  final dynamic amount;
+  final dynamic rate;
   final String? sector;
   final String? type;
 
