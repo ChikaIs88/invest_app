@@ -28,11 +28,6 @@ class CompInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CollectionReference _companyInfo =
-        FirebaseFirestore.instance.collection('info');
-    CollectionReference _company =
-        FirebaseFirestore.instance.collection('company');
-
     // ignore: non_constant_identifier_names
     // ignore: prefer_typing_uninitialized_variables
     // ignore: unused_local_variable
@@ -44,30 +39,31 @@ class CompInfo extends StatelessWidget {
 
         body: SafeArea(
       child: FutureBuilder(
-        future:
-            Future.wait([
-              _companyInfo.doc(id).get(),_company.doc(id).get(),
-            ]),
-            //_companyInfo.doc(id).get(),
-        builder:
-            (BuildContext context, dynamic snapshot)  {
+        future: Future.wait([
+          appConfig.getCompanyUserData(id),
+          appConfig.getCompanyUserInfo(id),
+        ]),
+        //_companyInfo.doc(id).get(),
+        builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
           if (snapshot.hasError) {
             return const Text('Something went wrong');
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Text('Loading');
           }
-          // ignore: omit_local_variable_types
-          // Map<String, dynamic> data =
-          //     snapshot.data!.data() as Map<String, dynamic>;
-          var data = await snapshot.data;
+          
+          var companyData =
+              snapshot.data![0] as Map<String, dynamic>;
+          var info =
+              snapshot.data![1] as Map<String, dynamic>;
+
           return Center(
               child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             // ignore: prefer_const_literals_to_create_immutables
             children: [
               Text(
-                snapshot.data.toString(),
+                companyData['website'],
                 style: TextStyling.h2.copyWith(color: Colors.black),
               )
               // CompanyDetailTop(

@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:chipln/app/logger_init.dart';
 import 'package:chipln/logic/core/variable.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -44,6 +45,10 @@ class FirebaseConfiguration<T> extends BaseConfig<T> {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   FirebaseAuth auth = FirebaseAuth.instance;
   final AddToDatabase add = AddToDatabase();
+  CollectionReference _companyInfo =
+      FirebaseFirestore.instance.collection('info');
+  CollectionReference _company =
+      FirebaseFirestore.instance.collection('company');
 
   // @Method
   // checking current user
@@ -125,7 +130,7 @@ class FirebaseConfiguration<T> extends BaseConfig<T> {
       userUid = userCredential.user!.uid;
       await add.getUserData(id: userUid);
       await saveStorage('uid', userCredential.user!.uid);
-      
+
       await saveStorage('role', 'user');
       return userCredential.user!.uid;
     } on FirebaseAuthException catch (e) {
@@ -218,7 +223,7 @@ class FirebaseConfiguration<T> extends BaseConfig<T> {
       await add.addCompanyUser(data: info, id: userCredential.user!.uid);
       userUid = userCredential.user!.uid;
       await add.getCompanyUserData(id: userUid);
-      
+
       await saveStorage('uid', userCredential.user!.uid);
       await saveStorage('role', 'company');
       return userCredential.user!.uid;
@@ -300,5 +305,14 @@ class FirebaseConfiguration<T> extends BaseConfig<T> {
   Future<String?> downloadImageURL({id}) async {
     var image = await add.getImage(id: id);
     return image;
+  }
+
+  Future<dynamic> getCompanyUserData(id) async {
+    var data = await _companyInfo.doc(id).get();
+    return data.data();
+  }
+   Future<dynamic> getCompanyUserInfo(id) async {
+    var data = await _company.doc(id).get();
+    return data.data();
   }
 }
