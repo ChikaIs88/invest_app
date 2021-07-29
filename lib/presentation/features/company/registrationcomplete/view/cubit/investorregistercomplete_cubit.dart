@@ -41,8 +41,12 @@ class InvestorregistercompleteCubit
   }
 
   void handleNavigateHome() {
-    Modular.to.navigate('/companyLogin/companyDashboard');
+    Modular.to.navigate('companyDashboard');
   }
+
+  // void handleCompanyDashboard() {
+
+  // }
 
   void handleAddInfo() async {
     if (state.years != null &&

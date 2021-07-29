@@ -1,4 +1,3 @@
-
 import 'package:chipln/logic/core/firebase_core.dart';
 import 'package:animations/animations.dart';
 import 'package:chipln/logic/core/variable.dart';
@@ -33,36 +32,65 @@ class CompInfo extends StatelessWidget {
         FirebaseFirestore.instance.collection('info');
     CollectionReference _company =
         FirebaseFirestore.instance.collection('company');
+
     // ignore: non_constant_identifier_names
     // ignore: prefer_typing_uninitialized_variables
     // ignore: unused_local_variable
-    
+
     final appConfig = Modular.get<FirebaseConfiguration>();
 
     return Scaffold(
         // ignore: lines_longer_than_80_chars
-        
+
         body: SafeArea(
-          child: FutureBuilder<DocumentSnapshot>(
-            future: _companyInfo.doc(id).get(),
-            builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-              if (snapshot.hasError) {
-                return const Text('Something went wrong');
-              }
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Text('Loading');
-              }
-              Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
-              return Center(
-                child: 
-                Text(
-                  data['description'],
-                  style: TextStyling.h2.copyWith(color: Colors.black),
-                ));
-            },
-              // return Column(children: [],)
-            ),
-        ));
+      child: FutureBuilder(
+        future:
+            Future.wait([
+              _companyInfo.doc(id).get(),_company.doc(id).get(),
+            ]),
+            //_companyInfo.doc(id).get(),
+        builder:
+            (BuildContext context, dynamic snapshot)  {
+          if (snapshot.hasError) {
+            return const Text('Something went wrong');
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Text('Loading');
+          }
+          // ignore: omit_local_variable_types
+          // Map<String, dynamic> data =
+          //     snapshot.data!.data() as Map<String, dynamic>;
+          var data = await snapshot.data;
+          return Center(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            // ignore: prefer_const_literals_to_create_immutables
+            children: [
+              Text(
+                snapshot.data.toString(),
+                style: TextStyling.h2.copyWith(color: Colors.black),
+              )
+              // CompanyDetailTop(
+              //   url: data['image'],
+              // ),
+              // CompanyDetailDown(
+              //     data['id'],
+              //     data['company'],
+              //     data['description'],
+              //     //'By ${data['company']}.',
+              //     data['companyId'],
+              //     data['image']),
+            ],
+          )
+              // Text(
+              //   data['description'],
+              //   style: TextStyling.h2.copyWith(color: Colors.black),
+              // )
+              );
+        },
+        // return Column(children: [],)
+      ),
+    ));
   }
 }
 
@@ -216,7 +244,7 @@ class CompanyDetailTop extends StatelessWidget {
 }
 
 class CompanyDetailDown extends StatelessWidget {
-  final String title;
+  //final String title;
   final String description;
   final String company;
   final dynamic companyId;
@@ -229,7 +257,6 @@ class CompanyDetailDown extends StatelessWidget {
   // ignore: sort_constructors_first
   // ignore: use_key_in_widget_constructors
   const CompanyDetailDown(
-      this.title,
       this.description,
       // ignore: lines_longer_than_80_chars
       this.company,

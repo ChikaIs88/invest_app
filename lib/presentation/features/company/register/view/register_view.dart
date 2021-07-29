@@ -1,4 +1,3 @@
-
 import 'package:chipln/presentation/global/widget/csc/csc_picker.dart';
 import 'package:flexible_scrollbar/flexible_scrollbar.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,12 +14,12 @@ import 'package:chipln/presentation/global/ui_helper.dart';
 import 'package:chipln/presentation/global/widget/app_text_field.dart';
 import 'package:chipln/presentation/global/widget/validator/flutter_pw_validator.dart';
 import 'package:progress_state_button/progress_button.dart';
+import 'package:chipln/presentation/features/company/login/view/m_login_view.dart';
 import 'package:sizer/sizer.dart';
 import '../cubit/register_cubit.dart';
 
 class InvestorCompanyRegisterView extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
- 
 
   final ScrollController _controller = ScrollController();
   final TextEditingController _passwordController = TextEditingController();
@@ -131,7 +130,6 @@ class InvestorCompanyRegisterView extends StatelessWidget {
                             // ),
                             // verticalSpace(4.5),
                             AppTextField(
-                             
                               key: const Key('register_companyName_textfield'),
                               label: 'Company Name',
                               hintText: 'Enter Company Name',
@@ -141,7 +139,6 @@ class InvestorCompanyRegisterView extends StatelessWidget {
                             ),
                             verticalSpace(4.5),
                             AppTextField(
-                              
                               key: const Key('register_emailaddress_textfield'),
                               label: 'Enter Company Email Address',
                               hintText: 'Enter Email Address',
@@ -285,13 +282,14 @@ class InvestorCompanyRegisterView extends StatelessWidget {
                               },
                               stateColors: {
                                 ButtonState.idle:
-                                    state.btnColor ?? Colors.grey.shade400,
+                                     state.buttonState == ButtonState.idle
+                                      ? kGreyColor
+                                      : kPrimaryColor,
                                 ButtonState.loading: kMintGreen,
                                 ButtonState.fail: Colors.red.shade300,
                                 ButtonState.success: Colors.green.shade400,
                               },
                               onPressed: () {
-                            
                                 _cubit.handleRegistration();
                               },
                               state: state.buttonState,
@@ -307,7 +305,14 @@ class InvestorCompanyRegisterView extends StatelessWidget {
                                           103, 112, 126, 1),
                                     )),
                                 GestureDetector(
-                                  onTap: Routes.seafarer.pop,
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const InvestmentCompanyView()));
+                                  },
+                                  // Routes.seafarer.pop,
                                   child: Text('Login',
                                       textAlign: TextAlign.center,
                                       style: TextStyling.bodyText1.copyWith(

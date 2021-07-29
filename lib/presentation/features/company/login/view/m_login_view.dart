@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:progress_state_button/progress_button.dart';
 import 'package:sizer/sizer.dart';
+import 'package:chipln/presentation/features/company/register/view/register_view.dart';
 
 import '../cubit/login_cubit.dart';
 
@@ -192,8 +193,15 @@ class InvestmentCompanyBodySection extends StatelessWidget {
                               )),
                           GestureDetector(
                             onTap: () {
-                              Modular.to.navigate('/companyLogin/signup');
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          InvestorCompanyRegisterView()));
                             },
+                            // onTap: () {
+                            //   Modular.to.navigate('/companyLogin/signup');
+                            // },
                             child: Text('Sign Up',
                                 textAlign: TextAlign.center,
                                 style: TextStyling.bodyText1.copyWith(
